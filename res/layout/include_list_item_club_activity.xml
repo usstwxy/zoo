@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@drawable/white_button_selector"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+
+    <ProgressBar
+        android:id="@+id/progress_download"
+        style="@style/Widget.ProgressBar.Vertical"
+        android:layout_width="4.0dip"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:max="100"
+        android:progress="0" />
+
+    <ImageView android:id="@+id/image" android:background="@drawable/placeholder_small" android:duplicateParentState="true" android:layout_width="@dimen/clip_standard_image_size" android:layout_height="@dimen/clip_standard_image_size" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:scaleType="centerCrop" android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:minHeight="@dimen/clip_standard_image_size"
+        android:paddingBottom="20.0sp"
+        android:paddingRight="@dimen/action_bar_height"
+        android:text="最新活动正在等着有缘人，报名即送吉他模型"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/lbl_source_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/lbl_title"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="@dimen/action_bar_height"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="middle"
+        android:maxWidth="@dimen/clip_list_source_max_width"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="吉他社周年庆典"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+
+    <ImageView android:id="@+id/selected_clip_indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/playindicator" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/summary_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:maxWidth="123dp"
+        android:src="@drawable/summaryindicator"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/lbl_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/image"
+        android:layout_below="@id/lbl_title"
+        android:drawableLeft="@drawable/ic_like"
+        android:drawablePadding="4.0dip"
+        android:paddingBottom="6.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="12"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp" />
+
+    <TextView
+        android:id="@+id/lbl_listens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_likes"
+        android:layout_toRightOf="@id/lbl_likes"
+        android:drawableLeft="@drawable/ic_listen"
+        android:drawablePadding="4.0dip"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="10"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp" />
+
+    <TextView
+        android:id="@+id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_listens"
+        android:layout_toRightOf="@id/lbl_listens"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="4.0dip"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="7"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp" />
+
+    <TextView
+        android:id="@+id/lbl_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_comments"
+        android:layout_toRightOf="@id/lbl_comments"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="4.0dip"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="12/7"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umano_divider" />
+
+    <include
+        layout="@layout/include_playlist_add_remove" />
+
+</RelativeLayout>

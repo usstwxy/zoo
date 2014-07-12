@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.example.smallcat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbarStyle="outsideOverlay" >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip"
+    android:paddingTop="4dip"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+ 
+        <com.smallcat.widget.ImageTextButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dip"
+            android:layout_weight="1"
+            app:itbIcon="@drawable/icon_popular"
+            app:itbText="热门讨论" >
+        </com.smallcat.widget.ImageTextButton>
+
+        <com.smallcat.widget.ImageTextButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:itbIcon="@drawable/icon_search"
+            app:itbText="活动搜索" >
+        </com.smallcat.widget.ImageTextButton>
+
+   </LinearLayout>
+
+    <include
+        layout="@layout/include_item_club_category" />
+    
+    
+    <include
+        layout="@layout/include_item_club_category" />
+    
+</LinearLayout>
+</ScrollView>
