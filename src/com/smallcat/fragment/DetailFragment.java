@@ -18,7 +18,7 @@ public class DetailFragment extends Fragment {
 		View rootView = (View) inflater.inflate(R.layout.fragment_detail, container, false);
 		Bundle bundle = getArguments();
 		TextView title = (TextView) rootView.findViewById(R.id.lbl_title);
-		title.setText("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+		title.setText(bundle.getString("title"));
 		return rootView;
 	}
 }
