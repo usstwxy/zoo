@@ -1,10 +1,114 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.smallcat.fragment.MeFragment" >
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:id="@+id/premium_scrollview" android:background="@color/umano_container_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:overScrollMode="never" android:overScrollHeader="@null" android:overScrollFooter="@null"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:animateLayoutChanges="true">
+        <FrameLayout android:layout_width="fill_parent" android:layout_height="150.0dip">
+            <ImageView android:id="@+id/image" android:focusable="false" android:focusableInTouchMode="false" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/login_background" android:scaleType="centerCrop" android:contentDescription="@string/app_name" />
 
-    <!-- TODO: Update blank fragment layout -->
+            <!-- <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/clip_detail_shadow" /> -->
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_margin"
+                android:paddingBottom="2.0dip" >
 
-</FrameLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/placeholder_user_circle" />
+
+                <!-- <TextView
+                    android:id="@+id/lbl_premium_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="伍凯"
+                    android:textColor="@android:color/white"
+                    android:textIsSelectable="false"
+                    android:textSize="@dimen/clip_detail_title_font_size" /> -->
+
+                <TextView
+                    android:id="@+id/lbl_premium_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="如果不参加社团，那跟狗有什么区别"
+                    android:textColor="@android:color/white"
+                    android:textIsSelectable="false"
+                    android:textSize="16.0sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+        <!-- <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="center" android:id="@+id/premium_loading" android:background="@color/umano_light_gray" android:padding="@dimen/standard_margin" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
+                <ProgressBar android:focusable="true" android:layout_width="50.0dip" android:layout_height="50.0dip" style="@style/Widget.Sherlock.ProgressBar" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@+id/buy_premium_layout" android:background="@color/umano_light_gray" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
+                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="center" android:id="@+id/lbl_premium_expires" android:paddingLeft="@dimen/standard_margin" android:paddingTop="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textIsSelectable="false" />
+                <TextView android:textSize="18.0sp" android:textColor="@color/umano_orange" android:gravity="center" android:id="@+id/continue_getting_premium" android:background="@drawable/white_button_selector_transparent" android:paddingTop="5.0dip" android:paddingBottom="5.0dip" android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" android:text="@string/lbl_continue_getting_premium" />
+                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="center" android:id="@+id/lbl_premium_prompt" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textIsSelectable="false" />
+                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/layout_wrapper_buy" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <View android:background="@color/umano_divider" android:layout_width="0.0dip" android:layout_height="0.5dip" android:layout_margin="@dimen/standard_margin" android:layout_weight="1.0" />
+                    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/layout_buy" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                    <View android:background="@color/umano_divider" android:layout_width="0.0dip" android:layout_height="0.5dip" android:layout_margin="@dimen/standard_margin" android:layout_weight="1.0" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/has_premium_layout" android:background="@color/umano_light_gray" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
+                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="left|center" android:layout_gravity="center_vertical" android:id="@+id/lbl_premium_since" android:background="@drawable/actionbar_item_background" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="0.0dip" android:layout_height="@dimen/action_bar_height" android:layout_weight="1.0" android:textIsSelectable="false" />
+                <FrameLayout android:layout_gravity="right" android:id="@+id/btn_premium_settings" android:background="@drawable/white_button_selector_transparent" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusable="false" android:focusableInTouchMode="false" android:clickable="true" android:layout_width="wrap_content" android:layout_height="@dimen/action_bar_height">
+                    <TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lbl_settings_fragment" style="@style/SmallButtonGray" />
+                </FrameLayout>
+            </LinearLayout>
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing" android:layout_alignParentBottom="true" />
+        </RelativeLayout> -->
+        <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="left" android:layout_gravity="center_vertical" android:id="@+id/lbl_premium_content" android:paddingLeft="@dimen/standard_margin" android:paddingTop="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:paddingBottom="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lbl_premium_content" android:textIsSelectable="false" />
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_summary" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_summary" android:drawableLeft="@drawable/icon_premium_summary" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_summary_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_summary_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="left" android:layout_gravity="center_vertical" android:id="@+id/lbl_premium_features" android:paddingLeft="@dimen/standard_margin" android:paddingTop="5.0dip" android:paddingRight="@dimen/standard_margin" android:paddingBottom="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lbl_premium_features" android:textIsSelectable="false" />
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_offline" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_offline" android:drawableLeft="@drawable/icon_premium_offline" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_offline_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_offline_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_unlimited" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_unlimited" android:drawableLeft="@drawable/icon_premium_unlimited" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_unlimited_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_unlimited_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_reorder" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_reorder" android:drawableLeft="@drawable/icon_premium_reorder" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_reorder_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_reorder_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_auto" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_auto" android:drawableLeft="@drawable/icon_premium_auto" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_auto_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_auto_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_sleep" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_sleep" android:drawableLeft="@drawable/icon_premium_sleep" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_sleep_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_sleep_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+            <TextView android:id="@+id/lbl_premium_jingle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:text="@string/lbl_premium_jingle" android:drawableLeft="@drawable/icon_premium_jingle" android:drawablePadding="@dimen/standard_margin" style="@style/PremiumFeatureTitle" />
+            <TextView android:id="@+id/lbl_premium_jingle_description" android:paddingLeft="30.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="5.0dip" android:layout_marginRight="@dimen/standard_margin" android:layout_marginBottom="@dimen/standard_margin" android:text="@string/lbl_premium_jingle_description" style="@style/PremiumFeatureDescription" />
+            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+        </LinearLayout>
+        <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="left" android:layout_gravity="center_vertical" android:id="@+id/lbl_premium_more" android:paddingLeft="@dimen/standard_margin" android:paddingTop="5.0dip" android:paddingRight="@dimen/standard_margin" android:paddingBottom="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/lbl_premium_more" android:textIsSelectable="false" />
+    </LinearLayout>
+</ScrollView>

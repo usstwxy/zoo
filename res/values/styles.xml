@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -21,9 +22,9 @@
         <item name="android:windowTitleSize">0.0dip</item>
         <item name="android:windowActionBar">false</item>
     </style>
-    
+
     <style name="Widget" />
-    
+
     <style name="Widget.ProgressBar" parent="@style/Widget">
         <item name="android:maxWidth">48.0dip</item>
         <item name="android:maxHeight">48.0dip</item>
@@ -33,7 +34,27 @@
         <item name="android:minWidth">48.0dip</item>
         <item name="android:minHeight">48.0dip</item>
     </style>
-    
+
+    <style name="AccountBoxValue">
+        <item name="android:textSize">@dimen/my_account_stat_font_size</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+
+    <style name="AccountUserName">
+        <item name="android:textSize">@dimen/my_account_name_font_size</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+
+    <style name="AccountBoxHeader">
+        <item name="android:textSize">@dimen/channel_header_font_size</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+
+    <style name="ClipDetailHeaders">
+        <item name="android:textSize">@dimen/clip_detail_headers_font_size</item>
+        <item name="android:textColor">@color/umano_clip_detail_labels</item>
+    </style>
+
     <style name="Widget.ProgressBar.Vertical" parent="@style/Widget.ProgressBar">
         <item name="android:maxWidth">4.0dip</item>
         <item name="android:indeterminateOnly">false</item>
@@ -41,5 +62,55 @@
         <item name="android:progressDrawable">@drawable/download_progressbar</item>
         <item name="android:minWidth">1.0dip</item>
     </style>
+
+    <style name="PremiumFeatureTitle">
+        <item name="android:textSize">@dimen/premium_feature_font_size</item>
+        <item name="android:textColor">@*android:color/black</item>
+    </style>
+
+    <style name="PremiumFeatureDescription">
+        <item name="android:textSize">@dimen/premium_feature_text_font_size</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+
+    <style name="SmallButton">
+        <item name="android:textSize">@dimen/small_button_font_size</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
     
+    <style name="SmallButtonGray" parent="@style/SmallButton">
+        <item name="android:background">@drawable/button_small_gray</item>
+    </style>
+    
+	<style name="LargeButton">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/standard_margin</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/action_bar_height</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    
+    <style name="LargeButtonOrange" parent="@style/LargeButton">
+        <item name="android:background">@drawable/button_orange</item>
+    </style>
+    <style name="Widget.Sherlock.ProgressBar" parent="@android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/abs__progress_medium_holo</item>
+        <item name="android:animationResolution">33</item>
+    </style>
+
+    <style name="LoginFormContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
 </resources>

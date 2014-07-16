@@ -57,6 +57,7 @@ public class MainActivity extends FragmentActivity {
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+		pager.setOffscreenPageLimit(2);
 		tabs.setViewPager(pager);
 		setTabsValue();
 		if (savedInstanceState == null) {
@@ -113,23 +114,21 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			switch (position) {
-			case 2:
-				if (meFragment == null) {
-					meFragment = new MeFragment();
-				}
-				return meFragment;
-			case 1:
-				if (clubFragment == null) {
-					clubFragment = new ClubFragment();
-				}
-				return clubFragment;
 			case 0:
 				if (findFragment == null) {
 					findFragment = new FindFragment();
 				}
 				return findFragment;
+			case 1:
+				if (clubFragment == null) {
+					clubFragment = new ClubFragment();
+				}
+				return clubFragment;
 			default:
-				return null;
+				if (meFragment == null) {
+					meFragment = new MeFragment();
+				}
+				return meFragment;
 			}
 		}
 

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_button_selector"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/clip_standard_image_size"
+        android:layout_height="@dimen/clip_standard_image_size"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:background="@drawable/placeholder_small"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@+id/image"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:minHeight="@dimen/clip_standard_image_size"
+        android:paddingBottom="20.0sp"
+        android:paddingRight="@dimen/action_bar_height"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_playlist_add_remove" />
+
+    <ProgressBar
+        android:id="@+id/progress_download"
+        style="@style/Widget.ProgressBar.Vertical"
+        android:layout_width="4.0dip"
+        android:layout_height="0.0dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:max="100"
+        android:progress="0" />
+
+    <ImageView
+        android:id="@+id/selected_clip_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/playindicator" />
+
+    <ImageView
+        android:id="@+id/summary_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/summaryindicator"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/comments_content_selector"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/lbl_title"
+        android:layout_marginTop="0.5dip"
+        android:background="@drawable/white_button_selector_transparent" />
+
+    <View
+        android:id="@+id/expanded_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_below="@+id/lbl_title"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:background="@color/umano_divider" />
+    
+    <LinearLayout android:orientation="horizontal" android:paddingRight="@dimen/standard_margin" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxHeader" />
+            <TextView android:gravity="center" android:id="@+id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxValue" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxHeader" />
+            <TextView android:gravity="center" android:id="@+id/place" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxValue" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxHeader" />
+            <TextView android:gravity="center" android:id="@+id/source" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textIsSelectable="false" style="@style/AccountBoxValue" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/expanded_sharers1"
+        android:layout_width="@dimen/clip_expanded_face_size"
+        android:layout_height="@dimen/clip_expanded_face_size"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/expanded_divider"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="5.0dip"
+        android:background="@drawable/placeholder_user_circle"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/expanded_sharers2"
+        android:layout_width="@dimen/clip_expanded_face_size"
+        android:layout_height="@dimen/clip_expanded_face_size"
+        android:layout_alignTop="@+id/expanded_sharers1"
+        android:layout_gravity="center"
+        android:layout_marginRight="5.0dip"
+        android:layout_toRightOf="@+id/expanded_sharers1"
+        android:background="@drawable/placeholder_user_circle"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/expanded_sharers_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/expanded_sharers2"
+        android:layout_marginRight="5.0dip"
+        android:layout_toRightOf="@+id/expanded_sharers2"
+        android:gravity="top"
+        android:minHeight="@dimen/clip_expanded_face_size_plus_padding"
+        android:textColor="@color/umano_clip_expanded_social_text"
+        android:textSize="14.0sp" />
+
+    <ImageView
+        android:id="@+id/expanded_comment1"
+        android:layout_width="@dimen/clip_expanded_face_size"
+        android:layout_height="@dimen/clip_expanded_face_size"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/expanded_sharers_text"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="5.0dip"
+        android:background="@drawable/placeholder_user_circle"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/expanded_comment1_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/expanded_comment1"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_toRightOf="@+id/expanded_comment1"
+        android:minHeight="@dimen/clip_expanded_face_size_plus_padding"
+        android:textColor="@color/umano_clip_expanded_social_text"
+        android:textSize="14.0sp" />
+
+    <ImageView
+        android:id="@+id/expanded_comment2"
+        android:layout_width="@dimen/clip_expanded_face_size"
+        android:layout_height="@dimen/clip_expanded_face_size"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/expanded_comment1_text"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="5.0dip"
+        android:background="@drawable/placeholder_user_circle"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/expanded_comment2_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/expanded_comment2"
+        android:layout_marginLeft="5.0dip"
+        android:layout_marginRight="5.0dip"
+        android:layout_toRightOf="@+id/expanded_comment2"
+        android:minHeight="@dimen/clip_expanded_face_size"
+        android:textColor="@color/umano_clip_expanded_social_text"
+        android:textSize="14.0sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="10.0dip"
+        android:layout_below="@+id/expanded_comment2_text" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umano_divider" />
+
+</RelativeLayout>

@@ -1,47 +1,63 @@
 package com.smallcat.adapter;
 
-import com.example.smallcat.R;
+import java.util.ArrayList;
 
+import com.example.smallcat.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClubJoinedAdapter extends BaseAdapter{
 
-	private LayoutInflater mInflater;
+	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
 	
 	public ClubJoinedAdapter(Context context) {
 		mContext = context;
-		mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 5;
+		return rows.size();
 	}
 
 	@Override
-	public Object getItem(int arg0) {
+	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return arg0;
+		return rows.get(position);
 	}
 
 	@Override
-	public long getItemId(int arg0) {
+	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return arg0;
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View view, ViewGroup viewGroup) {
+		// TODO Auto-generated method stub
+		Row row = (Row) getItem(position);
+		if (view == null){
+			view = row.set();
+		}else{
+			ViewHolder holder = (ViewHolder) view.getTag();
+			if (holder == null || holder.layoutID != row.layoutID){
+				view = row.set();
+			}else{
+				row.set(view);
+			}
+		}
+		return view;
 	}
 	
-	@SuppressWarnings("null")
-	@Override
+/*	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ClubJoinedHolder holder;
@@ -50,9 +66,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			convertView = mInflater.inflate(R.layout.include_list_item_club, null);
 			holder = new ClubJoinedHolder();
 			holder.clubTitle = (TextView)convertView.findViewById(R.id.lbl_title);
-			holder.comments = (TextView)convertView.findViewById(R.id.txt_comments);
-			holder.btn_member = (View)convertView.findViewById(R.id.btnone);
-			holder.btn_more = (View)convertView.findViewById(R.id.btntwo);
+			holder.btn_more = (View)convertView.findViewById(R.id.btn_more);
 			
 			convertView.setTag(holder);
 		}
@@ -61,9 +75,8 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		}
 		
 		holder.clubTitle.setText("吉他社");
-		holder.comments.setText("lhc参加了'大家一起来拨弦'\nlhc参加了'大家一起来拨弦'\nwxy参加了'大家一起来拨弦'\nwmj参加了'大家一起来拨弦'\nothers参加了'大家一起来拨弦'");
-
-		holder.btn_member.setOnClickListener(new OnClickListener() {
+		
+		holder.btn_more.setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
@@ -71,21 +84,154 @@ public class ClubJoinedAdapter extends BaseAdapter{
             }
         });
 		
-		/*holder.btn_more.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-            	Toast.makeText(mContext, "更多", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-		
 		return convertView;
+	}*/
+	
+	public void AddCategory(String name, String count){
+		rows.add(new Category(name, count){});
 	}
 	
-	private final class ClubJoinedHolder {
+	public void AddClub(String title){
+		rows.add(new Club(title){});
+	}
+	
+	public void AddFooter(){
+		rows.add(new Footer(){});
+	}
+	
+	abstract class ViewHolder{ 
+		
+		public int layoutID;
+	}
+	
+	class FooterViewHolder extends ViewHolder{
+		
+	}
+	
+	class CategoryViewHolder extends ViewHolder{
+		public TextView name, count;
+	}
+	
+	class ClubViewHolder extends ViewHolder{
 		public TextView clubTitle;
-		public TextView comments;
-		public View btn_member;
 		public View btn_more;
 	}
+	
+	abstract class Row{
+
+		public int layoutID;
+		
+		public Row(int layoutID){
+			this.layoutID = layoutID;
+		}
+		
+		public abstract View set();
+		
+		public abstract void set(View view);
+	}
+	
+	class Footer extends Row{
+		public Footer(){
+			super(R.layout.include_footer_club);
+		}
+
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
+			FooterViewHolder holder = new FooterViewHolder();
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	class Club extends Row{
+		
+		public String title;
+		
+		public Club(String title){
+			super(R.layout.include_list_item_club);
+			this.title = title;
+		}
+
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
+			ClubViewHolder holder = new ClubViewHolder();
+			holder.clubTitle = (TextView)view.findViewById(R.id.lbl_title);
+			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			
+			holder.clubTitle.setText(this.title);
+			
+			holder.btn_more.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	            }
+	        });
+			
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			ClubViewHolder holder = (ClubViewHolder)view.getTag();
+			
+			holder.clubTitle.setText("吉他社");
+			
+			holder.btn_more.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	            }
+	        });
+		}	
+	}
+	
+	class Category extends Row{
+		
+		public String name, count;
+		
+		public Category(String name, String count){
+			super(R.layout.find_category);
+			this.name = name;
+			this.count = count;
+		}
+		
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
+			CategoryViewHolder holder = new CategoryViewHolder();
+			holder.name = (TextView) view.findViewById(R.id.cname);
+			holder.count = (TextView) view.findViewById(R.id.cnumber);
+			holder.name.setText(name);
+			holder.count.setText(count);
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			CategoryViewHolder holder = (CategoryViewHolder)view.getTag();
+			holder.name.setText(name);
+			holder.count.setText(count);
+		}
+	}
+	
 }
