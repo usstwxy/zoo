@@ -3,28 +3,20 @@ package com.smallcat.activity;
 import java.util.Locale;
 
 import com.example.smallcat.R;
-import com.example.smallcat.R.id;
-import com.example.smallcat.R.layout;
-import com.example.smallcat.R.menu;
-import com.example.smallcat.R.string;
+import com.smallcat.fragment.*;
 
-import android.app.Activity;
+import android.app.ActionBar.Tab;
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-public class ClubHomeActivity extends Activity implements ActionBar.TabListener {
+public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -39,7 +31,20 @@ public class ClubHomeActivity extends Activity implements ActionBar.TabListener 
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-
+	
+	/**
+	 * ViewPager tabs 的实例
+	 */
+	private ClubTwitterFragment ctFragment;
+	
+	private ClubActivitysFragment caFragment;
+	
+	private ClubFilesFragment cfFragment;
+	
+	private ClubVoteFragment cvFragment;
+	
+	private ClubMembersFragment cmFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +56,8 @@ public class ClubHomeActivity extends Activity implements ActionBar.TabListener 
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		getFragmentManager();
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -100,32 +106,14 @@ public class ClubHomeActivity extends Activity implements ActionBar.TabListener 
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	public void onTabSelected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
-		mViewPager.setCurrentItem(tab.getPosition());
-	}
-
-	@Override
-	public void onTabUnselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-	}
-
-	@Override
-	public void onTabReselected(ActionBar.Tab tab,
-			FragmentTransaction fragmentTransaction) {
-	}
-
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		public SectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
+		public SectionsPagerAdapter(FragmentManager fragmentManager) {
+			super(fragmentManager);
 		}
 
 		@Override
@@ -133,7 +121,33 @@ public class ClubHomeActivity extends Activity implements ActionBar.TabListener 
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class
 			// below).
-			return PlaceholderFragment.newInstance(position + 1);
+			switch (position) {
+			case 0:
+				if (ctFragment == null) {
+					ctFragment = new ClubTwitterFragment();
+				}
+				return ctFragment;
+			case 1:
+				if (caFragment == null) {
+					caFragment = new ClubActivitysFragment();
+				}
+				return caFragment;
+			case 2:
+				if (cfFragment == null) {
+					cfFragment = new ClubFilesFragment();
+				}
+				return cfFragment;
+			case 3:
+				if (cvFragment == null) {
+					cvFragment = new ClubVoteFragment();
+				}
+				return cvFragment; 
+			default:
+				if (cmFragment == null) {
+					cmFragment = new ClubMembersFragment();
+				}
+				return cmFragment;
+			}
 		}
 
 		@Override
@@ -161,41 +175,23 @@ public class ClubHomeActivity extends Activity implements ActionBar.TabListener 
 		}
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		private static final String ARG_SECTION_NUMBER = "section_number";
-
-		/**
-		 * Returns a new instance of this fragment for the given section number.
-		 */
-		public static PlaceholderFragment newInstance(int sectionNumber) {
-			PlaceholderFragment fragment = new PlaceholderFragment();
-			Bundle args = new Bundle();
-			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_club_home,
-					container, false);
-			TextView textView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			textView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
-			return rootView;
-		}
+	@Override
+	public void onTabReselected(Tab tab, android.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void onTabSelected(Tab tab, android.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		mViewPager.setCurrentItem(tab.getPosition());
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab, android.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
