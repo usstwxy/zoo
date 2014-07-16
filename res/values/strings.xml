@@ -29,5 +29,11 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_club_home">ClubHomeActivity</string>
+    <string name="title_club_section1">动态</string>
+    <string name="title_club_section2">活动</string>
+    <string name="title_club_section3">文件</string>
+    <string name="title_club_section4">投票</string>
+    <string name="title_club_section5">成员</string>
 
 </resources>

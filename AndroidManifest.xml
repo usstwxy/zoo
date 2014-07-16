@@ -36,6 +36,10 @@
             android:name="com.smallcat.activity.DetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
+        <activity
+            android:name="com.smallcat.activity.ClubHomeActivity"
+            android:label="@string/title_activity_club_home" >
+        </activity>
     </application>
 
 </manifest>
