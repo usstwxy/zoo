@@ -19,7 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ClubFragment extends Fragment implements OnRefreshListener {
+public class HomeFragment extends Fragment implements OnRefreshListener {
 	
 	private PullToRefreshLayout mPullToRefreshLayout;
 	private ClubJoinedAdapter mAdapter;
@@ -27,7 +27,7 @@ public class ClubFragment extends Fragment implements OnRefreshListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_club, container,
+		View rootView = inflater.inflate(R.layout.fragment_home, container,
 				false);
 
 		ListView lv = (ListView)rootView.findViewById(R.id.listView1);

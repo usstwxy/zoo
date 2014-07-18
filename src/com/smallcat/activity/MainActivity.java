@@ -25,7 +25,7 @@ public class MainActivity extends FragmentActivity {
 	/**
 	 * 聊天界面的Fragment
 	 */
-	private ClubFragment clubFragment;
+	private HomeFragment clubFragment;
 
 	/**
 	 * 发现界面的Fragment
@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity {
 				return findFragment;
 			case 1:
 				if (clubFragment == null) {
-					clubFragment = new ClubFragment();
+					clubFragment = new HomeFragment();
 				}
 				return clubFragment;
 			default:

@@ -1,18 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.smallcat.ClubHomeActivity$PlaceholderFragment" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginTop="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginRight="@dimen/clip_list_cell_spacing"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:scrollbarStyle="outsideOverlay" >
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="twitter"
-        android:background="#fff" />
-
-</RelativeLayout>
+    </ListView>
+    
+</LinearLayout>
