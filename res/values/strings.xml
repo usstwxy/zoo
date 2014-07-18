@@ -35,5 +35,6 @@
     <string name="title_club_section3">文件</string>
     <string name="title_club_section4">投票</string>
     <string name="title_club_section5">成员</string>
+    <string name="title_activity_club_detail">ClubDetailActivity</string>
 
 </resources>

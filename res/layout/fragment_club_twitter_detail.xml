@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/umano_light_gray" >
+
+    <ImageView 
+        android:id="@+id/image" 
+        android:background="@drawable/placeholder_user_circle" 
+        android:duplicateParentState="true" 
+        android:layout_width="@dimen/clip_standard_image_size" 
+        android:layout_height="@dimen/clip_standard_image_size" 
+        android:layout_marginLeft="@dimen/standard_margin" 
+        android:layout_marginTop="@dimen/standard_margin" 
+        android:layout_marginRight="@dimen/standard_margin" 
+        android:scaleType="centerCrop" 
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:text="a参加了'哈哈哈'"
+        android:singleLine="true"
+        android:paddingRight="@dimen/action_bar_height"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/txt_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_title"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="middle"
+        android:maxWidth="@dimen/clip_list_source_max_width"
+        android:paddingRight="@dimen/standard_margin"
+        android:paddingBottom="@dimen/standard_margin"
+        android:text="yahahahhahahahahahahahhaaaaaaaaaa"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+   
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="#e8e8e8"
+        android:layout_below="@id/image"
+        android:layout_marginTop="@dimen/standard_margin"/>
+    
+</RelativeLayout>

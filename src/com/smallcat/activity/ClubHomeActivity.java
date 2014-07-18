@@ -13,11 +13,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.MenuItem;
 
 public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabListener {
 
+	public final static String EXTRA_LOCATION = "com.smallcat.activity.location";
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a {@link FragmentPagerAdapter}
@@ -53,7 +56,8 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -102,7 +106,10 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else if (id == android.R.id.home) {
+			this.finish();
 		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 

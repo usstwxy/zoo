@@ -14,8 +14,25 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <!-- <style name="AppTheme" parent="AppBaseTheme">
+        All customizations that are NOT specific to a particular API-level can go here.
+    </style> -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
+<!--         <item name="android:windowBackground">@color/umano_container_background</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:dropDownListViewStyle">@style/ActionBar.DropDownListView</item>
+        <item name="actionOverflowButtonStyle">@style/ActionBar.Overflow</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="actionBarWidgetTheme">@style/ActionBar.Widget</item>
+        <item name="actionBarSize">@dimen/action_bar_height</item>
+        <item name="actionBarItemBackground">@drawable/actionbar_item_background</item>
+        <item name="actionModeBackground">@drawable/actionbar_background_top</item>
+        <item name="selectableItemBackground">@drawable/actionbar_item_background</item>
+        <item name="searchViewSearchIcon">@drawable/ic_action_search</item>
+        <item name="actionDropDownStyle">@style/ActionBar.DropDownNav</item>
+        <item name="homeAsUpIndicator">@drawable/ic_drawer</item>
+        <item name="dropDownListViewStyle">@style/ActionBar.DropDownListView</item> 
+        <item name="windowActionBarOverlay">true</item>-->
     </style>
 
     <style name="NoActionBarTheme" parent="@style/AppTheme">
