@@ -3,8 +3,12 @@ package com.smallcat.activity;
 import com.example.smallcat.R;
 import com.smallcat.fragment.DetailFragment;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,9 +19,15 @@ public class DetailActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		Bundle bundle = getIntent().getExtras();
+		
+		getActionBar().setTitle(bundle.getString("title"));
+		
 		if (savedInstanceState == null) {
 			DetailFragment fragment = new DetailFragment();
-			fragment.setArguments(getIntent().getExtras());
+			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, fragment).commit();
 		}
@@ -38,6 +48,10 @@ public class DetailActivity extends FragmentActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}
+		else if (id == android.R.id.home){
+			finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

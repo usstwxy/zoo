@@ -166,7 +166,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
 			ClubViewHolder holder = new ClubViewHolder();
-			holder.clubTitle = (TextView)view.findViewById(R.id.lbl_title);
+			holder.clubTitle = (TextView)view.findViewById(R.id.date);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
 			holder.layoutID = layoutID;
 			view.setTag(holder);

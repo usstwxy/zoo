@@ -192,7 +192,7 @@ public class FindAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
 			ActivityViewHolder holder = new ActivityViewHolder();
-			holder.title = (TextView) view.findViewById(R.id.lbl_title);
+			holder.title = (TextView) view.findViewById(R.id.date);
 			holder.attend = (TextView) view.findViewById(R.id.lbl_likes);
 			holder.source = (TextView) view.findViewById(R.id.lbl_source_name);
 			holder.comment = (TextView) view.findViewById(R.id.lbl_comments);
