@@ -5,24 +5,39 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.DetailActivity;
+import com.smallcat.activity.MainActivity;
 
 public class FindAdapter extends BaseAdapter{
 	
 	private ArrayList<Row> rows = new ArrayList<Row>();
+	private Activity selected = null;
+	private View selectedView = null;
 	private Context context;
 	
 	public FindAdapter(Context context){
 		this.context = context;
+	}
+	
+	public void addHeader(){
 		rows.add(new Header(){});
+	}
+	
+	public void updateActivity(){
+		int i = Integer.valueOf(selected.attend) + 1;
+		selected.attend = String.valueOf(i);
+		ActivityViewHolder holder = (ActivityViewHolder) selectedView.getTag();
+		holder.attend.setText(selected.attend);
 	}
 	
 	@Override
@@ -57,11 +72,7 @@ public class FindAdapter extends BaseAdapter{
 				row.set(view);
 			}
 		}
-		row.setListen(view);
-		if (row.layoutID == R.layout.find_activity){
-			final Activity a = (Activity) row;
-			
-		}
+		row.setListen(view, row);
 		return view;
 	}
 	
@@ -69,8 +80,8 @@ public class FindAdapter extends BaseAdapter{
 		rows.add(new Category(name, count){});
 	}
 	
-	public void AddActivity(String title, String attend, String source, String comment, String date){
-		rows.add(new Activity(title, attend, source, comment, date){});
+	public void AddActivity(String title, String attend, String source, String comment, String date, String id){
+		rows.add(new Activity(title, attend, source, comment, date, id){});
 	}
 	
 	abstract class ViewHolder{
@@ -104,7 +115,7 @@ public class FindAdapter extends BaseAdapter{
 		
 		public abstract void set(View view);
 		
-		public abstract void setListen(View view);
+		public abstract void setListen(View view, Row row);
 	}
 	
 	class Header extends Row{
@@ -129,7 +140,7 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view) {
+		public void setListen(View view, Row row) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -168,23 +179,24 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view) {
+		public void setListen(View view, Row row) {
 			// TODO Auto-generated method stub
 			
 		}
 	}
 	
-	class Activity extends Row{
+	public class Activity extends Row{
 		
-		public String title, attend, source, comment, date;
+		public String title, attend, source, comment, date, id;
 		
-		public Activity(String title, String attend, String source, String comment, String date){
+		public Activity(String title, String attend, String source, String comment, String date, String id){
 			super(R.layout.find_activity);
 			this.title = title;
 			this.attend = attend;
 			this.source = source;
 			this.comment = comment;
 			this.date = date;
+			this.id = id;
 		}
 		
 		@Override
@@ -219,12 +231,14 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view) {
+		public void setListen(final View view, final Row row) {
 			// TODO Auto-generated method stub
 			view.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					selected = (Activity) row;
+					selectedView = view;
 					Intent intent = new Intent(context, DetailActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
@@ -232,8 +246,9 @@ public class FindAdapter extends BaseAdapter{
 					bundle.putString("source", source);
 					bundle.putString("comment", comment);
 					bundle.putString("date", date);
+					bundle.putString("id", id);
 					intent.putExtras(bundle);
-					context.startActivity(intent);
+					((FragmentActivity)context).startActivityForResult(intent, 0);
 				}
 			});
 		}

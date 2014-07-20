@@ -54,6 +54,8 @@ public class LoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	
+	public static int USERID = 2; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:id="@+id/premium_scrollview" android:background="@color/umano_container_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:overScrollMode="never" android:overScrollHeader="@null" android:overScrollFooter="@null"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:animateLayoutChanges="true">
-        <FrameLayout android:layout_width="fill_parent" android:layout_height="150.0dip">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/premium_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/umano_container_background"
+    android:overScrollFooter="@null"
+    android:overScrollHeader="@null"
+    android:overScrollMode="never" >
+
+   <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150.0dip" >
 
             <ImageView
                 android:id="@+id/image"
@@ -14,11 +29,6 @@
                 android:focusableInTouchMode="false"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user_bg" />
-
-            <!-- <View
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/clip_detail_shadow" /> -->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,17 +46,6 @@
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/placeholder_user_circle" />
 
-                <!-- <TextView
-                    android:id="@+id/lbl_premium_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:text="伍凯"
-                    android:textColor="@android:color/white"
-                    android:textIsSelectable="false"
-                    android:textSize="@dimen/clip_detail_title_font_size" /> -->
-
                 <TextView
                     android:id="@+id/lbl_premium_description"
                     android:layout_width="wrap_content"
@@ -57,31 +56,8 @@
                     android:textColor="@android:color/white"
                     android:textIsSelectable="false"
                     android:textSize="16.0sp" />
-
             </LinearLayout>
         </FrameLayout>
-        <!-- <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
-            <LinearLayout android:gravity="center" android:id="@+id/premium_loading" android:background="@color/umano_light_gray" android:padding="@dimen/standard_margin" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
-                <ProgressBar android:focusable="true" android:layout_width="50.0dip" android:layout_height="50.0dip" style="@style/Widget.Sherlock.ProgressBar" />
-            </LinearLayout>
-            <LinearLayout android:orientation="vertical" android:id="@+id/buy_premium_layout" android:background="@color/umano_light_gray" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
-                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="center" android:id="@+id/lbl_premium_expires" android:paddingLeft="@dimen/standard_margin" android:paddingTop="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textIsSelectable="false" />
-                <TextView android:textSize="18.0sp" android:textColor="@color/umano_orange" android:gravity="center" android:id="@+id/continue_getting_premium" android:background="@drawable/white_button_selector_transparent" android:paddingTop="5.0dip" android:paddingBottom="5.0dip" android:layout_width="fill_parent" android:layout_height="@dimen/action_bar_height" android:text="@string/lbl_continue_getting_premium" />
-                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="center" android:id="@+id/lbl_premium_prompt" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textIsSelectable="false" />
-                <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/layout_wrapper_buy" android:layout_width="fill_parent" android:layout_height="wrap_content">
-                    <View android:background="@color/umano_divider" android:layout_width="0.0dip" android:layout_height="0.5dip" android:layout_margin="@dimen/standard_margin" android:layout_weight="1.0" />
-                    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/layout_buy" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                    <View android:background="@color/umano_divider" android:layout_width="0.0dip" android:layout_height="0.5dip" android:layout_margin="@dimen/standard_margin" android:layout_weight="1.0" />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@+id/has_premium_layout" android:background="@color/umano_light_gray" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginTop="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing">
-                <TextView android:textSize="16.0sp" android:textColor="@color/umano_edit_text" android:gravity="left|center" android:layout_gravity="center_vertical" android:id="@+id/lbl_premium_since" android:background="@drawable/actionbar_item_background" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusableInTouchMode="false" android:layout_width="0.0dip" android:layout_height="@dimen/action_bar_height" android:layout_weight="1.0" android:textIsSelectable="false" />
-                <FrameLayout android:layout_gravity="right" android:id="@+id/btn_premium_settings" android:background="@drawable/white_button_selector_transparent" android:paddingLeft="@dimen/standard_margin" android:paddingRight="@dimen/standard_margin" android:focusable="false" android:focusableInTouchMode="false" android:clickable="true" android:layout_width="wrap_content" android:layout_height="@dimen/action_bar_height">
-                    <TextView android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/lbl_settings_fragment" style="@style/SmallButtonGray" />
-                </FrameLayout>
-            </LinearLayout>
-            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginLeft="@dimen/clip_list_cell_spacing" android:layout_marginRight="@dimen/clip_list_cell_spacing" android:layout_alignParentBottom="true" />
-        </RelativeLayout> -->
 
         <TextView
             android:id="@+id/lbl_premium_content"
@@ -99,7 +75,14 @@
             android:textIsSelectable="false"
             android:textSize="16.0sp" />
 
-        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/umano_light_gray"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/lbl_premium_summary"
@@ -125,7 +108,10 @@
                 android:paddingLeft="30.0dip"
                 android:text="被10+人跟风\n有3个社团发起新投票" />
 
-            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/umano_divider" />
         </LinearLayout>
 
         <TextView
@@ -145,12 +131,14 @@
             android:textSize="16.0sp" />
 
         <LinearLayout
+            android:id="@+id/btn_activities"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5.0dip"
             android:layout_marginLeft="5.0dip"
             android:layout_marginRight="5.0dip"
             android:background="@color/umano_light_gray"
+            android:clickable="true"
             android:orientation="vertical" >
 
             <TextView
@@ -182,7 +170,15 @@
                 android:layout_height="0.5dip"
                 android:background="@color/umano_divider" />
         </LinearLayout>
-        <LinearLayout android:orientation="vertical" android:background="@color/umano_light_gray" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/umano_light_gray"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/lbl_premium_unlimited"
@@ -208,8 +204,11 @@
                 android:paddingLeft="30.0dip"
                 android:text="草稿中有1篇随笔\n有2个社团邀请发表随笔" />
 
-            <View android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/umano_divider" />
         </LinearLayout>
-
     </LinearLayout>
+
 </ScrollView>
