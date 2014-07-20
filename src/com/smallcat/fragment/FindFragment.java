@@ -1,5 +1,9 @@
 package com.smallcat.fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.http.Header;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
@@ -14,6 +18,7 @@ import com.smallcat.data.WebAPI;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -26,12 +31,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class FindFragment extends Fragment implements OnRefreshListener {
+public class FindFragment extends Fragment implements OnRefreshListener{
 	
 	private ListView listView1;
 	private PullToRefreshLayout mPullToRefreshLayout;
 	private FindAdapter mAdapter;
 	private View mFindStatusView;
+	
 	public FindFragment() {
 		// Required empty public constructor
 	}
@@ -45,9 +51,9 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 		mFindStatusView = rootView.findViewById(R.id.find_status);
 		
 		showProgress(true);
-		WebAPI.get("activity/0", null, new AsyncHttpResponseHandler() {
+		WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {
 			
-			@Override
+			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
 				mAdapter = new FindAdapter(getActivity());
@@ -56,7 +62,17 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 				mAdapter.AddHeader();
 				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", item.getString("StartTime"));
+					try {
+						String dateText = item.getString("StartTime").replace('T', ' ');
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date = sdf.parse(dateText);
+						Date now = new Date();
+						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				showProgress(false);
 				listView1.setAdapter(mAdapter);
@@ -103,7 +119,7 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 		
 		
 		
-        WebAPI.get("activity/0", null, new AsyncHttpResponseHandler() {		
+        WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {		
         	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -115,7 +131,17 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 				Integer count = jo.count();
 				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", item.getString("StartTime"));
+					try {
+						String dateText = item.getString("StartTime").replace('T', ' ');
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date = sdf.parse(dateText);
+						Date now = new Date();
+						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				new AsyncTask<Void, Void, Void>() {
@@ -123,7 +149,7 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 		            @Override
 		            protected Void doInBackground(Void... params) {
 		                try {
-		                    Thread.sleep(2000);
+		                    Thread.sleep(1000);
 		                } catch (InterruptedException e) {
 		                    e.printStackTrace();
 		                }
@@ -179,5 +205,10 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 			// and hide the relevant UI components.
 			mFindStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 		}
+	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		mAdapter.updateActivity();
 	}
 }

@@ -35,7 +35,11 @@
         <activity
             android:name="com.smallcat.activity.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/MyTheme">
+            android:theme="@style/MyTheme" >
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.ManagerActivity"
+            android:label="@string/title_activity_manager" >
         </activity>
         <activity
             android:name="com.smallcat.activity.ClubHomeActivity"

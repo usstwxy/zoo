@@ -17,7 +17,17 @@
         android:max="100"
         android:progress="0" />
 
-    <ImageView android:id="@+id/image" android:background="@drawable/placeholder_small" android:duplicateParentState="true" android:layout_width="@dimen/clip_standard_image_size" android:layout_height="@dimen/clip_standard_image_size" android:layout_marginLeft="@dimen/standard_margin" android:layout_marginTop="@dimen/standard_margin" android:layout_marginRight="@dimen/standard_margin" android:scaleType="centerCrop" android:contentDescription="@string/app_name"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/clip_standard_image_size"
+        android:layout_height="@dimen/clip_standard_image_size"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:background="@drawable/placeholder_small"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/date"
@@ -72,27 +82,11 @@
         android:textSize="12.0sp" />
 
     <TextView
-        android:id="@+id/lbl_listens"
+        android:id="@+id/lbl_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/lbl_likes"
         android:layout_toRightOf="@id/lbl_likes"
-        android:drawableLeft="@drawable/ic_listen"
-        android:drawablePadding="4.0dip"
-        android:paddingLeft="3.0dip"
-        android:paddingRight="@dimen/standard_margin"
-        android:singleLine="true"
-        android:text="10"
-        android:textColor="@color/umano_clip_list_social"
-        android:textIsSelectable="false"
-        android:textSize="12.0sp" />
-
-    <TextView
-        android:id="@+id/lbl_comments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/lbl_listens"
-        android:layout_toRightOf="@id/lbl_listens"
         android:drawableLeft="@drawable/ic_comment"
         android:drawablePadding="4.0dip"
         android:paddingLeft="3.0dip"
@@ -105,12 +99,13 @@
 
     <TextView
         android:id="@+id/lbl_data"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/lbl_comments"
+        android:layout_marginRight="@dimen/action_bar_height"
         android:layout_toRightOf="@id/lbl_comments"
-        android:drawableLeft="@drawable/ic_comment"
         android:drawablePadding="4.0dip"
+        android:gravity="right"
         android:paddingLeft="3.0dip"
         android:paddingRight="@dimen/standard_margin"
         android:singleLine="true"
@@ -128,7 +123,6 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
-        android:layout_alignBottom="@id/lbl_listens"
         android:layout_alignParentTop="true"
         layout="@layout/include_playlist_add_remove" />
 

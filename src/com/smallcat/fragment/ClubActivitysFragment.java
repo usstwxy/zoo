@@ -1,5 +1,9 @@
 package com.smallcat.fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.http.Header;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
@@ -14,6 +18,7 @@ import com.smallcat.data.WebAPI;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -47,14 +52,26 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 		showProgress(true);
 		WebAPI.get("activity/0", null, new AsyncHttpResponseHandler() {
 			
-			@Override
+			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
 				mAdapter = new FindAdapter(getActivity());
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
+				mAdapter.AddHeader();
+				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", item.getString("StartTime"));
+					try {
+						String dateText = item.getString("StartTime").replace('T', ' ');
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date = sdf.parse(dateText);
+						Date now = new Date();
+						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				showProgress(false);
 				lv.setAdapter(mAdapter);
@@ -111,8 +128,19 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 				Toast.makeText(getActivity(), "123", Toast.LENGTH_SHORT).show();
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
+				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", item.getString("StartTime"));
+					try {
+						String dateText = item.getString("StartTime").replace('T', ' ');
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date date = sdf.parse(dateText);
+						Date now = new Date();
+						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				new AsyncTask<Void, Void, Void>() {

@@ -7,6 +7,7 @@ import com.example.smallcat.R;
 import com.smallcat.fragment.*;
 import com.smallcat.widget.PagerSlidingTabStrip;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.ViewConfiguration;
 import android.view.Window;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -60,9 +62,12 @@ public class MainActivity extends FragmentActivity {
 		pager.setOffscreenPageLimit(2);
 		tabs.setViewPager(pager);
 		setTabsValue();
-		if (savedInstanceState == null) {
-			/*getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new MainFragment()).commit();*/
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == 1){
+			findFragment.update();
 		}
 	}
 	
