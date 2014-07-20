@@ -105,7 +105,8 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	}
 	
 	class FooterViewHolder extends ViewHolder{
-		
+		public View btn_exps;
+		public View btn_search;
 	}
 	
 	class CategoryViewHolder extends ViewHolder{
@@ -141,7 +142,17 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
 			FooterViewHolder holder = new FooterViewHolder();
 			holder.layoutID = layoutID;
+			holder.btn_exps = (View)view.findViewById(R.id.btn_exps);
+			holder.btn_search = (View)view.findViewById(R.id.btn_search);
 			view.setTag(holder);
+			
+			holder.btn_exps.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	Toast.makeText(mContext, "显示我的活动", Toast.LENGTH_SHORT).show();
+	            }
+	        });
 			return view;
 		}
 
@@ -166,7 +177,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
 			ClubViewHolder holder = new ClubViewHolder();
-			holder.clubTitle = (TextView)view.findViewById(R.id.lbl_title);
+			holder.clubTitle = (TextView)view.findViewById(R.id.date);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
 			holder.layoutID = layoutID;
 			view.setTag(holder);

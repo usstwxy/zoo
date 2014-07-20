@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/MyTheme" >
         <activity
             android:name="com.smallcat.activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name="com.smallcat.activity.DetailActivity"
-            android:label="@string/title_activity_detail" >
+            android:label="@string/title_activity_detail"
+            android:theme="@style/MyTheme">
         </activity>
         <activity
             android:name="com.smallcat.activity.ClubHomeActivity"

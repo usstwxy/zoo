@@ -53,6 +53,7 @@ public class FindFragment extends Fragment implements OnRefreshListener {
 				mAdapter = new FindAdapter(getActivity());
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
+				mAdapter.AddHeader();
 				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
 					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", item.getString("StartTime"));
