@@ -50,7 +50,7 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 		mFindStatusView = rootView.findViewById(R.id.find_status);
 		
 		showProgress(true);
-		WebAPI.get("activity/0", null, new AsyncHttpResponseHandler() {
+		WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {
 			
 			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -118,7 +118,7 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 		
 		
 		
-        WebAPI.get("activity/0", null, new AsyncHttpResponseHandler() {		
+        WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {		
         	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
