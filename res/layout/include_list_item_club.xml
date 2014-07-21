@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/white_button_selector"
-    android:clickable="true"
-    android:focusable="false"
-    android:focusableInTouchMode="false" >
+    android:descendantFocusability="blocksDescendants" >
 
     <ProgressBar
         android:id="@+id/progress_download"
@@ -34,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="6.0dip"
+        android:layout_marginBottom="5.0dip"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_toRightOf="@id/image"
@@ -56,6 +54,7 @@
         android:ellipsize="middle"
         android:maxWidth="@dimen/clip_list_source_max_width"
         android:paddingRight="@dimen/standard_margin"
+        android:paddingBottom="@dimen/standard_margin"
         android:text="a参加了'哈哈哈'\nb参加了'哈哈哈'\nc参加了'哈哈哈'"
         android:maxLines="2"
         android:textColor="@color/umano_clip_list_source"
