@@ -62,17 +62,8 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 				mAdapter.addHeader();
 				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					try {
-						String dateText = item.getString("StartTime").replace('T', ' ');
-						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						Date date = sdf.parse(dateText);
-						Date now = new Date();
-						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					String dateText = item.getString("StartTime").replace('T', ' ');
+					mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), dateText, item.getString("ID"));
 				}
 				showProgress(false);
 				listView1.setAdapter(mAdapter);

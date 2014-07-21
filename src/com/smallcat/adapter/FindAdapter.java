@@ -1,7 +1,11 @@
 package com.smallcat.adapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -219,15 +223,27 @@ public class FindAdapter extends BaseAdapter{
 			return view;
 		}
 
-		@Override
+		@SuppressLint("SimpleDateFormat") @Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
 			ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
-			holder.title.setText(title);
-			holder.attend.setText(attend);
-			holder.source.setText(source);
-			holder.comment.setText(comment);
-			holder.date.setText(date);
+			
+			
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date d = sdf.parse(date);
+				Date now = new Date();
+				long interval = (d.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+				holder.title.setText(title);
+				holder.attend.setText(attend);
+				holder.source.setText(source);
+				holder.comment.setText(comment);
+				holder.date.setText("还有" + String.valueOf(interval) + "天");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 		@Override

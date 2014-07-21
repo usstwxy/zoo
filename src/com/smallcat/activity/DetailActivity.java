@@ -1,21 +1,25 @@
 package com.smallcat.activity;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import org.apache.http.Header;
 
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.smallcat.adapter.FindAdapter;
+import com.small.service.AlarmReceiver;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
 import com.smallcat.fragment.DetailFragment;
 
-import android.app.ActionBar;
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,8 +36,6 @@ public class DetailActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
-		
-		
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -66,7 +68,7 @@ public class DetailActivity extends FragmentActivity {
 		if (id == R.id.action_settings) {
 			WebAPI.get("activity/SignUp?userID=" + LoginActivity.USERID + "&aID=" + bundle.getString("id"), null, new AsyncHttpResponseHandler() {
 				
-				@Override
+				@SuppressLint("SimpleDateFormat") @Override
 				public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 					// TODO Auto-generated method stub
 					JsonObj jo = new JsonObj(arg2);
@@ -74,7 +76,25 @@ public class DetailActivity extends FragmentActivity {
 					if (result){
 						fragment.update();
 						modified = true;
-						Toast.makeText(DetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+						try {
+							AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+							Intent intent = new Intent(DetailActivity.this, AlarmReceiver.class);
+							bundle.putString("attend", String.valueOf(Integer.valueOf(bundle.getString("attend") + 1)));
+							intent.putExtras(bundle);
+							int requestCode = 0;
+							PendingIntent pendIntent = PendingIntent.getBroadcast(DetailActivity.this,
+									requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							Date date = sdf.parse(bundle.getString("date"));
+							Date now = new Date();
+							long interval = date.getTime() - now.getTime() + SystemClock.elapsedRealtime();
+							alarmMgr.set(AlarmManager.ELAPSED_REALTIME, interval, pendIntent);
+							
+							Toast.makeText(DetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else{
 						String msg = jo.getString("msg");
