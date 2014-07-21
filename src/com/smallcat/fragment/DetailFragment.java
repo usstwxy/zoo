@@ -1,6 +1,9 @@
 package com.smallcat.fragment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.http.Header;
@@ -14,6 +17,7 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -49,7 +53,7 @@ public class DetailFragment extends Fragment {
 	private TextView date, source, attend, cnt;
 	private LinearLayout activity, info, expand;
 	
-	@Override
+	@SuppressLint("SimpleDateFormat") @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -63,7 +67,16 @@ public class DetailFragment extends Fragment {
 		attend = (TextView) rootView.findViewById(R.id.attend);
 		cnt = (TextView) rootView.findViewById(R.id.label_cnt);
 		
-		date.setText("距离活动开始" + bundle.getString("date"));
+		try{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date d = sdf.parse(bundle.getString("date"));
+			Date now = new Date();
+			long interval = (d.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+			date.setText("距离活动开始还有" + String.valueOf(interval) + "天");
+		}catch (ParseException e){
+			
+		}
+		
 		source.setText("由" + bundle.getString("source") + "举办");
 		attend.setText("报名人数已达" + bundle.getString("attend") + "人");
 		cnt.setText("评论共有" + bundle.getString("comment") + "条");
