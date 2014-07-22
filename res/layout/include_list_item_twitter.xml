@@ -15,17 +15,17 @@
         android:max="100"
         android:progress="0" />
 
-    <ImageView 
-        android:id="@+id/image" 
-        android:background="@drawable/placeholder_user_circle" 
-        android:duplicateParentState="true" 
-        android:layout_width="@dimen/clip_standard_image_size" 
-        android:layout_height="@dimen/clip_standard_image_size" 
-        android:layout_marginLeft="@dimen/standard_margin" 
-        android:layout_marginTop="@dimen/standard_margin" 
-        android:layout_marginRight="@dimen/standard_margin" 
-        android:scaleType="centerCrop" 
-        android:contentDescription="@string/app_name"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/clip_standard_image_size"
+        android:layout_height="@dimen/clip_standard_image_size"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:background="@drawable/placeholder_user_circle"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/lbl_title"
@@ -37,9 +37,9 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
-        android:text="a参加了'哈哈哈'"
-        android:singleLine="true"
         android:paddingRight="@dimen/action_bar_height"
+        android:singleLine="true"
+        android:text="a参加了&apos;哈哈哈&apos;"
         android:textColor="@color/umano_clip_list_title"
         android:textIsSelectable="false"
         android:textSize="@dimen/clip_standard_title_font_size" />
@@ -48,30 +48,76 @@
         android:id="@+id/txt_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lbl_title"
         android:layout_alignParentRight="true"
+        android:layout_below="@id/lbl_title"
         android:layout_toRightOf="@id/image"
         android:ellipsize="middle"
-        android:maxWidth="@dimen/clip_list_source_max_width"
-        android:paddingRight="@dimen/standard_margin"
-        android:paddingBottom="@dimen/standard_margin"
-        android:text="yahahahhahahahahahahahhaaaaaaaaaa"
-        android:minLines="2"
         android:maxLines="4"
+        android:maxWidth="@dimen/clip_list_source_max_width"
+        android:minLines="2"
+        android:paddingRight="@dimen/standard_margin"
+        android:text="yahahahhahahahahahahahhaaaaaaaaaa"
         android:textColor="@color/umano_clip_list_source"
         android:textIsSelectable="false"
         android:textSize="14.0sp" />
-    
-    
+
+    <TextView
+        android:id="@id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txt_content"
+        android:layout_below="@id/txt_content"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="4.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="5" />
+
+    <TextView
+        android:id="@id/lbl_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_comments"
+        android:layout_toRightOf="@id/lbl_comments"
+        android:drawableLeft="@drawable/ic_like"
+        android:drawablePadding="4.0dip"
+        android:paddingBottom="6.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="3" />
+
+    <TextView
+        android:id="@+id/lbl_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/lbl_likes"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_toRightOf="@id/lbl_likes"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="10mins前" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="1.0dip"
+        android:layout_height="0.5dip"
         android:layout_alignParentBottom="true"
         android:background="@color/umano_divider" />
 
-
-</RelativeLayout>
-<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</RelativeLayout><!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:background="@drawable/white_button_selector" 
@@ -131,8 +177,10 @@
 		    android:layout_alignParentLeft="true" 
 		    android:textIsSelectable="false"/>
 		<View android:id="@+id/tools_divider" android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginTop="@dimen/standard_margin" android:layout_below="@id/txt_comments" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" />
-</RelativeLayout> -->
-<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+</RelativeLayout>
+-->
+<!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:background="@color/umano_light_gray">
@@ -270,4 +318,5 @@
 				    android:textIsSelectable="false" />
 			</FrameLayout>
 		</LinearLayout>
-</RelativeLayout> -->
+</RelativeLayout>
+-->

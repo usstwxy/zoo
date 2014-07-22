@@ -33,10 +33,6 @@ public class FindAdapter extends BaseAdapter{
 		this.context = context;
 	}
 	
-	public void addHeader(){
-		rows.add(new Header(){});
-	}
-	
 	public void updateActivity(){
 		int i = Integer.valueOf(selected.attend) + 1;
 		selected.attend = String.valueOf(i);
@@ -78,6 +74,10 @@ public class FindAdapter extends BaseAdapter{
 		}
 		row.setListen(view, row);
 		return view;
+	}
+	
+	public void AddHeader(){
+		rows.add(new Header(){});
 	}
 	
 	public void AddCategory(String name, String count){

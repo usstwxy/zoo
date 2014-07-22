@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="fill_parent"
+   	android:layout_height="wrap_content"
+   	android:layout_below="@id/view1"
+   	android:background="@color/umano_light_gray"
+   	android:layout_marginTop="4dip">
+       
+    <ImageView 
+        android:id="@+id/image" 
+        android:background="@drawable/placeholder_user_circle" 
+        android:duplicateParentState="true" 
+        android:layout_width="@dimen/clip_small_image_size" 
+        android:layout_height="@dimen/clip_small_image_size" 
+        android:layout_marginLeft="@dimen/action_bar_height" 
+        android:layout_marginTop="@dimen/standard_margin" 
+        android:layout_marginRight="@dimen/standard_margin" 
+        android:scaleType="centerCrop" 
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:text="lhc"
+        android:singleLine="true"
+        android:paddingRight="@dimen/action_bar_height"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/txt_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_title"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="middle"
+        android:maxWidth="@dimen/clip_list_source_max_width"
+        android:paddingRight="@dimen/standard_margin"
+        android:paddingBottom="@dimen/standard_margin"
+        android:text="yahahahhahahah"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+   
+
+    <TextView
+        android:id="@+id/lbl_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/lbl_title"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_toRightOf="@id/lbl_title"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="10mins前" />
+</RelativeLayout>

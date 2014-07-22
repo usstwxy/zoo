@@ -3,6 +3,8 @@ package com.smallcat.activity;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.example.smallcat.R;
 import com.smallcat.fragment.*;
 import com.smallcat.widget.PagerSlidingTabStrip;
@@ -52,7 +54,11 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
+		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+		
 		
 		setOverflowShowingAlways();
 		dm = getResources().getDisplayMetrics();

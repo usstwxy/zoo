@@ -8,15 +8,18 @@
     android:orientation="horizontal" >
 
     <com.smallcat.widget.ImageTextButton
+        android:id="@+id/btn_exps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="2dip"
         android:layout_weight="1"
+        android:clickable="true"
         app:itbIcon="@drawable/icon_myplaylist"
         app:itbText="我的活动" >
     </com.smallcat.widget.ImageTextButton>
 
     <com.smallcat.widget.ImageTextButton
+        android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -24,5 +27,5 @@
         app:itbIcon="@drawable/icon_search"
         app:itbText="搜索社团" >
     </com.smallcat.widget.ImageTextButton>
- 
+  
 </LinearLayout>

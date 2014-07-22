@@ -59,7 +59,7 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 				mAdapter = new FindAdapter(getActivity());
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
-				mAdapter.addHeader();
+				mAdapter.AddHeader();
 				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
 					String dateText = item.getString("StartTime").replace('T', ' ');

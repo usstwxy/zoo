@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/umano_light_gray" >
-
+    android:background="@color/umano_light_gray"
+    android:layout_marginTop="4dip">
+    
     <ImageView 
         android:id="@+id/image" 
         android:background="@drawable/placeholder_user_circle" 
@@ -13,6 +14,8 @@
         android:layout_marginLeft="@dimen/standard_margin" 
         android:layout_marginTop="@dimen/standard_margin" 
         android:layout_marginRight="@dimen/standard_margin" 
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:scaleType="centerCrop" 
         android:contentDescription="@string/app_name"/>
 
@@ -49,12 +52,134 @@
         android:textIsSelectable="false"
         android:textSize="14.0sp" />
    
+    <TextView
+        android:id="@id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txt_content"
+        android:layout_below="@id/txt_content"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="4.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="5" />
+
+    <TextView
+        android:id="@id/lbl_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_comments"
+        android:layout_toRightOf="@id/lbl_comments"
+        android:drawableLeft="@drawable/ic_like"
+        android:drawablePadding="4.0dip"
+        android:paddingBottom="6.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="3" />
+
+    <TextView
+        android:id="@+id/lbl_date"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/lbl_likes"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_toRightOf="@id/lbl_likes"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="10mins前" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/image"
+        android:layout_below="@id/lbl_date"
+        android:layout_marginRight="24dp"
+        android:src="@drawable/ic_like" />
+    
     <View
         android:id="@+id/view1"
         android:layout_width="fill_parent"
         android:layout_height="0.5dip"
-        android:background="#e8e8e8"
-        android:layout_below="@id/image"
+        android:background="@color/umano_divider"
+        android:layout_below="@id/lbl_date"
         android:layout_marginTop="@dimen/standard_margin"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/umano_divider"
+        android:layout_below="@id/lbl_date"
+        android:layout_marginTop="@dimen/standard_margin"/>
+    
+        
+    <ListView
+        android:id="@+id/list_twitter_comments"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/divider"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:scrollbarStyle="outsideOverlay" >
+
+    </ListView>
+    
+    <LinearLayout 
+        android:id="@+id/comment_bar" 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_alignParentBottom="true"
+        android:background="#fff">
+        <EditText 
+            android:textSize="16.0sp" 
+            android:textColor="@color/umano_edit_text" 
+            android:textColorHint="@color/umano_edit_hint" 
+            android:id="@+id/text_comment" 
+            android:background="@drawable/rounded_border" 
+            android:padding="5.0dip" 
+            android:nextFocusLeft="@id/text_comment" 
+            android:nextFocusUp="@id/text_comment" 
+            android:layout_width="0.0dip" 
+            android:layout_height="50.0dip" 
+            android:layout_margin="5.0dip" 
+            android:hint="@string/text_comment" 
+            android:layout_weight="1.0" 
+            android:inputType="textCapSentences|textMultiLine" />
+        <View 
+            android:background="@color/umano_divider" 
+            android:layout_width="0.5dip" 
+            android:layout_height="fill_parent" />
+        <Button 
+            android:textSize="16.0sp" 
+            android:textColor="@color/white_button_text_color_selector" 
+            android:layout_gravity="center" 
+            android:id="@+id/btn_send" 
+            android:background="@drawable/white_button_selector_transparent" 
+            android:layout_width="65.0dip" 
+            android:layout_height="@dimen/action_bar_height" 
+            android:text="@string/btn_post" />
+    </LinearLayout>
+    <View 
+        android:id="@+id/comments_divider" 
+        android:background="@color/umano_divider" 
+        android:layout_width="fill_parent" 
+        android:layout_height="0.5dip" 
+        android:layout_above="@id/comment_bar" />
+	
+    
     
 </RelativeLayout>
