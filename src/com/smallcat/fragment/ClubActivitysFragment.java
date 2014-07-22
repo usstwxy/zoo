@@ -114,9 +114,6 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
         /**
          * Simulate Refresh with 4 seconds sleep
          */
-		Log.i("Club:", "Refresh");
-		
-		
 		
         WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {		
         	
