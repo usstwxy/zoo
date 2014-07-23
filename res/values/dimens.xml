@@ -30,5 +30,7 @@
     <dimen name="clip_expanded_icon_size">13.0dip</dimen>
     <dimen name="clip_expanded_image_size">60.0dip</dimen>
     <dimen name="clip_expanded_title_font_size">18.0sp</dimen>
+    <dimen name="standard_margin_variable">20.0dip</dimen>
+    <dimen name="standard_margin_double">20.0dip</dimen>
     
 </resources>

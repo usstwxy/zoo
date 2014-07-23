@@ -8,6 +8,8 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -15,12 +17,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.smallcat.R;
 import com.smallcat.activity.DetailActivity;
-import com.smallcat.activity.MainActivity;
+import com.smallcat.activity.NoteActivity;
 
 public class FindAdapter extends BaseAdapter{
 	
@@ -68,24 +69,27 @@ public class FindAdapter extends BaseAdapter{
 			ViewHolder holder = (ViewHolder) view.getTag();
 			if (holder == null || holder.layoutID != row.layoutID){
 				view = row.set();
-			}else{
-				row.set(view);
 			}
 		}
+		row.set(view);
 		row.setListen(view, row);
 		return view;
 	}
 	
 	public void AddHeader(){
-		rows.add(new Header(){});
+		rows.add(new Header());
 	}
 	
 	public void AddCategory(String name, String count){
-		rows.add(new Category(name, count){});
+		rows.add(new Category(name, count));
 	}
 	
-	public void AddActivity(String title, String attend, String source, String comment, String date, String id){
-		rows.add(new Activity(title, attend, source, comment, date, id){});
+	public void AddActivity(String url, String title, String attend, String source, String comment, String date, String id){
+		rows.add(new Activity(url, title, attend, source, comment, date, id));
+	}
+	
+	public void AddTwitterActivity(String url, String title, String id){
+		rows.add(new TwitterActivity(url, title, id));
 	}
 	
 	abstract class ViewHolder{
@@ -105,6 +109,13 @@ public class FindAdapter extends BaseAdapter{
 	class ActivityViewHolder extends ViewHolder{
 
 		public TextView title, attend, source, comment, date;
+		public ImageView post;
+	}
+	
+	class TwitterActivityViewHolder extends ViewHolder{
+		
+		public TextView title;
+		public ImageView post;
 	}
 	
 	abstract class Row{
@@ -167,8 +178,6 @@ public class FindAdapter extends BaseAdapter{
 			CategoryViewHolder holder = new CategoryViewHolder();
 			holder.name = (TextView) view.findViewById(R.id.cname);
 			holder.count = (TextView) view.findViewById(R.id.cnumber);
-			holder.name.setText(name);
-			holder.count.setText(count);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
 			return view;
@@ -191,10 +200,12 @@ public class FindAdapter extends BaseAdapter{
 	
 	public class Activity extends Row{
 		
-		public String title, attend, source, comment, date, id;
+		public String title, attend, source, comment, date, id, url;
+		public Bitmap bmp;
 		
-		public Activity(String title, String attend, String source, String comment, String date, String id){
+		public Activity(String url, String title, String attend, String source, String comment, String date, String id){
 			super(R.layout.find_activity);
+			this.url = url;
 			this.title = title;
 			this.attend = attend;
 			this.source = source;
@@ -213,11 +224,7 @@ public class FindAdapter extends BaseAdapter{
 			holder.source = (TextView) view.findViewById(R.id.lbl_source_name);
 			holder.comment = (TextView) view.findViewById(R.id.lbl_comments);
 			holder.date = (TextView) view.findViewById(R.id.lbl_data);
-			holder.title.setText(title);
-			holder.source.setText(source);
-			holder.attend.setText(attend);
-			holder.comment.setText(comment);
-			holder.date.setText(date);
+			holder.post = (ImageView) view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
 			return view;
@@ -226,10 +233,8 @@ public class FindAdapter extends BaseAdapter{
 		@SuppressLint("SimpleDateFormat") @Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-			ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
-			
-			
 			try {
+				ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date d = sdf.parse(date);
 				Date now = new Date();
@@ -239,6 +244,13 @@ public class FindAdapter extends BaseAdapter{
 				holder.source.setText(source);
 				holder.comment.setText(comment);
 				holder.date.setText("还有" + String.valueOf(interval) + "天");
+				if (bmp != null){
+					holder.post.setImageBitmap(bmp);
+				}
+				else if (url != null && !url.equals("")){
+					ImageLoadTask imageLoadTask = new ImageLoadTask();
+					imageLoadTask.execute(holder, url, this);
+				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -268,6 +280,98 @@ public class FindAdapter extends BaseAdapter{
 				}
 			});
 		}
+		
+		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+			@Override
+			protected Void doInBackground(Object... params) {
+				String url = (String) params[1];
+				Activity.this.bmp = ImageLoader.loadImage(url);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				if (result == null) {
+					return;
+				}
+				notifyDataSetChanged();
+			}
+		}
 	}
 	
+	public class TwitterActivity extends Row{
+		
+		public String title, url, id;
+		public Bitmap bmp;
+
+		public TwitterActivity(String url, String title, String id) {
+			super(R.layout.twitter_activity);
+			this.url = url;
+			this.title = title;
+			this.id = id;
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(context).inflate(layoutID, null);
+			TwitterActivityViewHolder holder = new TwitterActivityViewHolder();
+			holder.title = (TextView) view.findViewById(R.id.title);
+			holder.post = (ImageView) view.findViewById(R.id.image);
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			TwitterActivityViewHolder holder = (TwitterActivityViewHolder)view.getTag();
+			holder.title.setText(title);
+			if (bmp != null){
+				holder.post.setImageBitmap(bmp);
+			}
+			else if (url != null && !url.equals("")){
+				ImageLoadTask imageLoadTask = new ImageLoadTask();
+				imageLoadTask.execute(holder, url, this);
+			}
+		}
+
+		@Override
+		public void setListen(View view, Row row) {
+			// TODO Auto-generated method stub
+			view.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent(context, NoteActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("title", title);
+					bundle.putString("id", id);
+					intent.putExtras(bundle);
+					((FragmentActivity)context).startActivityForResult(intent, 0);
+				}
+			});
+		}
+		
+		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+			
+			@Override
+			protected Void doInBackground(Object... params) {
+				String url = (String) params[1];
+				TwitterActivity.this.bmp = ImageLoader.loadImage(url);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				if (result == null) {
+					return;
+				}
+				notifyDataSetChanged();
+			}
+		}
+		
+	}
 }

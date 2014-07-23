@@ -29,7 +29,8 @@ public class AlarmReceiver extends BroadcastReceiver{
 		this.context = context;
 		bundle = intent.getExtras();
 		initNotification();
-		notificationBuilder.setContentTitle(bundle.getString("title"))
+		notificationBuilder.setTicker("活动马上开始啦")
+						.setContentTitle(bundle.getString("title"))
 						.setContentText(bundle.getString("source"));
 		notificationManager.notify(notificationID, notificationBuilder.build());
 	}

@@ -71,6 +71,18 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	@Override
+	protected void onResume(){
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == 1){
 			findFragment.update();

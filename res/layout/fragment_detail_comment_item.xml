@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/comment_text"
-        android:layout_below="@+id/user_icon"
+        android:layout_below="@+id/comment_text"
         android:orientation="horizontal" >
 
         <ImageView

@@ -95,11 +95,13 @@ public class DetailFragment extends Fragment {
 				// TODO Auto-generated method stub
 				JsonObj jo = new JsonObj(arg2);
 				
+				cnt.setText("评论共有" + String.valueOf(jo.count()) + "条");
+				
 				ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 				
 				for (JsonObj item : jo.values()){
 					HashMap<String, Object> map = new HashMap<String, Object>();
-					map.put("userName", item.getString("UserName") + " " + item.getString("PublisedTime"));
+					map.put("userName", item.getString("UserName") + " " + item.getString("PublishedTime"));
 					map.put("comment", item.getString("Comment"));
 					list.add(map);
 				}

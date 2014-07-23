@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.smallcat.NoteActivity" >
+
+    <item
+        android:id="@+id/action_submit"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/abs__ic_cab_done_holo_light"
+        android:title="发布"/>
+
+</menu>

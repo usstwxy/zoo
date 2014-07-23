@@ -140,5 +140,25 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
     </style>
+    
+    <style name="HeaderText">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+    
+    <style name="StepCircle">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/circle_orange</item>
+        <item name="android:layout_width">30.0dip</item>
+        <item name="android:layout_height">30.0dip</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    
+    <style name="PageText">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
 
 </resources>
