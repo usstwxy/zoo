@@ -40,5 +40,16 @@
     <string name="btn_post">发送</string>
     <string name="title_activity_manager">ManagerActivity</string>
     <string name="title_activity_publish_sample">PublishSampleActivity</string>
+    <string name="title_activity_twitter">TwitterActivity</string>
+    <string name="title_activity_note">NoteActivity</string>
+    <string name="lbl_preview_failed">Failed to validate the link. Tap to try again.</string>
+    <string name="lbl_preview">PREVIEW:</string>
+    <string name="lbl_paste_link_tip">Tip: you can also submit links by sharing to Umano from other apps.</string>
+    <string name="lbl_paste_link">Paste link here…</string>
+    <string name="lbl_get_started">Get Started</string>
+    <string name="lbl_hint_submit_title">Be an Umano Curator!</string>
+    <string name="lbl_hint_submit_text_step1">Submit a link to an interesting article.</string>
+    <string name="lbl_hint_submit_text_step2">Our editorial team will review your submission.</string>
+    <string name="lbl_hint_submit_text_step3">"We'll notify you if your article gets recorded!"</string>
 
 </resources>

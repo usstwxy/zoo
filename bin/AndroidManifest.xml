@@ -54,16 +54,32 @@
         </activity>
         <activity
             android:name="com.smallcat.activity.ManagerActivity"
-            android:label="@string/title_activity_manager" >
+            android:label="@string/title_activity_manager"
+            android:theme="@style/MyTheme" >
         </activity>
+
+        <receiver android:name="com.small.service.AlarmReceiver" />
+
         <activity
             android:name="com.smallcat.activity.ClubHomeActivity"
-            android:label="@string/title_activity_club_home" >
+            android:label="@string/title_activity_club_home"
+            android:theme="@style/MyTheme" >
         </activity>
         <activity
             android:name="com.smallcat.activity.ClubDetailActivity"
-            android:label="@string/title_activity_club_detail" >
+            android:label="@string/title_activity_club_detail"
+            android:theme="@style/MyTheme" >
         </activity>
+        <activity
+            android:name="com.smallcat.activity.TwitterFragment"
+            android:label="@string/title_activity_twitter"
+            android:theme="@style/MyTheme" >
+        </activity>
+        <activity
+            android:name="com.example.smallcat.PublishSampleActivity"
+            android:label="@string/title_activity_publish_sample" >
+        </activity>
+
         <!-- Required SDK 核心功能 -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -83,7 +99,7 @@
             android:enabled="true" >
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
- <!-- Required  显示通知栏 -->
+                <!-- Required  显示通知栏 -->
                 <category android:name="com.example.smallcat" />
             </intent-filter>
             <intent-filter>
@@ -108,18 +124,18 @@
             android:enabled="true" >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
- <!-- Required  用户注册SDK的intent -->
+ 				<!-- Required  用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
- <!-- Required  用户接收SDK消息的intent -->
+ 				<!-- Required  用户接收SDK消息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
- <!-- Required  用户接收SDK通知栏信息的intent -->
+ 				<!-- Required  用户接收SDK通知栏信息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
- <!-- Required  用户打开自定义通知栏的intent -->
+ 				<!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
- <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+ 				<!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
- <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+ 				<!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.example.smallcat" />
             </intent-filter>
         </receiver>
@@ -133,11 +149,15 @@
             android:value="8b2eac6c7755b5f4c1e4d669" />
  <!-- </>值来自开发者平台取得的AppKey -->
 
-        <receiver android:name="com.smallcat.service.AlarmReceiver" />
+        <receiver android:name="com.small.service.AlarmReceiver" />
 
         <activity
-            android:name="com.example.smallcat.PublishSampleActivity"
-            android:label="@string/title_activity_publish_sample" >
+            android:name="com.smallcat.activity.TwitterActivity"
+            android:label="@string/title_activity_twitter" >
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.NoteActivity"
+            android:label="@string/title_activity_note" >
         </activity>
     </application>
 

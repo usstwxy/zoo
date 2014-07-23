@@ -3,7 +3,7 @@ package com.smallcat.fragment;
 import com.example.smallcat.R;
 import com.smallcat.activity.ManagerActivity;
 import com.smallcat.service.AlarmReceiver;
-
+import com.smallcat.activity.TwitterActivity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
  */
 public class MeFragment extends Fragment implements OnClickListener{
 	
-	private LinearLayout btn_activities;
+	private LinearLayout btn_activities, btn_twitter;
 	
 	
 	public MeFragment() {
@@ -37,9 +37,9 @@ public class MeFragment extends Fragment implements OnClickListener{
 		View rootView = (View) inflater.inflate(R.layout.fragment_me, container, false);
 		
 		btn_activities = (LinearLayout) rootView.findViewById(R.id.btn_activities);
+		btn_twitter = (LinearLayout) rootView.findViewById(R.id.btn_twitter);
 		btn_activities.setOnClickListener(this);
-		
-		
+		btn_twitter.setOnClickListener(this);
 		
 		return rootView;
 	}
@@ -49,6 +49,11 @@ public class MeFragment extends Fragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(), ManagerActivity.class);
 		getActivity().startActivityForResult(intent, 0);
 	}
+	
+	private void clickTwitter(){
+		Intent intent = new Intent(getActivity(), TwitterActivity.class);
+		getActivity().startActivityForResult(intent, 0);
+	}
 
 	@Override
 	public void onClick(View arg0) {
@@ -56,6 +61,9 @@ public class MeFragment extends Fragment implements OnClickListener{
 		switch (arg0.getId()){
 		case R.id.btn_activities:
 			clickActivities();
+			break;
+		case R.id.btn_twitter:
+			clickTwitter();
 			break;
 		}
 	}

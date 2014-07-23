@@ -33,7 +33,7 @@ public class ManagerFragment extends Fragment {
 		
 		listView = (ListView) rootView.findViewById(R.id.listView1);
 		
-		WebAPI.get("exps/getExps?id=" + LoginActivity.USERID, null, new AsyncHttpResponseHandler() {
+		WebAPI.get("exps/getFExps?id=" + LoginActivity.USERID, null, new AsyncHttpResponseHandler() {
 			
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -49,7 +49,7 @@ public class ManagerFragment extends Fragment {
 						Date date = sdf.parse(dateText);
 						Date now = new Date();
 						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(item.getString("Title"), "", item.getString("ClubName"), "", "还有" + String.valueOf(interval) + "天", item.getString("ActivityID"));
+						mAdapter.AddActivity(null, item.getString("Title"), "", item.getString("ClubName"), "", "还有" + String.valueOf(interval) + "天", item.getString("ActivityID"));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

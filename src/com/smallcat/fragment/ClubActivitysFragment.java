@@ -67,7 +67,7 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 						Date date = sdf.parse(dateText);
 						Date now = new Date();
 						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+						mAdapter.AddActivity(null, item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -133,7 +133,7 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 						Date date = sdf.parse(dateText);
 						Date now = new Date();
 						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", "还有" + String.valueOf(interval) + "天", item.getString("ID"));
+						mAdapter.AddActivity(null, item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", "还有" + String.valueOf(interval) + "天", item.getString("ID"));
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

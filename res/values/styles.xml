@@ -15,8 +15,9 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-       <!--  All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
 
     <style name="NoActionBarTheme" parent="@style/AppTheme">
         <item name="android:windowTitleSize">0.0dip</item>
@@ -48,9 +49,6 @@
     
     <style name="MyTheme" parent="@android:Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/WhiteActionBar</item>
-        <item name="android:actionBarTabStyle">@style/Widget.AppCompat.ActionBar.TabView</item>
-        <item name="android:actionBarTabTextStyle">@style/Widget.AppCompat.ActionBar.TabText</item>
-        <item name="android:actionBarTabBarStyle">@style/Widget.AppCompat.ActionBar.TabBar</item>
     </style>
 
     <style name="Widget" />
@@ -69,6 +67,7 @@
         <item name="android:textSize">18.0sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:minHeight">48.0dip</item> 
     </style>
 
     <style name="AccountBoxValue">
@@ -147,6 +146,26 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">16dp</item>
+    </style>
+    
+    <style name="HeaderText">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
+    </style>
+    
+    <style name="StepCircle">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/circle_orange</item>
+        <item name="android:layout_width">30.0dip</item>
+        <item name="android:layout_height">30.0dip</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    
+    <style name="PageText">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">@color/umano_edit_text</item>
     </style>
 
 </resources>
