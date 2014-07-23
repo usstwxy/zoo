@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
+	public static final String EXTRA_CID = "clubID";
+	public static final String EXTRA_CTITLE = "clubTitle";
 	/**
 	 * 聊天界面的Fragment
 	 */
@@ -75,6 +77,12 @@ public class MainActivity extends FragmentActivity {
 		if (resultCode == 1){
 			findFragment.update();
 		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		JPushInterface.resumePush(getApplicationContext());
 	}
 	
 	/**

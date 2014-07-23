@@ -32,12 +32,13 @@
     <string name="title_activity_club_home">ClubHomeActivity</string>
     <string name="title_club_section1">动态</string>
     <string name="title_club_section2">活动</string>
-    <string name="title_club_section3">文件</string> 
+    <string name="title_club_section3">文件</string>
     <string name="title_club_section4">投票</string>
     <string name="title_club_section5">成员</string>
     <string name="title_activity_club_detail">ClubDetailActivity</string>
     <string name="text_comment">说些什么哈~</string>
     <string name="btn_post">发送</string>
     <string name="title_activity_manager">ManagerActivity</string>
+    <string name="title_activity_publish_sample">PublishSampleActivity</string>
 
 </resources>

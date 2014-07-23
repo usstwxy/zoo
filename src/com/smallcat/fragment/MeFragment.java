@@ -1,8 +1,8 @@
 package com.smallcat.fragment;
 
 import com.example.smallcat.R;
-import com.small.service.AlarmReceiver;
 import com.smallcat.activity.ManagerActivity;
+import com.smallcat.service.AlarmReceiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

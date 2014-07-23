@@ -1,4 +1,4 @@
-package com.small.service;
+package com.smallcat.service;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.DetailActivity;

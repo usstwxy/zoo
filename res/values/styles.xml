@@ -64,6 +64,12 @@
         <item name="android:minWidth">48.0dip</item>
         <item name="android:minHeight">48.0dip</item>
     </style>
+    
+    <style name="PopUpWindow" parent="Widget">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 
     <style name="AccountBoxValue">
         <item name="android:textSize">@dimen/my_account_stat_font_size</item>

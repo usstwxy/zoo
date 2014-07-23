@@ -2,14 +2,28 @@ package com.smallcat.adapter;
 
 import java.util.ArrayList;
 
+import com.example.smallcat.PublishSampleActivity;
 import com.example.smallcat.R;
+import com.smallcat.activity.ClubHomeActivity;
+import com.smallcat.activity.DetailActivity;
+import com.smallcat.activity.MainActivity;
+import com.smallcat.adapter.FindAdapter.Activity;
+import com.smallcat.adapter.FindAdapter.Row;
+
+import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +31,15 @@ public class ClubJoinedAdapter extends BaseAdapter{
 
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
+	private View contentView;
+	private PopupWindow mPopUpWindow;
 	
 	public ClubJoinedAdapter(Context context) {
 		mContext = context;
+		contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
+		mPopUpWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
+    	mPopUpWindow.setOutsideTouchable(true);
 	}
 
 	@Override
@@ -54,45 +74,16 @@ public class ClubJoinedAdapter extends BaseAdapter{
 				row.set(view);
 			}
 		}
+		row.setListen(view, row);
 		return view;
 	}
-	
-/*	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		ClubJoinedHolder holder;
-		
-		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.include_list_item_club, null);
-			holder = new ClubJoinedHolder();
-			holder.clubTitle = (TextView)convertView.findViewById(R.id.lbl_title);
-			holder.btn_more = (View)convertView.findViewById(R.id.btn_more);
-			
-			convertView.setTag(holder);
-		}
-		else {
-			holder = (ClubJoinedHolder)convertView.getTag();
-		}
-		
-		holder.clubTitle.setText("吉他社");
-		
-		holder.btn_more.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-            	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
-            }
-        });
-		
-		return convertView;
-	}*/
 	
 	public void AddCategory(String name, String count){
 		rows.add(new Category(name, count){});
 	}
 	
-	public void AddClub(String title){
-		rows.add(new Club(title){});
+	public void AddClub(String clubID, String clubName, String twitters, String role){
+		rows.add(new Club(clubID, clubName, twitters, role){});
 	}
 	
 	public void AddFooter(){
@@ -114,8 +105,10 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	}
 	
 	class ClubViewHolder extends ViewHolder{
-		public TextView clubTitle;
+		public TextView clubName;
+		public TextView twitters;
 		public View btn_more;
+		public TextView btn_publish;
 	}
 	
 	abstract class Row{
@@ -129,6 +122,8 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		public abstract View set();
 		
 		public abstract void set(View view);
+		
+		public abstract void setListen(View view, Row row);
 	}
 	
 	class Footer extends Row{
@@ -161,15 +156,27 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void setListen(View view, Row row) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	class Club extends Row{
 		
-		public String title;
+		public String clubName;
+		public String twitters;
+		public String clubID;
+		public String role;
 		
-		public Club(String title){
+		public Club(String clubID, String clubName, String twitters, String role){
 			super(R.layout.include_list_item_club);
-			this.title = title;
+			this.clubName = clubName;
+			this.twitters = twitters;
+			this.clubID = clubID;
+			this.role = role;
 		}
 
 		@Override
@@ -177,18 +184,46 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
 			ClubViewHolder holder = new ClubViewHolder();
-			holder.clubTitle = (TextView)view.findViewById(R.id.date);
+			holder.clubName = (TextView)view.findViewById(R.id.lbl_title);
+			holder.twitters = (TextView)view.findViewById(R.id.txt_twitters);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
+			holder.btn_publish = (TextView)contentView.findViewById(R.id.btn_publish);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
 			
-			holder.clubTitle.setText(this.title);
+			holder.clubName.setText(this.clubName);
+			holder.twitters.setText(this.twitters);
 			
 			holder.btn_more.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	            	try {  
+	                    if (mPopUpWindow.isShowing()) {  
+	  
+	                    	mPopUpWindow.dismiss();  
+	                    }  
+	                    mPopUpWindow.showAsDropDown(v, 8, -8);
+	  
+	                } catch (Exception e) {  
+	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	                }  
+	            	
+	            }
+	        });
+			
+			holder.btn_publish.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	mPopUpWindow.dismiss();  
+	            	Intent intent = new Intent(mContext, PublishSampleActivity.class);
+	            	
+					Bundle bundle = new Bundle();
+					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
+					bundle.putString(MainActivity.EXTRA_CID, clubID);
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);
 	            }
 	        });
 			
@@ -200,16 +235,57 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			ClubViewHolder holder = (ClubViewHolder)view.getTag();
 			
-			holder.clubTitle.setText("吉他社");
+			holder.clubName.setText(this.clubName);
+			holder.twitters.setText(this.twitters);
 			
 			holder.btn_more.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	            	try {  
+	                    if (mPopUpWindow.isShowing()) {  
+	  
+	                    	mPopUpWindow.dismiss();  
+	                    }  
+	                    mPopUpWindow.showAsDropDown(v, 8, -8);
+	  
+	                } catch (Exception e) {  
+	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	                }  
 	            }
 	        });
-		}	
+			
+			holder.btn_publish.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	mPopUpWindow.dismiss();  
+	            	Intent intent = new Intent(mContext, PublishSampleActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
+					bundle.putString(MainActivity.EXTRA_CID, clubID);
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);
+	            }
+	        });
+		}
+		
+		@Override
+		public void setListen(final View view, final Row row) {
+			// TODO Auto-generated method stub
+			view.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent(mContext, ClubHomeActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
+					bundle.putString(MainActivity.EXTRA_CID, clubID);
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);
+				}
+			});
+		}
 	}
 	
 	class Category extends Row{
@@ -242,6 +318,12 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			CategoryViewHolder holder = (CategoryViewHolder)view.getTag();
 			holder.name.setText(name);
 			holder.count.setText(count);
+		}
+
+		@Override
+		public void setListen(View view, Row row) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

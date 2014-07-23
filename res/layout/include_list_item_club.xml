@@ -28,7 +28,7 @@
         android:contentDescription="@string/app_name"/>
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/lbl_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -44,10 +44,10 @@
         android:textSize="@dimen/clip_standard_title_font_size" />
 
     <TextView
-        android:id="@+id/lbl_source_name"
+        android:id="@+id/txt_twitters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/date"
+        android:layout_below="@id/lbl_title"
         android:layout_alignParentRight="false"
         android:layout_marginRight="@dimen/action_bar_height"
         android:layout_toRightOf="@id/image"
@@ -85,7 +85,7 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="0.0dip"
-        android:layout_alignBottom="@id/lbl_source_name"
+        android:layout_alignBottom="@id/txt_twitters"
         android:layout_alignParentTop="true"
         layout="@layout/include_clublist_more" />
 
