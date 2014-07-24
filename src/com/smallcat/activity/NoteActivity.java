@@ -9,6 +9,7 @@ import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
 import com.smallcat.fragment.NoteFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 public class NoteActivity extends FragmentActivity {
 	private Bundle bundle;
 	private NoteFragment fragment;
-	private boolean modified = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class NoteActivity extends FragmentActivity {
 		if (id == R.id.action_submit) {
 			String text = fragment.getText();
 			if (!text.equals("")){
+				bundle.putString("comment", text);
 				RequestParams params = new RequestParams();
 				params.add("UserID", LoginActivity.USERID);
 				params.add("ActivityID", bundle.getString("id"));
@@ -66,7 +67,12 @@ public class NoteActivity extends FragmentActivity {
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						// TODO Auto-generated method stub
 						JsonObj jo = new JsonObj(arg2);
-						Toast.makeText(NoteActivity.this, jo.getString("result"), Toast.LENGTH_SHORT).show();
+						if (jo.getBool("result")){
+							Intent intent = new Intent();
+							intent.putExtras(bundle);
+							setResult(1, intent);
+							finish();
+						}
 					}
 					
 					@Override
@@ -79,12 +85,7 @@ public class NoteActivity extends FragmentActivity {
 			return true;
 		}
 		else if (id == android.R.id.home){
-			if (modified){
-				setResult(1, null);
-			}
-			else{
-				setResult(0, null);
-			}
+			setResult(0, null);
 			finish();
 			return true;
 		}
@@ -93,12 +94,7 @@ public class NoteActivity extends FragmentActivity {
 	
 	@Override
 	public void onBackPressed(){
-		if (modified){
-			setResult(1, null);
-		}
-		else{
-			setResult(0, null);
-		}
+		setResult(0, null);
 		super.onBackPressed();
 	}
 }

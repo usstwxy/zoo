@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class NoteFragment extends Fragment {
 	private View rootView;
@@ -20,6 +21,7 @@ public class NoteFragment extends Fragment {
 		// TODO Auto-generated method stub
 		rootView = (View) inflater.inflate(R.layout.fragment_note, container, false);
 		editText = (EditText) rootView.findViewById(R.id.text_submit);
+		editText.setText(getArguments().getString("comment"));
 		return rootView;
 	}
 	

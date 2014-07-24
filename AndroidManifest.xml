@@ -129,7 +129,7 @@
                 <action android:name="cn.jpush.android.intent.CONNECTION" />接收网络变化 连接/断开 since 1.6.3
                 <category android:name="com.example.smallcat" />
             </intent-filter>
-        </receiver>
+        </receiver>
         -->
 
 
@@ -151,6 +151,11 @@
         <activity
             android:name="com.smallcat.activity.NoteActivity"
             android:label="@string/title_activity_note" >
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.PostActivity"
+            android:label="@string/title_activity_post" 
+            android:theme="@style/NoActionBarTheme">
         </activity>
     </application>
 
