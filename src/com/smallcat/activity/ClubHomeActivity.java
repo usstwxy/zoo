@@ -33,7 +33,7 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	private ViewPager mViewPager;
 	
 	/**
 	 * ViewPager tabs 的实例
@@ -48,14 +48,19 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 	
 	private ClubMembersFragment cmFragment;
 	
+	private Bundle bundle;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_club_home);
 
+		bundle = getIntent().getExtras();
+		
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setTitle(bundle.getString(MainActivity.EXTRA_CTITLE));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		// Create the adapter that will return a fragment for each of the three
@@ -132,26 +137,31 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 			case 0:
 				if (ctFragment == null) {
 					ctFragment = new ClubTwitterFragment();
+					ctFragment.setArguments(bundle);
 				}
 				return ctFragment;
 			case 1:
 				if (caFragment == null) {
 					caFragment = new ClubActivitysFragment();
+					caFragment.setArguments(bundle);
 				}
 				return caFragment;
 			case 2:
 				if (cfFragment == null) {
 					cfFragment = new ClubFilesFragment();
+					cfFragment.setArguments(bundle);
 				}
 				return cfFragment;
 			case 3:
 				if (cvFragment == null) {
 					cvFragment = new ClubVoteFragment();
+					cvFragment.setArguments(bundle);
 				}
 				return cvFragment; 
 			default:
 				if (cmFragment == null) {
 					cmFragment = new ClubMembersFragment();
+					cmFragment.setArguments(bundle);
 				}
 				return cmFragment;
 			}

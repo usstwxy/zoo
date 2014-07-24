@@ -2,11 +2,11 @@ package com.smallcat.adapter;
 
 import java.util.ArrayList;
 
-import com.example.smallcat.PublishSampleActivity;
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
 import com.smallcat.activity.DetailActivity;
 import com.smallcat.activity.MainActivity;
+import com.smallcat.activity.PublishNoticeActivity;
 import com.smallcat.adapter.FindAdapter.Activity;
 import com.smallcat.adapter.FindAdapter.Row;
 
@@ -217,7 +217,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	            @Override
 	            public void onClick(View v) {
 	            	mPopUpWindow.dismiss();  
-	            	Intent intent = new Intent(mContext, PublishSampleActivity.class);
+	            	Intent intent = new Intent(mContext, PublishNoticeActivity.class);
 	            	
 					Bundle bundle = new Bundle();
 					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
@@ -260,7 +260,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	            @Override
 	            public void onClick(View v) {
 	            	mPopUpWindow.dismiss();  
-	            	Intent intent = new Intent(mContext, PublishSampleActivity.class);
+	            	Intent intent = new Intent(mContext, PublishNoticeActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
 					bundle.putString(MainActivity.EXTRA_CID, clubID);

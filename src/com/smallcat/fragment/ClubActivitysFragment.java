@@ -12,6 +12,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.smallcat.activity.MainActivity;
 import com.smallcat.adapter.FindAdapter;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
@@ -34,9 +35,11 @@ import android.widget.Toast;
 public class ClubActivitysFragment extends Fragment implements OnRefreshListener {
 	
 	private ListView lv;
+	private Bundle bundle;
 	private PullToRefreshLayout mPullToRefreshLayout;
 	private FindAdapter mAdapter;
-	private View mFindStatusView;
+	private View mStatusView;
+	
 	public ClubActivitysFragment() {
 		// Required empty public constructor
 	}
@@ -47,42 +50,8 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 		// Inflate the layout for this fragment
 		View rootView = (View) inflater.inflate(R.layout.fragment_club_activitys, container, false);
 		lv = (ListView) rootView.findViewById(R.id.listView1);
-		mFindStatusView = rootView.findViewById(R.id.find_status);
-		
-		showProgress(true);
-		WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {
-			
-			@SuppressLint("SimpleDateFormat") @Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				// TODO Auto-generated method stub
-				mAdapter = new FindAdapter(getActivity());
-				JsonObj jo = new JsonObj(arg2);
-				Integer count = jo.count();
-				mAdapter.AddHeader();
-				mAdapter.AddCategory("社团类别1", count.toString());
-				for (JsonObj item : jo.values()) {
-					try {
-						String dateText = item.getString("StartTime").replace('T', ' ');
-						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						Date date = sdf.parse(dateText);
-						Date now = new Date();
-						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(null, item.getString("Title"), item.getString("Num"), item.getString("ClubName"), item.getString("CNum"), "还有" + String.valueOf(interval) + "天", item.getString("ID"));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				showProgress(false);
-				lv.setAdapter(mAdapter);
-			}
-			
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), "failure", Toast.LENGTH_SHORT).show();
-			}
-		});
+		bundle = getArguments();
+		mStatusView = rootView.findViewById(R.id.find_status);
 		
 		return rootView;
 	}
@@ -105,7 +74,43 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
                 .setup(mPullToRefreshLayout);
     }
 	
+	@Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 	
+        String clubID = bundle.getString(MainActivity.EXTRA_CID);
+        
+        showProgress(true);
+		WebAPI.get("club/getActivity?id=" + clubID + "&index=0", null, new AsyncHttpResponseHandler() {
+			
+			@SuppressLint("SimpleDateFormat") @Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				mAdapter = new FindAdapter(getActivity());
+				
+				JsonObj jo = new JsonObj(arg2);
+				String clubName = bundle.getString(MainActivity.EXTRA_CTITLE);
+				for (JsonObj item : jo.values()) {
+					String dateText = item.getString("StartTime").replace('T', ' ');
+					String url = item.getString("Poster");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
+					}
+					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"), clubName, item.getString("CNum"), dateText, item.getString("ID"));
+				}
+				showProgress(false);
+				lv.setAdapter(mAdapter);
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				showProgress(false);
+				Toast.makeText(getActivity(), "failure", Toast.LENGTH_SHORT).show();
+			}
+		});
+	
+	}
 
 	@Override
 	public void onRefreshStarted(View view) {
@@ -114,30 +119,24 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
         /**
          * Simulate Refresh with 4 seconds sleep
          */
-		
-        WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {		
+		String clubID = bundle.getString(MainActivity.EXTRA_CID);
+
+		WebAPI.get("club/getActivity?id=" + clubID + "&index=0", null, new AsyncHttpResponseHandler() {		
         	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				// TODO Auto-generated method stub
-				if (mAdapter == null)
-					mAdapter = new FindAdapter(getActivity());
-				Toast.makeText(getActivity(), "123", Toast.LENGTH_SHORT).show();
+				mAdapter = new FindAdapter(getActivity());
+				
+				String clubName = bundle.getString(MainActivity.EXTRA_CTITLE);
 				JsonObj jo = new JsonObj(arg2);
-				Integer count = jo.count();
-				mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					try {
-						String dateText = item.getString("StartTime").replace('T', ' ');
-						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						Date date = sdf.parse(dateText);
-						Date now = new Date();
-						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(null, item.getString("Title"), item.getString("Num"), item.getString("ClubName"), "0", "还有" + String.valueOf(interval) + "天", item.getString("ID"));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					String dateText = item.getString("StartTime").replace('T', ' ');
+					String url = item.getString("Poster");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
 					}
+					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"), clubName, item.getString("CNum"), dateText, item.getString("ID"));
 				}
 				
 				new AsyncTask<Void, Void, Void>() {
@@ -186,20 +185,20 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
-			mFindStatusView.setVisibility(View.VISIBLE);
-			mFindStatusView.animate().setDuration(shortAnimTime)
+			mStatusView.setVisibility(View.VISIBLE);
+			mStatusView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 1 : 0)
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mFindStatusView.setVisibility(show ? View.VISIBLE
+							mStatusView.setVisibility(show ? View.VISIBLE
 									: View.GONE);
 						}
 					});
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
-			mFindStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+			mStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 		}
 	}
 }

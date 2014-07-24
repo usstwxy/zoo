@@ -113,6 +113,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 			@Override
 			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 				// TODO Auto-generated method stub
+				showProgress(false);
 				Toast.makeText(getActivity(), "failure", Toast.LENGTH_SHORT).show();
 			}
 		});

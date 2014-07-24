@@ -8,43 +8,102 @@
     android:orientation="vertical"
     tools:context="com.smallcat.fragment.NoteFragment" >
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
-        android:layout_marginTop="@dimen/action_bar_height"
-        android:layout_weight="1.0"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/standard_margin"
         android:paddingLeft="@dimen/standard_margin_variable"
         android:paddingRight="@dimen/standard_margin_variable"
         android:paddingTop="@dimen/standard_margin" >
-
+        
         <EditText
-            android:id="@+id/text_submit"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@null"
-            android:gravity="center|top"
-            android:hint="在此写下你的感悟吧：）"
-            android:imeOptions="actionDone"
-            android:inputType="textMultiLine|textUri"
-            android:nextFocusLeft="@id/text_submit"
-            android:nextFocusUp="@id/text_submit"
-            android:textColor="@color/umano_edit_text"
-            android:textColorHint="@color/umano_edit_hint"
-            android:textIsSelectable="false"
-            android:textSize="20.0sp" />
+	        android:id="@+id/edt_title"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@null"
+	        android:gravity="center|top"
+	        android:hint="在此写下标题吧：）"
+	        android:imeOptions="actionDone"
+	        android:inputType="textMultiLine|textUri"
+	        android:nextFocusLeft="@id/text_submit"
+	        android:nextFocusUp="@id/text_submit"
+	        android:textColor="@color/umano_edit_text"
+	        android:textColorHint="@color/umano_edit_hint"
+	        android:textIsSelectable="false"
+	        android:textSize="24.0sp"
+	        android:visibility="invisible" />
+	    
+	    <EditText
+	        android:id="@+id/edt_content"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:background="@null"
+	        android:gravity="center|top"
+	        android:hint="在此写下你的感悟吧：）"
+	        android:imeOptions="actionDone"
+	        android:inputType="textMultiLine|textUri"
+	        android:nextFocusLeft="@id/text_submit"
+	        android:nextFocusUp="@id/text_submit"
+	        android:textColor="@color/umano_edit_text"
+	        android:textColorHint="@color/umano_edit_hint"
+	        android:textIsSelectable="false"
+	        android:textSize="20.0sp" />
 
-        <TextView
+	    <LinearLayout
+	        android:id="@+id/select_starttime"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingBottom="@dimen/standard_margin"
+	        android:orientation="horizontal"
+	        android:visibility="gone">
+	               
+	        <TextView
+		        android:id="@+id/txt_startdate"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:background="@null"
+		        android:onClick="true"
+		        android:focusable="false"
+		        android:focusableInTouchMode="false"
+		        android:textColor="@color/umano_edit_text"
+		        android:textColorHint="@color/umano_edit_hint"
+		        android:hint="点我选择开始日期"
+		        android:textSize="16.0sp" />
+
+		    <TextView
+		        android:id="@+id/txt_starttime"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:background="@null"
+		        android:onClick="true"
+		        android:focusable="false"
+		        android:focusableInTouchMode="false"
+		        android:textColor="@color/umano_edit_text"
+		        android:textColorHint="@color/umano_edit_hint"
+		        android:hint="点我选择开始时间"
+		        android:textSize="16.0sp" />
+	    </LinearLayout>
+	    
+
+	
+	    <TextView
             android:id="@+id/text_submit_tip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:text="点击相框添加图片"
+            android:text="Tips:点击相框添加图片"
             android:textColor="@color/umano_edit_hint"
             android:textSize="14.0sp" />
-    </FrameLayout>
-
+    
+    </LinearLayout>
+    
+	
     <RelativeLayout
         android:id="@+id/layout_preview"
         android:layout_width="fill_parent"

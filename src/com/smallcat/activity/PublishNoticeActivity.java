@@ -15,21 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class NoteActivity extends FragmentActivity {
-	private Bundle bundle;
+public class PublishNoticeActivity extends FragmentActivity {
+	public static final String EXTRA_MANAGE = "clubmanage";
 	private NoteFragment fragment;
-	private boolean modified = false;
-
+	private Bundle bundle;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_note);
-		
+		setContentView(R.layout.activity_publish_sample);
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		bundle = getIntent().getExtras();
+		bundle.putString(EXTRA_MANAGE, "true");
 		
-		getActionBar().setTitle(bundle.getString("title"));
+		getActionBar().setTitle(bundle.getString("发布通知"));
 		
 		if (savedInstanceState == null) {
 			fragment = new NoteFragment();
@@ -43,62 +44,48 @@ public class NoteActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.note, menu);
+		getMenuInflater().inflate(R.menu.publish_sample, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_submit) {
-			String text = fragment.getContent();
-			if (!text.equals("")){
+			String title = fragment.getTitle();
+			String content = fragment.getContent();
+			if (!content.equals("")){
 				RequestParams params = new RequestParams();
 				params.add("UserID", LoginActivity.USERID);
-				params.add("ActivityID", bundle.getString("id"));
-				params.add("Comment", text);
-				WebAPI.post("exps/publishexp", params, new AsyncHttpResponseHandler() {
+				params.add("ClubID", bundle.getString(MainActivity.EXTRA_CID));
+				params.add("Title", title);
+				params.add("Content", content);
+				WebAPI.post("activity/publish", params, new AsyncHttpResponseHandler() {
 					
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						// TODO Auto-generated method stub
 						JsonObj jo = new JsonObj(arg2);
-						Toast.makeText(NoteActivity.this, jo.getString("result"), Toast.LENGTH_SHORT).show();
+						finish();
+						Toast.makeText(PublishNoticeActivity.this, jo.getString("result"), Toast.LENGTH_SHORT).show();
 					}
 					
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 						// TODO Auto-generated method stub
-						Toast.makeText(NoteActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
+						Toast.makeText(PublishNoticeActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
 					}
 				});
+			}else if (id == android.R.id.home){
+				finish();
+				return true;
 			}
-			return true;
 		}
-		else if (id == android.R.id.home){
-			if (modified){
-				setResult(1, null);
-			}
-			else{
-				setResult(0, null);
-			}
-			finish();
-			return true;
-		}
+		
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	public void onBackPressed(){
-		if (modified){
-			setResult(1, null);
-		}
-		else{
-			setResult(0, null);
-		}
-		super.onBackPressed();
-	}
+
 }

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_button_selector"
+    android:clickable="true"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+
+    <ProgressBar
+        android:id="@+id/progress_download"
+        style="@style/Widget.ProgressBar.Vertical"
+        android:layout_width="4.0dip"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:max="100"
+        android:progress="0" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/clip_standard_image_size"
+        android:layout_height="@dimen/clip_standard_image_size"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:background="@drawable/placeholder_small"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="最新活动正在等着有缘人，报名即送吉他模型"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/lbl_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_title"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="@dimen/action_bar_height"
+        android:layout_marginBottom="2dip"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="时间：8-1 周五 6:00 ~ 8:00"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+    
+	<TextView
+        android:id="@+id/lbl_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_time"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="@dimen/action_bar_height"
+        android:layout_marginBottom="2dip"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:text="地点：上海理工 一教250"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+	
+
+    <TextView
+        android:id="@id/lbl_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/lbl_place"
+        android:layout_below="@id/lbl_place"
+        android:drawableLeft="@drawable/ic_comment"
+        android:drawablePadding="4.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="5" />
+
+    <TextView
+        android:id="@id/lbl_likes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/lbl_comments"
+        android:layout_toRightOf="@id/lbl_comments"
+        android:drawableLeft="@drawable/ic_like"
+        android:drawablePadding="4.0dip"
+        android:paddingBottom="6.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="3" />
+
+    <TextView
+        android:id="@+id/lbl_source_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/lbl_likes"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_toRightOf="@id/lbl_likes"
+        android:ellipsize="end"
+        android:gravity="right"
+        android:paddingLeft="3.0dip"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_social"
+        android:textIsSelectable="false"
+        android:textSize="12.0sp"
+        android:text="--吉他社" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umano_divider" />
+
+    <!-- <include
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_playlist_add_remove" /> -->
+
+</RelativeLayout>

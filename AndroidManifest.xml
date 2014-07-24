@@ -76,7 +76,7 @@
             android:theme="@style/MyTheme" >
         </activity>
         <activity
-            android:name="com.example.smallcat.PublishSampleActivity"
+            android:name="com.smallcat.activity.PublishNoticeActivity"
             android:label="@string/title_activity_publish_sample" >
         </activity>
 
