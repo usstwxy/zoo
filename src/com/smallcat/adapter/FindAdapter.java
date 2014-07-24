@@ -30,6 +30,7 @@ public class FindAdapter extends BaseAdapter{
 	private TwitterActivity selectedTwitter = null;
 	private View selectedView = null;
 	private Context context;
+	private boolean isBusy = false;
 	
 	public FindAdapter(Context context){
 		this.context = context;
@@ -44,6 +45,10 @@ public class FindAdapter extends BaseAdapter{
 	
 	public void updateTwitterActivity(String comment){
 		selectedTwitter.comment = comment;
+	}
+	
+	public void setFlagBusy(boolean isBusy){
+		this.isBusy = isBusy;
 	}
 	
 	@Override
@@ -252,7 +257,7 @@ public class FindAdapter extends BaseAdapter{
 				if (bmp != null){
 					holder.post.setImageBitmap(bmp);
 				}
-				else if (url != null && !url.equals("")){
+				else if (!FindAdapter.this.isBusy && url != null && !url.equals("")){
 					ImageLoadTask imageLoadTask = new ImageLoadTask();
 					imageLoadTask.execute(url);
 				}
@@ -263,7 +268,6 @@ public class FindAdapter extends BaseAdapter{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 
 		@Override

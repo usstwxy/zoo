@@ -454,12 +454,13 @@ containing a value of this type.
         public static final int rounded_edittext_bottom=0x7f02002f;
         public static final int rounded_edittext_middle=0x7f020030;
         public static final int rounded_edittext_top=0x7f020031;
-        public static final int summaryindicator=0x7f020032;
-        public static final int tooltip_background=0x7f020033;
-        public static final int tooltip_background_bordered=0x7f020034;
-        public static final int user_bg=0x7f020035;
-        public static final int white_button_selector=0x7f020036;
-        public static final int white_button_selector_transparent=0x7f020037;
+        public static final int starsky=0x7f020032;
+        public static final int summaryindicator=0x7f020033;
+        public static final int tooltip_background=0x7f020034;
+        public static final int tooltip_background_bordered=0x7f020035;
+        public static final int user_bg=0x7f020036;
+        public static final int white_button_selector=0x7f020037;
+        public static final int white_button_selector_transparent=0x7f020038;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f040059;
