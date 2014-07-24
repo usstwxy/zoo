@@ -27,6 +27,7 @@ public class FindAdapter extends BaseAdapter{
 	
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Activity selected = null;
+	private TwitterActivity selectedTwitter = null;
 	private View selectedView = null;
 	private Context context;
 	
@@ -39,6 +40,10 @@ public class FindAdapter extends BaseAdapter{
 		selected.attend = String.valueOf(i);
 		ActivityViewHolder holder = (ActivityViewHolder) selectedView.getTag();
 		holder.attend.setText(selected.attend);
+	}
+	
+	public void updateTwitterActivity(String comment){
+		selectedTwitter.comment = comment;
 	}
 	
 	@Override
@@ -72,7 +77,7 @@ public class FindAdapter extends BaseAdapter{
 			}
 		}
 		row.set(view);
-		row.setListen(view, row);
+		row.setListen(view);
 		return view;
 	}
 	
@@ -88,8 +93,8 @@ public class FindAdapter extends BaseAdapter{
 		rows.add(new Activity(url, title, attend, source, comment, date, id));
 	}
 	
-	public void AddTwitterActivity(String url, String title, String id){
-		rows.add(new TwitterActivity(url, title, id));
+	public void AddTwitterActivity(String url, String title, String id, String comment){
+		rows.add(new TwitterActivity(url, title, id, comment));
 	}
 	
 	abstract class ViewHolder{
@@ -130,7 +135,7 @@ public class FindAdapter extends BaseAdapter{
 		
 		public abstract void set(View view);
 		
-		public abstract void setListen(View view, Row row);
+		public abstract void setListen(View view);
 	}
 	
 	class Header extends Row{
@@ -155,7 +160,7 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view, Row row) {
+		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -192,7 +197,7 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view, Row row) {
+		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -249,7 +254,10 @@ public class FindAdapter extends BaseAdapter{
 				}
 				else if (url != null && !url.equals("")){
 					ImageLoadTask imageLoadTask = new ImageLoadTask();
-					imageLoadTask.execute(holder, url, this);
+					imageLoadTask.execute(url);
+				}
+				else{
+					holder.post.setImageResource(R.drawable.placeholder_small);
 				}
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -259,13 +267,13 @@ public class FindAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(final View view, final Row row) {
+		public void setListen(final View view) {
 			// TODO Auto-generated method stub
 			view.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					selected = (Activity) row;
+					selected = Activity.this;
 					selectedView = view;
 					Intent intent = new Intent(context, DetailActivity.class);
 					Bundle bundle = new Bundle();
@@ -275,25 +283,23 @@ public class FindAdapter extends BaseAdapter{
 					bundle.putString("comment", comment);
 					bundle.putString("date", date);
 					bundle.putString("id", id);
+					bundle.putString("url", url);
 					intent.putExtras(bundle);
 					((FragmentActivity)context).startActivityForResult(intent, 0);
 				}
 			});
 		}
 		
-		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+		class ImageLoadTask extends AsyncTask<Object, Void, Bitmap> {
 			@Override
-			protected Void doInBackground(Object... params) {
-				String url = (String) params[1];
-				Activity.this.bmp = ImageLoader.loadImage(url);
-				return null;
+			protected Bitmap doInBackground(Object... params) {
+				String url = (String) params[0];
+				return ImageLoader.loadImage(url);
 			}
 
 			@Override
-			protected void onPostExecute(Void result) {
-				if (result == null) {
-					return;
-				}
+			protected void onPostExecute(Bitmap result) {
+				Activity.this.bmp = result;
 				notifyDataSetChanged();
 			}
 		}
@@ -301,14 +307,15 @@ public class FindAdapter extends BaseAdapter{
 	
 	public class TwitterActivity extends Row{
 		
-		public String title, url, id;
+		public String title, url, id, comment;
 		public Bitmap bmp;
 
-		public TwitterActivity(String url, String title, String id) {
+		public TwitterActivity(String url, String title, String id, String comment) {
 			super(R.layout.twitter_activity);
 			this.url = url;
 			this.title = title;
 			this.id = id;
+			this.comment = comment;
 			// TODO Auto-generated constructor stub
 		}
 
@@ -334,21 +341,26 @@ public class FindAdapter extends BaseAdapter{
 			}
 			else if (url != null && !url.equals("")){
 				ImageLoadTask imageLoadTask = new ImageLoadTask();
-				imageLoadTask.execute(holder, url, this);
+				imageLoadTask.execute(url);
+			}
+			else{
+				holder.post.setImageResource(R.drawable.placeholder_small);
 			}
 		}
 
 		@Override
-		public void setListen(View view, Row row) {
+		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			view.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					selectedTwitter = TwitterActivity.this;
 					Intent intent = new Intent(context, NoteActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("id", id);
+					bundle.putString("comment", comment);
 					intent.putExtras(bundle);
 					((FragmentActivity)context).startActivityForResult(intent, 0);
 				}
@@ -359,13 +371,14 @@ public class FindAdapter extends BaseAdapter{
 			
 			@Override
 			protected Void doInBackground(Object... params) {
-				String url = (String) params[1];
+				String url = (String) params[0];
 				TwitterActivity.this.bmp = ImageLoader.loadImage(url);
 				return null;
 			}
 
 			@Override
 			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
 				if (result == null) {
 					return;
 				}

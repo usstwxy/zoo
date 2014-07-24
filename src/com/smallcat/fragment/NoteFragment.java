@@ -32,6 +32,7 @@ public class NoteFragment extends Fragment{
 		// TODO Auto-generated method stub
 		rootView = (View) inflater.inflate(R.layout.fragment_note, container, false);
 		mContent = (EditText)rootView.findViewById(R.id.edt_content);
+		mContent.setText(getArguments().getString("comment"));
 		mTip = (TextView)rootView.findViewById(R.id.text_submit_tip);
 		bundle = getArguments();
 		String flag = bundle.getString(PublishNoticeActivity.EXTRA_MANAGE);
@@ -57,7 +58,7 @@ public class NoteFragment extends Fragment{
 	                tpd.setOnTimeSetListener(this);
 	            }
 	        }*/
-		}
+		}	
 		
 		return rootView;
 	}

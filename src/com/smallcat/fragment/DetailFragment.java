@@ -10,6 +10,9 @@ import org.apache.http.Header;
 
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.smallcat.activity.PostActivity;
+import com.smallcat.adapter.ImageLoader;
+import com.smallcat.adapter.FindAdapter.TwitterActivity;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
 
@@ -18,9 +21,12 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -44,14 +50,15 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements OnClickListener{
 	
 	private Bundle bundle;
 	private View rootView;
 	private ListView comments;
-	private ImageView arrow;
+	private ImageView post, arrow;
 	private TextView date, source, attend, cnt;
 	private LinearLayout activity, info, expand;
+	private Bitmap bmp;
 	
 	@SuppressLint("SimpleDateFormat") @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,10 +69,13 @@ public class DetailFragment extends Fragment {
 		
 		comments = (ListView) rootView.findViewById(R.id.listView1);
 		
+		post = (ImageView) rootView.findViewById(R.id.image);
 		date = (TextView) rootView.findViewById(R.id.date);
 		source = (TextView) rootView.findViewById(R.id.source);
 		attend = (TextView) rootView.findViewById(R.id.attend);
 		cnt = (TextView) rootView.findViewById(R.id.label_cnt);
+		
+		post.setOnClickListener(this);
 		
 		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -87,6 +97,14 @@ public class DetailFragment extends Fragment {
 		arrow = (ImageView) rootView.findViewById(R.id.arrow);
 		
 		expand.setOnClickListener(new ExpandClickListener() {});
+		
+		String url = bundle.getString("url");
+		
+		if (url != null && !url.equals("")){
+			ImageLoadTask imageLoadTask = new ImageLoadTask();
+			imageLoadTask.execute(url);
+		}
+		
 		
 		WebAPI.get("activity/getComments?id=" + bundle.getString("id") + "&index=0", null, new AsyncHttpResponseHandler() {
 			
@@ -126,6 +144,21 @@ public class DetailFragment extends Fragment {
 	public void update(){
 		int i = bundle.getInt("attend") + 1;
 		attend.setText("报名人数已达" + String.valueOf(i) + "人");
+	}
+	
+	class ImageLoadTask extends AsyncTask<Object, Void, Bitmap> {
+		
+		@Override
+		protected Bitmap doInBackground(Object... params) {
+			String url = (String) params[0];
+			return ImageLoader.loadImage(url);
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			DetailFragment.this.bmp = result;
+			DetailFragment.this.post.setImageBitmap(result);
+		}
 	}
 	
 	class ExpandClickListener implements OnClickListener{
@@ -214,5 +247,23 @@ public class DetailFragment extends Fragment {
 			}
 		}
 		
+	}
+	
+	private void showBigPicture(){
+		if (bmp != null){
+			PostActivity.post = bmp;
+			Intent intent = new Intent(getActivity(), PostActivity.class);
+			getActivity().startActivity(intent);
+		}
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch (arg0.getId()){
+		case R.id.image:
+			showBigPicture();
+			break;
+		}
 	}
 }

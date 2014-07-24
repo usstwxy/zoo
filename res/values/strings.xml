@@ -51,5 +51,6 @@
     <string name="lbl_hint_submit_text_step1">Submit a link to an interesting article.</string>
     <string name="lbl_hint_submit_text_step2">Our editorial team will review your submission.</string>
     <string name="lbl_hint_submit_text_step3">"We'll notify you if your article gets recorded!"</string>
+    <string name="title_activity_post">PostActivity</string>
 
 </resources>

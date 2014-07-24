@@ -159,6 +159,11 @@
             android:name="com.smallcat.activity.NoteActivity"
             android:label="@string/title_activity_note" >
         </activity>
+        <activity
+            android:name="com.smallcat.activity.PostActivity"
+            android:label="@string/title_activity_post" 
+            android:theme="@style/NoActionBarTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.smallcat.activity;
 import com.example.smallcat.R;
 import com.smallcat.fragment.TwitterFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -25,6 +26,13 @@ public class TwitterActivity extends FragmentActivity {
 			twitterFragment = new TwitterFragment();
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, twitterFragment).commit();
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == 1){
+			twitterFragment.update(data.getExtras());
 		}
 	}
 

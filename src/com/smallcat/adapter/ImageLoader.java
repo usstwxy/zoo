@@ -17,13 +17,11 @@ public class ImageLoader {
 
 	public static Bitmap loadImage(String url) {
 		Bitmap bitmap = null;
-		HttpClient client = new DefaultHttpClient();
-		HttpResponse response = null;
-		InputStream inputStream = null;
 		try {
-			response = client.execute(new HttpGet(url));
+			HttpClient client = new DefaultHttpClient();
+			HttpResponse response = client.execute(new HttpGet(url));
 			HttpEntity entity = response.getEntity();
-			inputStream = entity.getContent();
+			InputStream inputStream = entity.getContent();
 			bitmap = BitmapFactory.decodeStream(inputStream);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();

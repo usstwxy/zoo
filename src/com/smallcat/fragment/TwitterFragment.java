@@ -1,9 +1,5 @@
 package com.smallcat.fragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.http.Header;
 
 import com.example.smallcat.R;
@@ -40,13 +36,12 @@ public class TwitterFragment extends Fragment {
 				// TODO Auto-generated method stub
 				mAdapter = new FindAdapter(getActivity());
 				JsonObj jo = new JsonObj(arg2);
-				//mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
 					String url = item.getString("Poster");
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddTwitterActivity(url, item.getString("Title"), item.getString("ActivityID"));
+					mAdapter.AddTwitterActivity(url, item.getString("Title"), item.getString("ActivityID"), item.getString("Comment"));
 				}
 				listView.setAdapter(mAdapter);
 			}
@@ -59,5 +54,9 @@ public class TwitterFragment extends Fragment {
 		});
 
 		return rootView;
+	}
+	
+	public void update(Bundle bundle){
+		mAdapter.updateTwitterActivity(bundle.getString("comment"));
 	}
 }
