@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.smallcat.activity.DetailActivity"
+            android:name="com.smallcat.activity.ActivityDetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/MyTheme" >
         </activity>
@@ -149,7 +149,7 @@
             android:value="8b2eac6c7755b5f4c1e4d669" />
  <!-- </>值来自开发者平台取得的AppKey -->
 
-        <receiver android:name="com.small.service.AlarmReceiver" />
+        <receiver android:name="com.smallcat.service.AlarmReceiver" />
 
         <activity
             android:name="com.smallcat.activity.TwitterActivity"

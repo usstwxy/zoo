@@ -30,7 +30,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/lbl_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
         android:id="@+id/lbl_source_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/date"
+        android:layout_alignBottom="@id/lbl_title"
         android:layout_alignParentRight="false"
         android:layout_marginRight="@dimen/action_bar_height"
         android:layout_toRightOf="@id/image"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/image"
-        android:layout_below="@id/date"
+        android:layout_below="@id/lbl_title"
         android:drawableLeft="@drawable/ic_like"
         android:drawablePadding="4.0dip"
         android:paddingBottom="6.0dip"
@@ -98,7 +98,7 @@
         android:textSize="12.0sp" />
 
     <TextView
-        android:id="@+id/lbl_data"
+        android:id="@+id/lbl_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/lbl_comments"

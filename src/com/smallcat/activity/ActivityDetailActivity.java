@@ -12,7 +12,7 @@ import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
-import com.smallcat.fragment.DetailFragment;
+import com.smallcat.fragment.ActivityDetailFragment;
 import com.smallcat.service.AlarmReceiver;
 
 import android.annotation.SuppressLint;
@@ -27,11 +27,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class DetailActivity extends FragmentActivity {
+public class ActivityDetailActivity extends FragmentActivity {
 	
 	private Bundle bundle;
 	
-	private DetailFragment fragment;
+	private ActivityDetailFragment fragment;
 	
 	private boolean modified = false;
 
@@ -47,7 +47,7 @@ public class DetailActivity extends FragmentActivity {
 		getActionBar().setTitle(bundle.getString("title"));
 		
 		if (savedInstanceState == null) {
-			fragment = new DetailFragment();
+			fragment = new ActivityDetailFragment();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, fragment).commit();
@@ -81,19 +81,20 @@ public class DetailActivity extends FragmentActivity {
 						modified = true;
 						try {
 							AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-							Intent intent = new Intent(DetailActivity.this, AlarmReceiver.class);
-							bundle.putString("attend", String.valueOf(Integer.valueOf(bundle.getString("attend") + 1)));
+							Intent intent = new Intent(ActivityDetailActivity.this, AlarmReceiver.class);
+							bundle.putString("comment", String.valueOf(Integer.valueOf(bundle.getString("comment") + 1)));
 							intent.putExtras(bundle);
 							int requestCode = 0;
-							PendingIntent pendIntent = PendingIntent.getBroadcast(DetailActivity.this,
+							PendingIntent pendIntent = PendingIntent.getBroadcast(ActivityDetailActivity.this,
 									requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 							Date date = sdf.parse(bundle.getString("date"));
 							Date now = new Date();
 							long interval = date.getTime() - now.getTime() + SystemClock.elapsedRealtime();
+							interval = 5000;
 							alarmMgr.set(AlarmManager.ELAPSED_REALTIME, interval, pendIntent);
 							
-							Toast.makeText(DetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+							Toast.makeText(ActivityDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -101,7 +102,7 @@ public class DetailActivity extends FragmentActivity {
 					}
 					else{
 						String msg = jo.getString("msg");
-						Toast.makeText(DetailActivity.this, msg, Toast.LENGTH_SHORT).show();
+						Toast.makeText(ActivityDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
 				}
 				

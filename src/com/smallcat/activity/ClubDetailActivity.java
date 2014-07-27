@@ -28,7 +28,7 @@ public class ClubDetailActivity extends FragmentActivity {
 				.add(R.id.container, new ClubTwitterDetailFragment()).commit();
 			else
 				getSupportFragmentManager().beginTransaction()
-				.add(R.id.container, new DetailFragment()).commit();
+				.add(R.id.container, new ActivityDetailFragment()).commit();
 		}
 	}
 

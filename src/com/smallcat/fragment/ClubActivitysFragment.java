@@ -96,7 +96,8 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"), clubName, item.getString("CNum"), dateText, item.getString("ID"));
+					mAdapter.AddActivity(url, item.getString("Title"), item.getString("CNum"),
+							clubName, item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				showProgress(false);
 				lv.setAdapter(mAdapter);
@@ -136,7 +137,8 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"), clubName, item.getString("CNum"), dateText, item.getString("ID"));
+					mAdapter.AddActivity(url, item.getString("Title"), item.getString("CNum"),
+							clubName, item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				
 				new AsyncTask<Void, Void, Void>() {

@@ -3,6 +3,7 @@ package com.smallcat.fragment;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -50,13 +51,13 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailFragment extends Fragment implements OnClickListener{
+public class ActivityDetailFragment extends Fragment implements OnClickListener{
 	
 	private Bundle bundle;
 	private View rootView;
 	private ListView comments;
 	private ImageView post, arrow;
-	private TextView date, source, attend, cnt;
+	private TextView content, date, source, attend, cnt;
 	private LinearLayout activity, info, expand;
 	private Bitmap bmp;
 	
@@ -70,26 +71,13 @@ public class DetailFragment extends Fragment implements OnClickListener{
 		comments = (ListView) rootView.findViewById(R.id.listView1);
 		
 		post = (ImageView) rootView.findViewById(R.id.image);
+		content = (TextView) rootView.findViewById(R.id.content);
 		date = (TextView) rootView.findViewById(R.id.date);
 		source = (TextView) rootView.findViewById(R.id.source);
 		attend = (TextView) rootView.findViewById(R.id.attend);
 		cnt = (TextView) rootView.findViewById(R.id.label_cnt);
 		
 		post.setOnClickListener(this);
-		
-		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date d = sdf.parse(bundle.getString("date"));
-			Date now = new Date();
-			long interval = (d.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-			date.setText("距离活动开始还有" + String.valueOf(interval) + "天");
-		}catch (ParseException e){
-			
-		}
-		
-		source.setText("由" + bundle.getString("source") + "举办");
-		attend.setText("报名人数已达" + bundle.getString("attend") + "人");
-		cnt.setText("评论共有" + bundle.getString("comment") + "条");
 		
 		activity = (LinearLayout) rootView.findViewById(R.id.activity);
 		info = (LinearLayout) rootView.findViewById(R.id.info);
@@ -105,15 +93,42 @@ public class DetailFragment extends Fragment implements OnClickListener{
 			imageLoadTask.execute(url);
 		}
 		
+		WebAPI.get("activity/getbriefinfo?id=" + bundle.getString("id"), null, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] header, byte[] data) {
+				// TODO Auto-generated method stub
+				JsonObj jo = new JsonObj(data);
+				
+				try{
+					String dateText = jo.getString("StartTime").replace('T', ' ');
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date d = sdf.parse(dateText);
+					Date now = new Date();
+					date.setText("距离活动开始还有" + FormatTime(now, d));
+				}catch (ParseException e){
+					
+				}
+				content.setText(jo.getString("Intro"));
+				source.setText("由" + bundle.getString("source") + "举办");
+				attend.setText("报名人数已达" + bundle.getString("attend") + "人");
+				cnt.setText("目前共有" + jo.getString("Num") + "个小伙伴相应啦！");
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		
 		WebAPI.get("activity/getComments?id=" + bundle.getString("id") + "&index=0", null, new AsyncHttpResponseHandler() {
 			
 			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+			public void onSuccess(int arg0, Header[] header, byte[] data) {
 				// TODO Auto-generated method stub
-				JsonObj jo = new JsonObj(arg2);
-				
-				cnt.setText("评论共有" + String.valueOf(jo.count()) + "条");
+				JsonObj jo = new JsonObj(data);
 				
 				ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 				
@@ -125,7 +140,7 @@ public class DetailFragment extends Fragment implements OnClickListener{
 				}
 				
 				SimpleAdapter adapter = new SimpleAdapter(getActivity(), list,
-						R.layout.fragment_detail_comment_item,
+						R.layout.include_list_item_comment,
 						new String[]{"userName", "comment"},
 						new int[]{R.id.user_name, R.id.comment_text});
 				comments.setAdapter(adapter);
@@ -156,8 +171,8 @@ public class DetailFragment extends Fragment implements OnClickListener{
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			DetailFragment.this.bmp = result;
-			DetailFragment.this.post.setImageBitmap(result);
+			ActivityDetailFragment.this.bmp = result;
+			ActivityDetailFragment.this.post.setImageBitmap(result);
 		}
 	}
 	
@@ -265,5 +280,78 @@ public class DetailFragment extends Fragment implements OnClickListener{
 			showBigPicture();
 			break;
 		}
+	}
+	
+	private String FormatTime(Date startDate, Date endDate) {
+		Calendar startCalendar = Calendar.getInstance();
+		startCalendar.setTime(startDate);
+		Calendar endCalendar = Calendar.getInstance();
+		endCalendar.setTime(endDate);
+		
+		long interval = 0;
+		
+		if (startCalendar.after(endCalendar))
+			return "已开始";
+		
+		startCalendar.add(Calendar.YEAR, 1);  
+		if (startCalendar.before(endCalendar)) {
+			endCalendar.add(Calendar.YEAR, 1);  
+			while (startCalendar.before(endCalendar)) {
+				interval++;
+				startCalendar.add(Calendar.YEAR, 1);  
+			}
+			interval--;
+			return interval + "年";
+		} 
+		endCalendar.add(Calendar.YEAR, 1);
+		
+		startCalendar.add(Calendar.MONTH, 1);  
+		if (startCalendar.before(endCalendar)) {
+			endCalendar.add(Calendar.MONTH, 1);  
+			while (startCalendar.before(endCalendar)) {
+				interval++;
+				startCalendar.add(Calendar.MONTH, 1);
+			}
+			interval--;
+			return interval + "月";
+		} 
+		endCalendar.add(Calendar.MONTH, 1);  
+		
+		startCalendar.add(Calendar.DAY_OF_MONTH, 1);  
+		if (startCalendar.before(endCalendar)) {
+			endCalendar.add(Calendar.DAY_OF_MONTH, 1);  
+			while (startCalendar.before(endCalendar)) {
+				interval++;
+				startCalendar.add(Calendar.DAY_OF_MONTH, 1); 
+			}
+			interval--;
+			return interval + "天";
+		} 
+		endCalendar.add(Calendar.DAY_OF_MONTH, 1);  
+		
+		startCalendar.add(Calendar.HOUR, 1);  
+		if (startCalendar.before(endCalendar)) {
+			endCalendar.add(Calendar.HOUR, 1);  
+			while (startCalendar.before(endCalendar)) {
+				interval++;
+				startCalendar.add(Calendar.HOUR, 1);  
+			}
+			interval--;
+			return interval + "小时";
+		} 
+		endCalendar.add(Calendar.HOUR, 1);
+		
+		startCalendar.add(Calendar.MINUTE, 1);  
+		if (startCalendar.before(endCalendar)) {
+			endCalendar.add(Calendar.MINUTE, 1);  
+			while (startCalendar.before(endCalendar)) {
+				interval++;
+				startCalendar.add(Calendar.MINUTE, 1);  
+			}
+			interval--;
+			return interval + "分钟";
+		} 
+		
+		return "已开始";
 	}
 }

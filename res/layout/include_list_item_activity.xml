@@ -45,13 +45,12 @@
         android:textSize="@dimen/clip_standard_title_font_size" />
 
     <TextView
-        android:id="@+id/lbl_time"
+        android:id="@+id/lbl_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lbl_title"
         android:layout_alignParentRight="false"
         android:layout_marginRight="@dimen/action_bar_height"
-        android:layout_marginBottom="2dip"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
         android:paddingRight="@dimen/standard_margin"
@@ -65,10 +64,9 @@
         android:id="@+id/lbl_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lbl_time"
+        android:layout_below="@id/lbl_date"
         android:layout_alignParentRight="false"
         android:layout_marginRight="@dimen/action_bar_height"
-        android:layout_marginBottom="2dip"
         android:layout_toRightOf="@id/image"
         android:ellipsize="end"
         android:paddingRight="@dimen/standard_margin"
@@ -108,7 +106,8 @@
         android:textColor="@color/umano_clip_list_social"
         android:textIsSelectable="false"
         android:textSize="12.0sp"
-        android:text="3" />
+        android:text="3"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/lbl_source_name"

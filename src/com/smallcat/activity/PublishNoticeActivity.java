@@ -30,7 +30,7 @@ public class PublishNoticeActivity extends FragmentActivity {
 		bundle = getIntent().getExtras();
 		bundle.putString(EXTRA_MANAGE, "true");
 		
-		getActionBar().setTitle(bundle.getString("发布通知"));
+		getActionBar().setTitle("发布活动");
 		
 		if (savedInstanceState == null) {
 			fragment = new NoteFragment();
@@ -57,12 +57,14 @@ public class PublishNoticeActivity extends FragmentActivity {
 		if (id == R.id.action_submit) {
 			String title = fragment.getTitle();
 			String content = fragment.getContent();
+			String startTime = fragment.getDate();
 			if (!content.equals("")){
 				RequestParams params = new RequestParams();
 				params.add("UserID", LoginActivity.USERID);
 				params.add("ClubID", bundle.getString(MainActivity.EXTRA_CID));
 				params.add("Title", title);
 				params.add("Content", content);
+				params.add("StartTime", startTime);
 				WebAPI.post("activity/publish", params, new AsyncHttpResponseHandler() {
 					
 					@Override
@@ -79,10 +81,11 @@ public class PublishNoticeActivity extends FragmentActivity {
 						Toast.makeText(PublishNoticeActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
 					}
 				});
-			}else if (id == android.R.id.home){
-				finish();
-				return true;
 			}
+		}
+		else if (id == android.R.id.home){
+			finish();
+			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);

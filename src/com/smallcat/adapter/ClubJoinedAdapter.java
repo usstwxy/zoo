@@ -4,16 +4,21 @@ import java.util.ArrayList;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
-import com.smallcat.activity.DetailActivity;
+import com.smallcat.activity.ActivityDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.activity.PublishNoticeActivity;
 import com.smallcat.adapter.FindAdapter.Activity;
 import com.smallcat.adapter.FindAdapter.Row;
+import com.smallcat.adapter.FindAdapter.TwitterActivity;
+import com.smallcat.adapter.FindAdapter.ViewHolder;
+import com.smallcat.adapter.FindAdapter.Activity.ImageLoadTask;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.support.v4.app.FragmentActivity;
@@ -23,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,22 +65,21 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		return position;
 	}
-
+	
 	@Override
 	public View getView(int position, View view, ViewGroup viewGroup) {
 		// TODO Auto-generated method stub
 		Row row = (Row) getItem(position);
 		if (view == null){
-			view = row.set();
+			view =  row.set();
 		}else{
 			ViewHolder holder = (ViewHolder) view.getTag();
 			if (holder == null || holder.layoutID != row.layoutID){
 				view = row.set();
-			}else{
-				row.set(view);
 			}
 		}
-		row.setListen(view, row);
+		row.set(view);
+		row.setListen(view);
 		return view;
 	}
 	
@@ -82,8 +87,8 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		rows.add(new Category(name, count){});
 	}
 	
-	public void AddClub(String clubID, String clubName, String twitters, String role){
-		rows.add(new Club(clubID, clubName, twitters, role){});
+	public void AddClub(String url, String clubID, String clubName, String twitters, String role){
+		rows.add(new Club(url, clubID, clubName, twitters, role){});
 	}
 	
 	public void AddFooter(){
@@ -109,6 +114,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		public TextView twitters;
 		public View btn_more;
 		public TextView btn_publish;
+		public ImageView logo;
 	}
 	
 	abstract class Row{
@@ -123,7 +129,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		
 		public abstract void set(View view);
 		
-		public abstract void setListen(View view, Row row);
+		public abstract void setListen(View view);
 	}
 	
 	class Footer extends Row{
@@ -140,6 +146,14 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			holder.btn_exps = (View)view.findViewById(R.id.btn_exps);
 			holder.btn_search = (View)view.findViewById(R.id.btn_search);
 			view.setTag(holder);
+
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			FooterViewHolder holder = (FooterViewHolder)view.getTag();
 			
 			holder.btn_exps.setOnClickListener(new OnClickListener() {
 	            
@@ -148,17 +162,10 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	            	Toast.makeText(mContext, "显示我的活动", Toast.LENGTH_SHORT).show();
 	            }
 	        });
-			return view;
 		}
 
 		@Override
-		public void set(View view) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void setListen(View view, Row row) {
+		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
 		}
@@ -166,13 +173,12 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	
 	class Club extends Row{
 		
-		public String clubName;
-		public String twitters;
-		public String clubID;
-		public String role;
+		public String clubName, twitters, clubID, role, url;
+		public Bitmap bmp;
 		
-		public Club(String clubID, String clubName, String twitters, String role){
+		public Club(String url, String clubID, String clubName, String twitters, String role){
 			super(R.layout.include_list_item_club);
+			this.url = url;
 			this.clubName = clubName;
 			this.twitters = twitters;
 			this.clubID = clubID;
@@ -188,44 +194,9 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			holder.twitters = (TextView)view.findViewById(R.id.txt_twitters);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
 			holder.btn_publish = (TextView)contentView.findViewById(R.id.btn_publish);
+			holder.logo = (ImageView)view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
-			
-			holder.clubName.setText(this.clubName);
-			holder.twitters.setText(this.twitters);
-			
-			holder.btn_more.setOnClickListener(new OnClickListener() {
-	            
-	            @Override
-	            public void onClick(View v) {
-	            	try {  
-	                    if (mPopUpWindow.isShowing()) {  
-	  
-	                    	mPopUpWindow.dismiss();  
-	                    }  
-	                    mPopUpWindow.showAsDropDown(v, 8, -8);
-	  
-	                } catch (Exception e) {  
-	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
-	                }  
-	            	
-	            }
-	        });
-			
-			holder.btn_publish.setOnClickListener(new OnClickListener() {
-	            
-	            @Override
-	            public void onClick(View v) {
-	            	mPopUpWindow.dismiss();  
-	            	Intent intent = new Intent(mContext, PublishNoticeActivity.class);
-	            	
-					Bundle bundle = new Bundle();
-					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
-					bundle.putString(MainActivity.EXTRA_CID, clubID);
-					intent.putExtras(bundle);
-					mContext.startActivity(intent);
-	            }
-	        });
 			
 			return view;
 		}
@@ -237,6 +208,16 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			
 			holder.clubName.setText(this.clubName);
 			holder.twitters.setText(this.twitters);
+			if (bmp != null){
+				holder.logo.setImageBitmap(bmp);
+			}
+			else if (url != null && !url.equals("")){
+				ImageLoadTask imageLoadTask = new ImageLoadTask();
+				imageLoadTask.execute(url);
+			}
+			else{
+				holder.logo.setImageResource(R.drawable.placeholder_small);
+			}
 			
 			holder.btn_more.setOnClickListener(new OnClickListener() {
 	            
@@ -252,6 +233,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	                } catch (Exception e) {  
 	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
 	                }  
+	            	
 	            }
 	        });
 			
@@ -261,6 +243,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	            public void onClick(View v) {
 	            	mPopUpWindow.dismiss();  
 	            	Intent intent = new Intent(mContext, PublishNoticeActivity.class);
+	            	
 					Bundle bundle = new Bundle();
 					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
 					bundle.putString(MainActivity.EXTRA_CID, clubID);
@@ -271,7 +254,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		}
 		
 		@Override
-		public void setListen(final View view, final Row row) {
+		public void setListen(final View view) {
 			// TODO Auto-generated method stub
 			view.setOnClickListener(new OnClickListener() {
 				@Override
@@ -286,6 +269,25 @@ public class ClubJoinedAdapter extends BaseAdapter{
 				}
 			});
 		}
+		
+		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+			
+			@Override
+			protected Void doInBackground(Object... params) {
+				String url = (String) params[0];
+				Club.this.bmp = ImageLoader.loadImage(url);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
+				if (result == null) {
+					return;
+				}
+				notifyDataSetChanged();
+			}
+		}
 	}
 	
 	class Category extends Row{
@@ -293,7 +295,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		public String name, count;
 		
 		public Category(String name, String count){
-			super(R.layout.find_category);
+			super(R.layout.include_item_category);
 			this.name = name;
 			this.count = count;
 		}
@@ -305,8 +307,6 @@ public class ClubJoinedAdapter extends BaseAdapter{
 			CategoryViewHolder holder = new CategoryViewHolder();
 			holder.name = (TextView) view.findViewById(R.id.cname);
 			holder.count = (TextView) view.findViewById(R.id.cnumber);
-			holder.name.setText(name);
-			holder.count.setText(count);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
 			return view;
@@ -321,7 +321,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		}
 
 		@Override
-		public void setListen(View view, Row row) {
+		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
 		}

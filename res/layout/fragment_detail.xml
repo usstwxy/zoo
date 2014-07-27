@@ -90,7 +90,8 @@
            android:drawableLeft="@drawable/ic_large_heart"
            android:drawablePadding="@dimen/standard_margin"
            android:textSize="18sp"
-           android:textIsSelectable="false" />
+           android:textIsSelectable="false"
+           android:visibility="gone" />
 
    	</LinearLayout>
    	
@@ -112,7 +113,7 @@
 	           android:drawablePadding="@dimen/standard_margin"
 	           android:gravity="center_vertical|left"
 	           android:padding="10dp"
-	           android:text="评论共有10条"
+	           android:text="目前共有10个小伙伴效应啦！"
 	           android:textIsSelectable="false"
 	           android:textSize="18sp" />
 		   <ImageView

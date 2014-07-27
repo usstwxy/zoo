@@ -43,17 +43,13 @@ public class ManagerFragment extends Fragment {
 				Integer count = jo.count();
 				//mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
-					try {
-						String dateText = item.getString("StartTime").replace('T', ' ');
-						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						Date date = sdf.parse(dateText);
-						Date now = new Date();
-						long interval = (date.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-						mAdapter.AddActivity(null, item.getString("Title"), "", item.getString("ClubName"), "", "还有" + String.valueOf(interval) + "天", item.getString("ActivityID"));
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					String dateText = item.getString("StartTime").replace('T', ' ');
+					String url = item.getString("Poster");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
 					}
+					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"),item.getString("ClubName"),
+							item.getString("CNum"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				listView.setAdapter(mAdapter);
 			}

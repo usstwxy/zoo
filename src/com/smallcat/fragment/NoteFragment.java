@@ -2,8 +2,16 @@ package com.smallcat.fragment;
 
 import java.util.Calendar;
 
+import com.fourmob.datetimepicker.*;
+import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.fourmob.datetimepicker.date.DatePickerDialog.OnDateSetListener;
+import com.sleepbot.datetimepicker.*;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import com.example.smallcat.R;
 import com.smallcat.activity.PublishNoticeActivity;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NoteFragment extends Fragment{
+public class NoteFragment extends Fragment implements OnDateSetListener, OnTimeSetListener{
 	public static final String DATEPICKER_TAG = "datepicker";
     public static final String TIMEPICKER_TAG = "timepicker";
 	
@@ -23,7 +31,8 @@ public class NoteFragment extends Fragment{
 	private EditText mTitle;
 	private EditText mContent;
 	private View mSelectDate;
-	private EditText mPlace;
+	private TextView mDate; 
+	private TextView mTime;
 	private TextView mTip;
 	
 	@SuppressLint("SimpleDateFormat") @Override
@@ -42,10 +51,12 @@ public class NoteFragment extends Fragment{
 			mContent.setHint("在此写下内容吧:)");
 			mSelectDate = (View)rootView.findViewById(R.id.select_starttime);
 			mSelectDate.setVisibility(View.VISIBLE);
+			mDate = (TextView)rootView.findViewById(R.id.txt_startdate);
+			mTime = (TextView)rootView.findViewById(R.id.txt_starttime);
 			mTitle = (EditText)rootView.findViewById(R.id.edt_title);
 			mTitle.setVisibility(View.VISIBLE);
 			
-/*			setDateListener();
+			setDateListener();
 			
 			if (savedInstanceState != null) {
 	            DatePickerDialog dpd = (DatePickerDialog) getFragmentManager().findFragmentByTag(DATEPICKER_TAG);
@@ -57,7 +68,7 @@ public class NoteFragment extends Fragment{
 	            if (tpd != null) {
 	                tpd.setOnTimeSetListener(this);
 	            }
-	        }*/
+	        }
 		}	
 		
 		return rootView;
@@ -72,21 +83,21 @@ public class NoteFragment extends Fragment{
 	}
 	
 	public String getDate(){
-		return "";
+		return mDate.getText() + " " + mTime.getText();
 	}
 	
 	public String getPlace(){
 		return "";
 	}
 
-	/*private void setDateListener() {
+	private void setDateListener() {
 		Calendar calendar = Calendar.getInstance();
 
         final DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
         final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY) ,calendar.get(Calendar.MINUTE), false, false);
         
         
-        rootView.findViewById(R.id.txt_startdate).setOnClickListener(new View.OnClickListener() {
+        mDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -96,7 +107,7 @@ public class NoteFragment extends Fragment{
             }
         });
 
-        rootView.findViewById(R.id.txt_starttime).setOnClickListener(new View.OnClickListener() {
+        mTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePickerDialog.setVibrate(false);
@@ -106,17 +117,15 @@ public class NoteFragment extends Fragment{
 	}
 	
 	@Override
-	public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "new time:" + hourOfDay + "-" + minute, Toast.LENGTH_LONG).show();
-		
-	}
-
-	@Override
 	public void onDateSet(DatePickerDialog datePickerDialog, int year,
 			int month, int day) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "new date:" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
-		
-	}*/
+		mDate.setText(year + "-" + ++month + "-" + day);
+	}
+	
+	@Override
+	public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+		// TODO Auto-generated method stub
+		mTime.setText(hourOfDay + ":" + minute);
+	}
 }

@@ -103,7 +103,11 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 				mAdapter.AddFooter();
 				mAdapter.AddCategory("My Clubs", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddClub(item.getString("ClubID"), item.getString("ClubName"), item.getString("Twitters"), item.getString("ClubRole"));
+					String url = item.getString("ClubLogo");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
+					}
+					mAdapter.AddClub(url, item.getString("ClubID"), item.getString("ClubName"), item.getString("Twitters"), item.getString("ClubRole"));
 				}
 				mAdapter.AddCategory("友情提示：", "点击搜索按钮,加入更多社团吧");
 				showProgress(false);
@@ -134,7 +138,11 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 				mAdapter.AddFooter();
 				mAdapter.AddCategory("My Clubs", count.toString());
 				for (JsonObj item : jo.values()) {
-					mAdapter.AddClub(item.getString("ClubID"), item.getString("ClubName"), item.getString("Twitters"), item.getString("ClubRole"));
+					String url = item.getString("ClubLogo");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
+					}
+					mAdapter.AddClub(url, item.getString("ClubID"), item.getString("ClubName"), item.getString("Twitters"), item.getString("ClubRole"));
 				}
 				mAdapter.AddCategory("友情提示：", "点击搜索按钮,加入更多社团吧");
 				new AsyncTask<Void, Void, Void>() {

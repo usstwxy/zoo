@@ -3,6 +3,7 @@ package com.smallcat.adapter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -19,8 +20,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.smallcat.R;
-import com.smallcat.activity.DetailActivity;
+import com.smallcat.activity.ActivityDetailActivity;
 import com.smallcat.activity.NoteActivity;
 
 public class FindAdapter extends BaseAdapter{
@@ -36,10 +38,10 @@ public class FindAdapter extends BaseAdapter{
 	}
 	
 	public void updateActivity(){
-		int i = Integer.valueOf(selected.attend) + 1;
-		selected.attend = String.valueOf(i);
+		int i = Integer.valueOf(selected.comment) + 1;
+		selected.comment = String.valueOf(i);
 		ActivityViewHolder holder = (ActivityViewHolder) selectedView.getTag();
-		holder.attend.setText(selected.attend);
+		holder.comment.setText(selected.comment);
 	}
 	
 	public void updateTwitterActivity(String comment){
@@ -89,8 +91,9 @@ public class FindAdapter extends BaseAdapter{
 		rows.add(new Category(name, count));
 	}
 	
-	public void AddActivity(String url, String title, String attend, String source, String comment, String date, String id){
-		rows.add(new Activity(url, title, attend, source, comment, date, id));
+	public void AddActivity(String url, String title, String attend, String source,
+			String comment, String date, String place, String id){
+		rows.add(new Activity(url, title, attend, source, comment, date, place, id));
 	}
 	
 	public void AddTwitterActivity(String url, String title, String id, String comment){
@@ -113,7 +116,7 @@ public class FindAdapter extends BaseAdapter{
 	
 	class ActivityViewHolder extends ViewHolder{
 
-		public TextView title, attend, source, comment, date;
+		public TextView title, attend, source, comment, date, place;
 		public ImageView post;
 	}
 	
@@ -140,7 +143,7 @@ public class FindAdapter extends BaseAdapter{
 	
 	class Header extends Row{
 		public Header(){
-			super(R.layout.find_header);
+			super(R.layout.include_header_find);
 		}
 
 		@Override
@@ -171,7 +174,7 @@ public class FindAdapter extends BaseAdapter{
 		public String name, count;
 		
 		public Category(String name, String count){
-			super(R.layout.find_category);
+			super(R.layout.include_item_category);
 			this.name = name;
 			this.count = count;
 		}
@@ -205,17 +208,19 @@ public class FindAdapter extends BaseAdapter{
 	
 	public class Activity extends Row{
 		
-		public String title, attend, source, comment, date, id, url;
+		public String title, attend, source, comment, date, place, id, url;
 		public Bitmap bmp;
 		
-		public Activity(String url, String title, String attend, String source, String comment, String date, String id){
-			super(R.layout.find_activity);
+		public Activity(String url, String title, String attend, String source,
+				String comment, String date, String place, String id){
+			super(R.layout.include_list_item_activity);
 			this.url = url;
 			this.title = title;
 			this.attend = attend;
 			this.source = source;
 			this.comment = comment;
 			this.date = date;
+			this.place = place;
 			this.id = id;
 		}
 		
@@ -224,11 +229,12 @@ public class FindAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
 			ActivityViewHolder holder = new ActivityViewHolder();
-			holder.title = (TextView) view.findViewById(R.id.date);
+			holder.title = (TextView) view.findViewById(R.id.lbl_title);
 			holder.attend = (TextView) view.findViewById(R.id.lbl_likes);
 			holder.source = (TextView) view.findViewById(R.id.lbl_source_name);
 			holder.comment = (TextView) view.findViewById(R.id.lbl_comments);
-			holder.date = (TextView) view.findViewById(R.id.lbl_data);
+			holder.date = (TextView) view.findViewById(R.id.lbl_date);
+			holder.place = (TextView) view.findViewById(R.id.lbl_place);
 			holder.post = (ImageView) view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
@@ -238,30 +244,22 @@ public class FindAdapter extends BaseAdapter{
 		@SuppressLint("SimpleDateFormat") @Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-			try {
-				ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date d = sdf.parse(date);
-				Date now = new Date();
-				long interval = (d.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-				holder.title.setText(title);
-				holder.attend.setText(attend);
-				holder.source.setText(source);
-				holder.comment.setText(comment);
-				holder.date.setText("还有" + String.valueOf(interval) + "天");
-				if (bmp != null){
-					holder.post.setImageBitmap(bmp);
-				}
-				else if (url != null && !url.equals("")){
-					ImageLoadTask imageLoadTask = new ImageLoadTask();
-					imageLoadTask.execute(url);
-				}
-				else{
-					holder.post.setImageResource(R.drawable.placeholder_small);
-				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
+			holder.title.setText(title);
+			holder.attend.setText(attend);
+			holder.source.setText(source);
+			holder.comment.setText(comment);
+			holder.date.setText("时间：" + date);
+			holder.place.setText("地点：" + place);
+			if (bmp != null){
+				holder.post.setImageBitmap(bmp);
+			}
+			else if (url != null && !url.equals("")){
+				ImageLoadTask imageLoadTask = new ImageLoadTask();
+				imageLoadTask.execute(url);
+			}
+			else{
+				holder.post.setImageResource(R.drawable.placeholder_small);
 			}
 			
 		}
@@ -275,7 +273,7 @@ public class FindAdapter extends BaseAdapter{
 					// TODO Auto-generated method stub
 					selected = Activity.this;
 					selectedView = view;
-					Intent intent = new Intent(context, DetailActivity.class);
+					Intent intent = new Intent(context, ActivityDetailActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("attend", attend);
