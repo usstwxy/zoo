@@ -20,7 +20,7 @@ import com.smallcat.adapter.FindAdapter;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
 
-public class ManagerFragment extends Fragment {
+public class MyGamesFragment extends Fragment {
 	
 	private ListView listView;
 	private FindAdapter mAdapter;
@@ -29,7 +29,7 @@ public class ManagerFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = (View) inflater.inflate(R.layout.fragment_manager, container, false);
+		View rootView = (View) inflater.inflate(R.layout.fragment_mygames, container, false);
 		
 		listView = (ListView) rootView.findViewById(R.id.listView1);
 		

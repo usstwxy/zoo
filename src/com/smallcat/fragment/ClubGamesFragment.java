@@ -32,7 +32,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ClubActivitysFragment extends Fragment implements OnRefreshListener {
+public class ClubGamesFragment extends Fragment implements OnRefreshListener {
 	
 	private ListView lv;
 	private Bundle bundle;
@@ -40,7 +40,7 @@ public class ClubActivitysFragment extends Fragment implements OnRefreshListener
 	private FindAdapter mAdapter;
 	private View mStatusView;
 	
-	public ClubActivitysFragment() {
+	public ClubGamesFragment() {
 		// Required empty public constructor
 	}
 

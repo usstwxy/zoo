@@ -7,7 +7,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
-import com.smallcat.fragment.NoteFragment;
+import com.smallcat.fragment.SubmissionFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class NoteActivity extends FragmentActivity {
+public class SubmissionActivity extends FragmentActivity {
 	private Bundle bundle;
-	private NoteFragment fragment;
+	private SubmissionFragment fragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_note);
+		setContentView(R.layout.activity_submission);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -32,7 +32,7 @@ public class NoteActivity extends FragmentActivity {
 		getActionBar().setTitle(bundle.getString("title"));
 		
 		if (savedInstanceState == null) {
-			fragment = new NoteFragment();
+			fragment = new SubmissionFragment();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, fragment).commit();
@@ -78,7 +78,7 @@ public class NoteActivity extends FragmentActivity {
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 						// TODO Auto-generated method stub
-						Toast.makeText(NoteActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
+						Toast.makeText(SubmissionActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}

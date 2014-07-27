@@ -1,7 +1,7 @@
 package com.smallcat.service;
 
 import com.example.smallcat.R;
-import com.smallcat.activity.ActivityDetailActivity;
+import com.smallcat.activity.GameDetailActivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 	}
 	
 	private void initNotification(){
-		intent = new Intent(context, ActivityDetailActivity.class);
+		intent = new Intent(context, GameDetailActivity.class);
 		intent.putExtras(bundle);
 		pendingIntent= PendingIntent.getActivity(context, 1, intent, Notification.FLAG_AUTO_CANCEL);
 		notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

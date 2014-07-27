@@ -1,45 +1,39 @@
 package com.smallcat.activity;
 
 import com.example.smallcat.R;
-import com.smallcat.fragment.TwitterFragment;
+import com.example.smallcat.R.id;
+import com.example.smallcat.R.layout;
+import com.example.smallcat.R.menu;
+import com.smallcat.fragment.MyGamesFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class TwitterActivity extends FragmentActivity {
+public class MyGamesActivity extends FragmentActivity {
 	
-	private TwitterFragment twitterFragment;
+	private MyGamesFragment managerFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_twitter);
+		setContentView(R.layout.activity_mygames);
 		
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setTitle("我的随笔管理");
+		getActionBar().setTitle("我的活动管理");
 		
 		if (savedInstanceState == null) {
-			twitterFragment = new TwitterFragment();
+			managerFragment = new MyGamesFragment();
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, twitterFragment).commit();
-		}
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == 1){
-			twitterFragment.update(data.getExtras());
+					.add(R.id.container, managerFragment).commit();
 		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.twitter, menu);
+		getMenuInflater().inflate(R.menu.manager, menu);
 		return true;
 	}
 

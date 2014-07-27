@@ -22,11 +22,11 @@ import android.widget.SimpleAdapter;
  * A simple {@link android.support.v4.app.Fragment} subclass.
  * 
  */
-public class ClubTwitterDetailFragment extends Fragment {
+public class ClubExpDetailFragment extends Fragment {
 	
 	ListView lv;
 	
-	public ClubTwitterDetailFragment() {
+	public ClubExpDetailFragment() {
 		// Required empty public constructor
 	}
 
@@ -34,7 +34,7 @@ public class ClubTwitterDetailFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View rootView = (View) inflater.inflate(R.layout.fragment_club_twitter_detail, container, false);
+		View rootView = (View) inflater.inflate(R.layout.fragment_club_exp_detail, container, false);
 		lv = (ListView)rootView.findViewById(R.id.list_twitter_comments);
 		
 		return rootView;
@@ -52,7 +52,7 @@ public class ClubTwitterDetailFragment extends Fragment {
         	map.put("content", "Nice Article :)");
         	data.add(map);
         }
-        SimpleAdapter adapter = new SimpleAdapter(getActivity(), data, R.layout.include_list_item_twitter_comment,
+        SimpleAdapter adapter = new SimpleAdapter(getActivity(), data, R.layout.include_list_item_exp_comment,
         		new String[] {"title", "content"}, new int[] {R.id.lbl_title, R.id.txt_content});
         lv.setAdapter(adapter);
         

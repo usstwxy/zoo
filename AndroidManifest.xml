@@ -48,12 +48,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.smallcat.activity.ActivityDetailActivity"
+            android:name="com.smallcat.activity.GameDetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/MyTheme" >
         </activity>
         <activity
-            android:name="com.smallcat.activity.ManagerActivity"
+            android:name="com.smallcat.activity.MyGamesActivity"
             android:label="@string/title_activity_manager"
             android:theme="@style/MyTheme" >
         </activity>
@@ -76,7 +76,7 @@
             android:theme="@style/MyTheme" >
         </activity>
         <activity
-            android:name="com.smallcat.activity.PublishNoticeActivity"
+            android:name="com.smallcat.activity.PostGameActivity"
             android:label="@string/title_activity_publish_sample" >
         </activity>
 
@@ -152,11 +152,11 @@
         <receiver android:name="com.smallcat.service.AlarmReceiver" />
 
         <activity
-            android:name="com.smallcat.activity.TwitterActivity"
+            android:name="com.smallcat.activity.MyExpsActivity"
             android:label="@string/title_activity_twitter" >
         </activity>
         <activity
-            android:name="com.smallcat.activity.NoteActivity"
+            android:name="com.smallcat.activity.SubmissionActivity"
             android:label="@string/title_activity_note" >
         </activity>
         <activity

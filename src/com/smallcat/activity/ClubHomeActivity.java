@@ -38,9 +38,9 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 	/**
 	 * ViewPager tabs 的实例
 	 */
-	private ClubTwitterFragment ctFragment;
+	private ClubExpsFragment ctFragment;
 	
-	private ClubActivitysFragment caFragment;
+	private ClubGamesFragment caFragment;
 	
 	private ClubFilesFragment cfFragment;
 	
@@ -136,13 +136,13 @@ public class ClubHomeActivity extends FragmentActivity implements ActionBar.TabL
 			switch (position) {
 			case 0:
 				if (ctFragment == null) {
-					ctFragment = new ClubTwitterFragment();
+					ctFragment = new ClubExpsFragment();
 					ctFragment.setArguments(bundle);
 				}
 				return ctFragment;
 			case 1:
 				if (caFragment == null) {
-					caFragment = new ClubActivitysFragment();
+					caFragment = new ClubGamesFragment();
 					caFragment.setArguments(bundle);
 				}
 				return caFragment;
