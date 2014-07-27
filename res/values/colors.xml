@@ -10,6 +10,15 @@
     <color name="umano_clip_list_title">#ff000000</color>
     <color name="umano_clip_list_source">#ff545454</color>
     <color name="umano_clip_list_social">#ff989898</color>
+    <color name="umano_clip_detail_labels">#ffffffff</color>
+    <color name="umano_container_background">#ffe8e8e8</color>
+    <color name="umano_orange">#ffff9431</color>
+    <color name="umano_action_bar_pressed">#ffe4e4e4</color>
+    <color name="umano_clip_detail_shadow">#ff000000</color>
+    <color name="umano_gray">#ff999999</color>
+    <color name="umano_edit_hint">#ff989898</color>
+     <color name="umano_clip_expanded_social_text">#ff5a5a5a</color>
+    <color name="umano_clip_expanded_social_background">#fff8f8f8</color>
     <!-- <color name="com_facebook_picker_search_bar_background">#fff5f5f7</color>
     <color name="com_facebook_picker_search_bar_text">#ffbcbdc2</color>
     <color name="com_facebook_blue">#ff3b5998</color>
@@ -82,7 +91,7 @@
     <color name="umano_container_background">#ffe8e8e8</color>
     <color name="umano_button_text">#ff545454</color>
     
-    <color name="umano_edit_hint">#ff989898</color>
+    
     <color name="umano_error_header">#ff282828</color>
     <color name="umano_error_text">#ff5a5a5a</color>
     <color name="umano_dialog_text">#ff5a5a5a</color>

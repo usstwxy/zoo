@@ -1,5 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_button_selector"
+    android:descendantFocusability="blocksDescendants" >
+
+    <ProgressBar
+        android:id="@+id/progress_download"
+        style="@style/Widget.ProgressBar.Vertical"
+        android:layout_width="4.0dip"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:max="100"
+        android:progress="0" />
+
+    <ImageView 
+        android:id="@+id/image" 
+        android:background="@drawable/placeholder_small" 
+        android:duplicateParentState="true" 
+        android:layout_width="@dimen/clip_standard_image_size" 
+        android:layout_height="@dimen/clip_standard_image_size" 
+        android:layout_marginLeft="@dimen/standard_margin" 
+        android:layout_marginTop="@dimen/standard_margin" 
+        android:layout_marginRight="@dimen/standard_margin" 
+        android:scaleType="centerCrop" 
+        android:contentDescription="@string/app_name"/>
+
+    <TextView
+        android:id="@+id/lbl_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:paddingRight="@dimen/action_bar_height"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/txt_twitters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_title"
+        android:layout_alignParentRight="false"
+        android:layout_marginRight="@dimen/action_bar_height"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="middle"
+        android:paddingRight="@dimen/standard_margin"
+        android:paddingBottom="@dimen/standard_margin"
+        android:text="a参加了'哈哈哈aaaaaaaa'\nb参加了'哈哈哈'\nc参加了'哈哈哈'"
+        android:maxLines="2"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+    
+    <ImageView android:id="@+id/selected_clip_indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/playindicator" android:layout_alignParentTop="true" android:layout_alignParentRight="true" android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:id="@+id/summary_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/app_name"
+        android:maxWidth="123dp"
+        android:src="@drawable/summaryindicator"
+        android:visibility="gone" /> 
+
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umano_divider" />
+    
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_alignBottom="@id/txt_twitters"
+        android:layout_alignParentTop="true"
+        layout="@layout/include_clublist_more" />
+
+</RelativeLayout>
+<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/white_button_selector" 
+	android:focusable="false" 
+	android:focusableInTouchMode="false">
+
+      	<ImageView 
+      	    android:id="@+id/image" 
+      	    android:background="@drawable/placeholder_small" 
+      	    android:duplicateParentState="true" 
+      	    android:layout_width="@dimen/clip_standard_image_size" 
+      	    android:layout_height="@dimen/clip_standard_image_size" 
+      	    android:layout_marginLeft="@dimen/standard_margin" 
+      	    android:layout_marginTop="@dimen/standard_margin" 
+      	    android:layout_marginRight="@dimen/standard_margin" 
+      	    android:scaleType="centerCrop" 
+      	    android:contentDescription="@string/app_name"/>
+		<TextView 
+		    android:textSize="@dimen/clip_standard_title_font_size_large" 
+		    android:textColor="@color/umano_clip_list_title" 
+		    android:ellipsize="end" 
+		    android:id="@+id/lbl_title" 
+		    android:paddingRight="@dimen/action_bar_height" 
+		    android:paddingBottom="20.0sp" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_marginTop="@dimen/standard_margin" 
+		    android:layout_marginRight="@dimen/standard_margin" 
+		    android:layout_marginBottom="6.0dip" 
+		    android:minHeight="@dimen/clip_standard_image_size" 
+		    android:singleLine="true" 
+		    android:layout_toRightOf="@id/image" 
+		    android:layout_alignParentTop="true" 
+		    android:textIsSelectable="false"/>
+		<ImageView 
+		    android:id="@+id/selected_clip_indicator" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:src="@drawable/playindicator" 
+		    android:layout_alignParentTop="true" 
+		    android:layout_alignParentRight="true" 
+		    android:contentDescription="@string/app_name" />
+		<View android:id="@+id/comments_divider" android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginTop="@dimen/standard_margin" android:layout_below="@id/image" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" />
+		<TextView 
+		    android:textSize="@dimen/clip_standard_text_font_size" 
+		    android:textColor="@color/umano_clip_list_title" 
+		    android:ellipsize="end" 
+		    android:id="@+id/txt_comments" 
+		    android:paddingLeft="12.0sp" 
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_marginTop="@dimen/standard_margin" 
+		    android:layout_marginRight="@dimen/standard_margin" 
+		    android:minHeight="@dimen/clip_standard_image_size" 
+		    android:maxLines="4" 
+		    android:layout_below="@id/comments_divider" 
+		    android:layout_alignParentLeft="true" 
+		    android:textIsSelectable="false"/>
+		<View android:id="@+id/tools_divider" android:background="@color/umano_divider" android:layout_width="fill_parent" android:layout_height="0.5dip" android:layout_marginTop="@dimen/standard_margin" android:layout_below="@id/txt_comments" android:layout_alignParentLeft="true" android:layout_alignParentRight="true" />
+</RelativeLayout> -->
+<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:background="@color/umano_light_gray">
@@ -137,4 +288,4 @@
 				    android:textIsSelectable="false" />
 			</FrameLayout>
 		</LinearLayout>
-</RelativeLayout>
+</RelativeLayout> -->

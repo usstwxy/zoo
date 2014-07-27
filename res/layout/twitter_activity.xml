@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_button_selector"
+    android:paddingBottom="@dimen/standard_margin"
+    android:clickable="true"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/clip_standard_image_size"
+        android:layout_height="@dimen/clip_standard_image_size"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:background="@drawable/placeholder_small"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="6.0dip"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:minHeight="@dimen/clip_standard_image_size"
+        android:paddingBottom="20.0sp"
+        android:paddingRight="@dimen/action_bar_height"
+        android:text="最新活动正在等着有缘人，报名即送吉他模型"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+</RelativeLayout>

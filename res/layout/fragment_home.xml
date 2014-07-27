@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/home_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginTop="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginRight="@dimen/clip_list_cell_spacing"
+        android:divider="#00000000"
+        android:dividerHeight="0dp"
+        android:scrollbarStyle="outsideOverlay" >
+
+    </ListView>
+    
+</LinearLayout>
+
+<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dip" >
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginTop="@dimen/clip_list_cell_spacing" 
+	  	android:layout_marginRight="@dimen/clip_list_cell_spacing"
+	  	android:divider="#00000000"
+		android:dividerHeight="@dimen/standard_margin">
+    </ListView>
+
+</RelativeLayout> -->

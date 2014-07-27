@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/umano_light_gray" >
+
+    <LinearLayout
+        android:id="@+id/activity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/clip_standard_image_size"
+            android:layout_height="@dimen/clip_standard_image_size"
+            android:background="@drawable/placeholder_small"
+            android:contentDescription="@string/app_name"
+            android:duplicateParentState="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:minHeight="@dimen/clip_standard_image_size"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:text="本次活动特邀嘉宾为大家讲解，可以敲章哦"
+            android:textColor="@color/umano_clip_list_title"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/clip_standard_title_font_size" />
+
+    </LinearLayout>
+    
+   <LinearLayout
+       android:id="@+id/info"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/activity"
+       android:background="#e8e8e8"
+       android:baselineAligned="false"
+       android:orientation="vertical"
+       android:paddingBottom="5dp" >
+       
+       <TextView
+           android:id="@+id/date"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:background="@color/umano_light_gray"
+           android:gravity="center_vertical|left"
+           android:text="本周三下午3点,一教106"
+           android:padding="10dp"
+           android:drawableLeft="@drawable/ic_large_time"
+           android:drawablePadding="@dimen/standard_margin"
+           android:textSize="18sp"
+           android:textIsSelectable="false" />
+       
+       <TextView
+           android:id="@+id/source"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:background="@color/umano_light_gray"
+           android:gravity="center_vertical|left"
+           android:text="轮滑社承办，校团委协办"
+           android:padding="10dp"
+           android:drawableLeft="@drawable/icon_premium_auto"
+           android:drawablePadding="@dimen/standard_margin"
+           android:textSize="18sp"
+           android:textIsSelectable="false" />
+       
+       <TextView
+           android:id="@+id/attend"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
+           android:background="@color/umano_light_gray"
+           android:gravity="center_vertical|left"
+           android:text="报名人数已达30+"
+           android:padding="10dp"
+           android:drawableLeft="@drawable/ic_large_heart"
+           android:drawablePadding="@dimen/standard_margin"
+           android:textSize="18sp"
+           android:textIsSelectable="false"
+           android:visibility="gone" />
+
+   	</LinearLayout>
+   	
+   <LinearLayout
+       android:id="@+id/btn_expand"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/info"
+       android:clickable="true"
+       android:background="@color/umano_light_gray"
+       android:orientation="horizontal">
+	       <TextView
+	           android:id="@+id/label_cnt"
+	           android:layout_width="wrap_content"
+	           android:layout_height="wrap_content"
+	           android:layout_weight="1"
+	           android:background="@color/umano_light_gray"
+	           android:drawableLeft="@drawable/icon_send_feedback"
+	           android:drawablePadding="@dimen/standard_margin"
+	           android:gravity="center_vertical|left"
+	           android:padding="10dp"
+	           android:text="目前共有10个小伙伴效应啦！"
+	           android:textIsSelectable="false"
+	           android:textSize="18sp" />
+		   <ImageView
+		       android:id="@+id/arrow"
+		       android:layout_width="wrap_content"
+		       android:layout_height="fill_parent"
+		       android:layout_marginRight="5.0dip"
+		       android:src="@drawable/ic_expand" >
+		   </ImageView>
+   </LinearLayout>
+   
+   <ListView
+       android:id="@+id/listView1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/btn_expand"
+       android:background="@color/umano_light_gray" >
+   </ListView>
+
+</RelativeLayout>

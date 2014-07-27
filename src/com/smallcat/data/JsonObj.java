@@ -31,7 +31,11 @@ public class JsonObj {
 	
 	public int count() {
 		if (arr == null && map == null) {
+<<<<<<< HEAD
 			return -1;
+=======
+			return 0;
+>>>>>>> ui-lhc
 		}else {
 			if (arr != null)
 				return arr.length();
@@ -68,7 +72,25 @@ public class JsonObj {
 		}
 	}
 	
+<<<<<<< HEAD
 	
+=======
+	public JsonObj[] values() {
+		JsonObj[] values = new JsonObj[count()];
+		if (arr != null) {
+			int count = count();
+			for (int i=0; i<count; i++) {
+				values[i] = this.get(i);
+			}
+		}else if (map != null){
+			int i = 0;
+			for (String key : keys()) {
+				values[i++] = this.get(key);
+			}
+		}
+		return values;
+	}
+>>>>>>> ui-lhc
 	
 	
 	public JsonObj get(int index) {

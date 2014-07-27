@@ -3,10 +3,13 @@ package com.smallcat.activity;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.example.smallcat.R;
 import com.smallcat.fragment.*;
 import com.smallcat.widget.PagerSlidingTabStrip;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,13 +22,16 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.ViewConfiguration;
 import android.view.Window;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
+	public static final String EXTRA_CID = "clubID";
+	public static final String EXTRA_CTITLE = "clubTitle";
 	/**
 	 * 聊天界面的Fragment
 	 */
-	private ClubFragment clubFragment;
+	private HomeFragment clubFragment;
 
 	/**
 	 * 发现界面的Fragment
@@ -50,18 +56,38 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
+		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+		
 		
 		setOverflowShowingAlways();
 		dm = getResources().getDisplayMetrics();
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+		pager.setOffscreenPageLimit(2);
 		tabs.setViewPager(pager);
 		setTabsValue();
-		if (savedInstanceState == null) {
-			/*getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new MainFragment()).commit();*/
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == 1){
+			findFragment.update();
 		}
 	}
 	
@@ -113,23 +139,21 @@ public class MainActivity extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			switch (position) {
-			case 2:
-				if (meFragment == null) {
-					meFragment = new MeFragment();
-				}
-				return meFragment;
-			case 1:
-				if (clubFragment == null) {
-					clubFragment = new ClubFragment();
-				}
-				return clubFragment;
 			case 0:
 				if (findFragment == null) {
 					findFragment = new FindFragment();
 				}
 				return findFragment;
+			case 1:
+				if (clubFragment == null) {
+					clubFragment = new HomeFragment();
+				}
+				return clubFragment;
 			default:
-				return null;
+				if (meFragment == null) {
+					meFragment = new MeFragment();
+				}
+				return meFragment;
 			}
 		}
 

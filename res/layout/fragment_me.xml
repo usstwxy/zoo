@@ -1,10 +1,215 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.smallcat.fragment.MeFragment" >
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/premium_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/umano_container_background"
+    android:overScrollFooter="@null"
+    android:overScrollHeader="@null"
+    android:overScrollMode="never" >
 
-    <!-- TODO: Update blank fragment layout -->
+   <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="150.0dip" >
 
-</FrameLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_bg" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/standard_margin"
+                android:paddingBottom="2.0dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_margin"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/placeholder_user_circle" />
+
+                <TextView
+                    android:id="@+id/lbl_premium_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="如果不参加社团，那跟狗有什么区别"
+                    android:textColor="@android:color/white"
+                    android:textIsSelectable="false"
+                    android:textSize="16.0sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/lbl_premium_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:focusableInTouchMode="false"
+            android:gravity="left"
+            android:paddingBottom="@dimen/standard_margin"
+            android:paddingLeft="@dimen/standard_margin"
+            android:paddingRight="@dimen/standard_margin"
+            android:paddingTop="@dimen/standard_margin"
+            android:text="通知"
+            android:textColor="@color/umano_edit_text"
+            android:textIsSelectable="false"
+            android:textSize="16.0sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/umano_light_gray"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/lbl_premium_summary"
+                style="@style/PremiumFeatureTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:drawableLeft="@drawable/icon_premium_summary"
+                android:drawablePadding="@dimen/standard_margin"
+                android:text="未读消息" />
+
+            <TextView
+                android:id="@+id/lbl_premium_summary_description"
+                style="@style/PremiumFeatureDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="5.0dip"
+                android:paddingLeft="30.0dip"
+                android:text="被10+人跟风\n有3个社团发起新投票" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/umano_divider" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/lbl_premium_features"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:focusableInTouchMode="false"
+            android:gravity="left"
+            android:paddingBottom="@dimen/standard_margin"
+            android:paddingLeft="@dimen/standard_margin"
+            android:paddingRight="@dimen/standard_margin"
+            android:paddingTop="5.0dip"
+            android:text="管理"
+            android:textColor="@color/umano_edit_text"
+            android:textIsSelectable="false"
+            android:textSize="16.0sp" />
+
+        <LinearLayout
+            android:id="@+id/btn_activities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/umano_light_gray"
+            android:clickable="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/lbl_premium_sleep"
+                style="@style/PremiumFeatureTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:drawableLeft="@drawable/icon_premium_sleep"
+                android:drawablePadding="@dimen/standard_margin"
+                android:text="活动备忘" />
+
+            <TextView
+                android:id="@+id/lbl_premium_sleep_description"
+                style="@style/PremiumFeatureDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="5.0dip"
+                android:paddingLeft="30.0dip"
+                android:text="明天将在体育场举办运动会，别忘了参加哦" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/umano_divider" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_twitter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/umano_light_gray"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/lbl_premium_unlimited"
+                style="@style/PremiumFeatureTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:drawableLeft="@drawable/icon_premium_unlimited"
+                android:drawablePadding="@dimen/standard_margin"
+                android:text="随笔分享" />
+
+            <TextView
+                android:id="@+id/lbl_premium_unlimited_description"
+                style="@style/PremiumFeatureDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginTop="5.0dip"
+                android:paddingLeft="30.0dip"
+                android:text="草稿中有1篇随笔\n有2个社团邀请发表随笔" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.5dip"
+                android:background="@color/umano_divider" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
