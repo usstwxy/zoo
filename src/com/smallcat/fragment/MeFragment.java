@@ -1,9 +1,9 @@
 package com.smallcat.fragment;
 
 import com.example.smallcat.R;
-import com.smallcat.activity.ManagerActivity;
+import com.smallcat.activity.MyGamesActivity;
 import com.smallcat.service.AlarmReceiver;
-import com.smallcat.activity.TwitterActivity;
+import com.smallcat.activity.MyExpsActivity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -46,12 +46,12 @@ public class MeFragment extends Fragment implements OnClickListener{
 	
 	
 	private void clickActivities(){
-		Intent intent = new Intent(getActivity(), ManagerActivity.class);
+		Intent intent = new Intent(getActivity(), MyGamesActivity.class);
 		getActivity().startActivityForResult(intent, 0);
 	}
 	
 	private void clickTwitter(){
-		Intent intent = new Intent(getActivity(), TwitterActivity.class);
+		Intent intent = new Intent(getActivity(), MyExpsActivity.class);
 		getActivity().startActivityForResult(intent, 0);
 	}
 

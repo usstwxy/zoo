@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 
-public class TwitterFragment extends Fragment {
+public class MyExpsFragment extends Fragment {
 	private ListView listView;
 	private FindAdapter mAdapter;
 	
@@ -25,7 +25,7 @@ public class TwitterFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = (View) inflater.inflate(R.layout.fragment_twitter, container, false);
+		View rootView = (View) inflater.inflate(R.layout.fragment_myexps, container, false);
 		
 		listView = (ListView) rootView.findViewById(R.id.listView1);
 		

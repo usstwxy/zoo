@@ -51,7 +51,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivityDetailFragment extends Fragment implements OnClickListener{
+public class GameDetailFragment extends Fragment implements OnClickListener{
 	
 	private Bundle bundle;
 	private View rootView;
@@ -65,7 +65,7 @@ public class ActivityDetailFragment extends Fragment implements OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		rootView = (View) inflater.inflate(R.layout.fragment_detail, container, false);
+		rootView = (View) inflater.inflate(R.layout.fragment_game_detail, container, false);
 		bundle = getArguments();
 		
 		comments = (ListView) rootView.findViewById(R.id.listView1);
@@ -171,8 +171,8 @@ public class ActivityDetailFragment extends Fragment implements OnClickListener{
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
-			ActivityDetailFragment.this.bmp = result;
-			ActivityDetailFragment.this.post.setImageBitmap(result);
+			GameDetailFragment.this.bmp = result;
+			GameDetailFragment.this.post.setImageBitmap(result);
 		}
 	}
 	

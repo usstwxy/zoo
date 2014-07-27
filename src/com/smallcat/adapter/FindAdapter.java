@@ -22,8 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.smallcat.R;
-import com.smallcat.activity.ActivityDetailActivity;
-import com.smallcat.activity.NoteActivity;
+import com.smallcat.activity.GameDetailActivity;
+import com.smallcat.activity.SubmissionActivity;
 
 public class FindAdapter extends BaseAdapter{
 	
@@ -213,7 +213,7 @@ public class FindAdapter extends BaseAdapter{
 		
 		public Activity(String url, String title, String attend, String source,
 				String comment, String date, String place, String id){
-			super(R.layout.include_list_item_activity);
+			super(R.layout.include_list_item_game);
 			this.url = url;
 			this.title = title;
 			this.attend = attend;
@@ -273,7 +273,7 @@ public class FindAdapter extends BaseAdapter{
 					// TODO Auto-generated method stub
 					selected = Activity.this;
 					selectedView = view;
-					Intent intent = new Intent(context, ActivityDetailActivity.class);
+					Intent intent = new Intent(context, GameDetailActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("attend", attend);
@@ -309,7 +309,7 @@ public class FindAdapter extends BaseAdapter{
 		public Bitmap bmp;
 
 		public TwitterActivity(String url, String title, String id, String comment) {
-			super(R.layout.twitter_activity);
+			super(R.layout.include_list_item_myexp);
 			this.url = url;
 			this.title = title;
 			this.id = id;
@@ -354,7 +354,7 @@ public class FindAdapter extends BaseAdapter{
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					selectedTwitter = TwitterActivity.this;
-					Intent intent = new Intent(context, NoteActivity.class);
+					Intent intent = new Intent(context, SubmissionActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("id", id);

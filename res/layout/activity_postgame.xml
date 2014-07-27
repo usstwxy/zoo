@@ -3,6 +3,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smallcat.activity.NoteActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:context="com.smallcat.activity.PostGameActivity"
+    tools:ignore="MergeRootFrame"
+    android:orientation="vertical" >
 
+</FrameLayout>

@@ -25,10 +25,10 @@ public class ClubDetailActivity extends FragmentActivity {
 		if (savedInstanceState == null) {
 			if (message.equals("1"))
 				getSupportFragmentManager().beginTransaction()
-				.add(R.id.container, new ClubTwitterDetailFragment()).commit();
+				.add(R.id.container, new ClubExpDetailFragment()).commit();
 			else
 				getSupportFragmentManager().beginTransaction()
-				.add(R.id.container, new ActivityDetailFragment()).commit();
+				.add(R.id.container, new GameDetailFragment()).commit();
 		}
 	}
 

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
-import com.smallcat.activity.ActivityDetailActivity;
+import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
-import com.smallcat.activity.PublishNoticeActivity;
+import com.smallcat.activity.PostGameActivity;
 import com.smallcat.adapter.FindAdapter.Activity;
 import com.smallcat.adapter.FindAdapter.Row;
 import com.smallcat.adapter.FindAdapter.TwitterActivity;
@@ -242,7 +242,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 	            @Override
 	            public void onClick(View v) {
 	            	mPopUpWindow.dismiss();  
-	            	Intent intent = new Intent(mContext, PublishNoticeActivity.class);
+	            	Intent intent = new Intent(mContext, PostGameActivity.class);
 	            	
 					Bundle bundle = new Bundle();
 					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);

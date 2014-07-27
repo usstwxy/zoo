@@ -3,7 +3,7 @@ package com.smallcat.service;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.smallcat.activity.ActivityDetailActivity;
+import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.data.JsonObj;
 
@@ -50,7 +50,7 @@ public class JPushReceiver extends BroadcastReceiver {
             JsonObj jo = new JsonObj(bundle.getString(JPushInterface.EXTRA_EXTRA));
             
         	//打开自定义的Activity
-        	Intent i = new Intent(context, ActivityDetailActivity.class);
+        	Intent i = new Intent(context, GameDetailActivity.class);
         	
             Bundle newBundle = new Bundle();
             String a = jo.getString("title");

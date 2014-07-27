@@ -44,7 +44,7 @@ import android.widget.Toast;
  * A simple {@link android.support.v4.app.Fragment} subclass.
  * 
  */
-public class ClubTwitterFragment extends Fragment implements OnRefreshListener {
+public class ClubExpsFragment extends Fragment implements OnRefreshListener {
 	
 	private ListView lv;
 	private Bundle bundle;
@@ -52,7 +52,7 @@ public class ClubTwitterFragment extends Fragment implements OnRefreshListener {
 	private PullToRefreshLayout mPullToRefreshLayout;
 	private View mStatusView;
 	
-	public ClubTwitterFragment() {
+	public ClubExpsFragment() {
 		// Required empty public constructor
 	}
 
@@ -60,7 +60,7 @@ public class ClubTwitterFragment extends Fragment implements OnRefreshListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		View rootView = (View) inflater.inflate(R.layout.fragment_club_twitter, container, false);
+		View rootView = (View) inflater.inflate(R.layout.fragment_club_exps, container, false);
 		lv = (ListView)rootView.findViewById(R.id.listView1);
 		mStatusView = (View)rootView.findViewById(R.id.find_status);
 		bundle = getArguments();
@@ -119,7 +119,7 @@ public class ClubTwitterFragment extends Fragment implements OnRefreshListener {
 		        	list.add(map);
 				}
 				
-				mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_twitter,
+				mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_exp,
 		        		new String[] {"title", "content", "date"}, new int[] {R.id.lbl_title, R.id.txt_content, R.id.lbl_date});
 				
 				showProgress(false);
@@ -209,7 +209,7 @@ public class ClubTwitterFragment extends Fragment implements OnRefreshListener {
 		        	list.add(map);
 				}
 				
-				mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_twitter,
+				mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_exp,
 		        		new String[] {"title", "content", "date"}, new int[] {R.id.lbl_title, R.id.txt_content, R.id.lbl_date});
 				
 				new AsyncTask<Void, Void, Void>() {

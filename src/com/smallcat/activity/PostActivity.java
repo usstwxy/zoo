@@ -33,7 +33,7 @@ public class PostActivity extends Activity implements OnTouchListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_post);
+		setContentView(R.layout.activity_poster);
 		
 		image = (ImageView) findViewById(R.id.post);
 		

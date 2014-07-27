@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context="com.smallcat.fragment.NoteFragment" >
+    tools:context="com.smallcat.fragment.SubmissionFragment" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +27,8 @@
 	        android:hint="在此写下标题吧：）"
 	        android:imeOptions="actionDone"
 	        android:inputType="textMultiLine|textUri"
-	        android:nextFocusLeft="@id/text_submit"
-	        android:nextFocusUp="@id/text_submit"
+	        android:nextFocusLeft="@+id/text_submit"
+	        android:nextFocusUp="@+id/text_submit"
 	        android:textColor="@color/umano_edit_text"
 	        android:textColorHint="@color/umano_edit_hint"
 	        android:textIsSelectable="false"

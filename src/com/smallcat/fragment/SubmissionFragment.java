@@ -10,7 +10,7 @@ import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
 import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 import com.example.smallcat.R;
-import com.smallcat.activity.PublishNoticeActivity;
+import com.smallcat.activity.PostGameActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NoteFragment extends Fragment implements OnDateSetListener, OnTimeSetListener{
+public class SubmissionFragment extends Fragment implements OnDateSetListener, OnTimeSetListener{
 	public static final String DATEPICKER_TAG = "datepicker";
     public static final String TIMEPICKER_TAG = "timepicker";
 	
@@ -39,12 +39,12 @@ public class NoteFragment extends Fragment implements OnDateSetListener, OnTimeS
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		rootView = (View) inflater.inflate(R.layout.fragment_note, container, false);
+		rootView = (View) inflater.inflate(R.layout.fragment_submission, container, false);
 		mContent = (EditText)rootView.findViewById(R.id.edt_content);
 		mContent.setText(getArguments().getString("comment"));
 		mTip = (TextView)rootView.findViewById(R.id.text_submit_tip);
 		bundle = getArguments();
-		String flag = bundle.getString(PublishNoticeActivity.EXTRA_MANAGE);
+		String flag = bundle.getString(PostGameActivity.EXTRA_MANAGE);
 		if (flag != null && flag.equals("true")) {
 			
 			mTip.setText("快捷发布活动，不提供图片功能哦~");

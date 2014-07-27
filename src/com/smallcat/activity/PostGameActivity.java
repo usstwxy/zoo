@@ -7,7 +7,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
-import com.smallcat.fragment.NoteFragment;
+import com.smallcat.fragment.SubmissionFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,15 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class PublishNoticeActivity extends FragmentActivity {
+public class PostGameActivity extends FragmentActivity {
 	public static final String EXTRA_MANAGE = "clubmanage";
-	private NoteFragment fragment;
+	private SubmissionFragment fragment;
 	private Bundle bundle;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_publish_sample);
+		setContentView(R.layout.activity_postgame);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -33,7 +33,7 @@ public class PublishNoticeActivity extends FragmentActivity {
 		getActionBar().setTitle("发布活动");
 		
 		if (savedInstanceState == null) {
-			fragment = new NoteFragment();
+			fragment = new SubmissionFragment();
 			fragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, fragment).commit();
@@ -72,13 +72,13 @@ public class PublishNoticeActivity extends FragmentActivity {
 						// TODO Auto-generated method stub
 						JsonObj jo = new JsonObj(arg2);
 						finish();
-						Toast.makeText(PublishNoticeActivity.this, jo.getString("result"), Toast.LENGTH_SHORT).show();
+						Toast.makeText(PostGameActivity.this, jo.getString("result"), Toast.LENGTH_SHORT).show();
 					}
 					
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
 						// TODO Auto-generated method stub
-						Toast.makeText(PublishNoticeActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
+						Toast.makeText(PostGameActivity.this, "网络问题，请重试", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}
