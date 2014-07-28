@@ -41,7 +41,22 @@ public class MyExpsFragment extends Fragment {
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddTwitterActivity(url, item.getString("Title"), item.getString("ActivityID"), item.getString("Comment"));
+					String url1 = item.getString("Imageone");
+					String url2 = item.getString("Imagetwo");
+					String url3 = item.getString("Imagethree");
+					if (url1 != null && !url1.equals("")){
+						url1 = "http://114.215.207.88" + url1;
+					}
+					if (url2 != null && !url2.equals("")){
+						url2 = "http://114.215.207.88" + url2;
+					}
+					if (url3 != null && !url3.equals("")){
+						url3 = "http://114.215.207.88" + url3;
+					}
+					mAdapter.AddExp(url, item.getString("Title"),
+							item.getString("ActivityID"), item.getString("Comment"),
+							url1, url2, url3);
+
 				}
 				listView.setAdapter(mAdapter);
 			}

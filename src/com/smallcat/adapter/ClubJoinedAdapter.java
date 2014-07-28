@@ -7,11 +7,11 @@ import com.smallcat.activity.ClubHomeActivity;
 import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.activity.PostGameActivity;
-import com.smallcat.adapter.FindAdapter.Activity;
+import com.smallcat.adapter.FindAdapter.Game;
 import com.smallcat.adapter.FindAdapter.Row;
-import com.smallcat.adapter.FindAdapter.TwitterActivity;
+import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.adapter.FindAdapter.ViewHolder;
-import com.smallcat.adapter.FindAdapter.Activity.ImageLoadTask;
+import com.smallcat.adapter.FindAdapter.Game.ImageLoadTask;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
@@ -91,8 +91,8 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		rows.add(new Club(url, clubID, clubName, twitters, role){});
 	}
 	
-	public void AddFooter(){
-		rows.add(new Footer(){});
+	public void AddHeader(){
+		rows.add(new Header(){});
 	}
 	
 	abstract class ViewHolder{ 
@@ -100,7 +100,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		public int layoutID;
 	}
 	
-	class FooterViewHolder extends ViewHolder{
+	class HeaderViewHolder extends ViewHolder{
 		public View btn_exps;
 		public View btn_search;
 	}
@@ -132,16 +132,16 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		public abstract void setListen(View view);
 	}
 	
-	class Footer extends Row{
-		public Footer(){
-			super(R.layout.include_footer_club);
+	class Header extends Row{
+		public Header(){
+			super(R.layout.include_header_home);
 		}
 
 		@Override
 		public View set() {
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
-			FooterViewHolder holder = new FooterViewHolder();
+			HeaderViewHolder holder = new HeaderViewHolder();
 			holder.layoutID = layoutID;
 			holder.btn_exps = (View)view.findViewById(R.id.btn_exps);
 			holder.btn_search = (View)view.findViewById(R.id.btn_search);
@@ -153,7 +153,7 @@ public class ClubJoinedAdapter extends BaseAdapter{
 		@Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-			FooterViewHolder holder = (FooterViewHolder)view.getTag();
+			HeaderViewHolder holder = (HeaderViewHolder)view.getTag();
 			
 			holder.btn_exps.setOnClickListener(new OnClickListener() {
 	            

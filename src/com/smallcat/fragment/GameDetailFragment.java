@@ -13,7 +13,7 @@ import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.smallcat.activity.PostActivity;
 import com.smallcat.adapter.ImageLoader;
-import com.smallcat.adapter.FindAdapter.TwitterActivity;
+import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
 

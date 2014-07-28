@@ -28,8 +28,8 @@ import com.smallcat.activity.SubmissionActivity;
 public class FindAdapter extends BaseAdapter{
 	
 	private ArrayList<Row> rows = new ArrayList<Row>();
-	private Activity selected = null;
-	private TwitterActivity selectedTwitter = null;
+	private Game selected = null;
+	private Exp selectedTwitter = null;
 	private View selectedView = null;
 	private Context context;
 	
@@ -40,7 +40,7 @@ public class FindAdapter extends BaseAdapter{
 	public void updateActivity(){
 		int i = Integer.valueOf(selected.comment) + 1;
 		selected.comment = String.valueOf(i);
-		ActivityViewHolder holder = (ActivityViewHolder) selectedView.getTag();
+		GameViewHolder holder = (GameViewHolder) selectedView.getTag();
 		holder.comment.setText(selected.comment);
 	}
 	
@@ -91,13 +91,13 @@ public class FindAdapter extends BaseAdapter{
 		rows.add(new Category(name, count));
 	}
 	
-	public void AddActivity(String url, String title, String attend, String source,
+	public void AddGame(String url, String title, String attend, String source,
 			String comment, String date, String place, String id){
-		rows.add(new Activity(url, title, attend, source, comment, date, place, id));
+		rows.add(new Game(url, title, attend, source, comment, date, place, id));
 	}
 	
-	public void AddTwitterActivity(String url, String title, String id, String comment){
-		rows.add(new TwitterActivity(url, title, id, comment));
+	public void AddExp(String url, String title, String id, String comment, String image1Url, String image2Url, String image3Url){
+		rows.add(new Exp(url, title, id, comment, image1Url, image2Url, image3Url));
 	}
 	
 	abstract class ViewHolder{
@@ -114,13 +114,13 @@ public class FindAdapter extends BaseAdapter{
 		public TextView name, count;
 	}
 	
-	class ActivityViewHolder extends ViewHolder{
+	class GameViewHolder extends ViewHolder{
 
 		public TextView title, attend, source, comment, date, place;
 		public ImageView post;
 	}
 	
-	class TwitterActivityViewHolder extends ViewHolder{
+	class ExpViewHolder extends ViewHolder{
 		
 		public TextView title;
 		public ImageView post;
@@ -206,12 +206,12 @@ public class FindAdapter extends BaseAdapter{
 		}
 	}
 	
-	public class Activity extends Row{
+	public class Game extends Row{
 		
 		public String title, attend, source, comment, date, place, id, url;
 		public Bitmap bmp;
 		
-		public Activity(String url, String title, String attend, String source,
+		public Game(String url, String title, String attend, String source,
 				String comment, String date, String place, String id){
 			super(R.layout.include_list_item_game);
 			this.url = url;
@@ -228,7 +228,7 @@ public class FindAdapter extends BaseAdapter{
 		public View set() {
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
-			ActivityViewHolder holder = new ActivityViewHolder();
+			GameViewHolder holder = new GameViewHolder();
 			holder.title = (TextView) view.findViewById(R.id.lbl_title);
 			holder.attend = (TextView) view.findViewById(R.id.lbl_likes);
 			holder.source = (TextView) view.findViewById(R.id.lbl_source_name);
@@ -244,7 +244,7 @@ public class FindAdapter extends BaseAdapter{
 		@SuppressLint("SimpleDateFormat") @Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-			ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
+			GameViewHolder holder = (GameViewHolder)view.getTag();
 			holder.title.setText(title);
 			holder.attend.setText(attend);
 			holder.source.setText(source);
@@ -271,7 +271,7 @@ public class FindAdapter extends BaseAdapter{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					selected = Activity.this;
+					selected = Game.this;
 					selectedView = view;
 					Intent intent = new Intent(context, GameDetailActivity.class);
 					Bundle bundle = new Bundle();
@@ -297,23 +297,26 @@ public class FindAdapter extends BaseAdapter{
 
 			@Override
 			protected void onPostExecute(Bitmap result) {
-				Activity.this.bmp = result;
+				Game.this.bmp = result;
 				notifyDataSetChanged();
 			}
 		}
 	}
 	
-	public class TwitterActivity extends Row{
+	public class Exp extends Row{
 		
-		public String title, url, id, comment;
+		public String title, url, id, comment, image1Url, image2Url, image3Url;
 		public Bitmap bmp;
 
-		public TwitterActivity(String url, String title, String id, String comment) {
+		public Exp(String url, String title, String id, String comment, String image1Url, String image2Url, String image3Url) {
 			super(R.layout.include_list_item_myexp);
 			this.url = url;
 			this.title = title;
 			this.id = id;
 			this.comment = comment;
+			this.image1Url = image1Url;
+			this.image2Url = image2Url;
+			this.image3Url = image3Url;
 			// TODO Auto-generated constructor stub
 		}
 
@@ -321,7 +324,7 @@ public class FindAdapter extends BaseAdapter{
 		public View set() {
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
-			TwitterActivityViewHolder holder = new TwitterActivityViewHolder();
+			ExpViewHolder holder = new ExpViewHolder();
 			holder.title = (TextView) view.findViewById(R.id.title);
 			holder.post = (ImageView) view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
@@ -332,7 +335,7 @@ public class FindAdapter extends BaseAdapter{
 		@Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-			TwitterActivityViewHolder holder = (TwitterActivityViewHolder)view.getTag();
+			ExpViewHolder holder = (ExpViewHolder)view.getTag();
 			holder.title.setText(title);
 			if (bmp != null){
 				holder.post.setImageBitmap(bmp);
@@ -353,12 +356,15 @@ public class FindAdapter extends BaseAdapter{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					selectedTwitter = TwitterActivity.this;
+					selectedTwitter = Exp.this;
 					Intent intent = new Intent(context, SubmissionActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("id", id);
 					bundle.putString("comment", comment);
+					bundle.putString("image1", image1Url);
+					bundle.putString("image2", image2Url);
+					bundle.putString("image3", image3Url);
 					intent.putExtras(bundle);
 					((FragmentActivity)context).startActivityForResult(intent, 0);
 				}
@@ -370,7 +376,7 @@ public class FindAdapter extends BaseAdapter{
 			@Override
 			protected Void doInBackground(Object... params) {
 				String url = (String) params[0];
-				TwitterActivity.this.bmp = ImageLoader.loadImage(url);
+				Exp.this.bmp = ImageLoader.loadImage(url);
 				return null;
 			}
 

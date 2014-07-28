@@ -1,31 +1,46 @@
 package com.smallcat.fragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
-import com.fourmob.datetimepicker.*;
-import com.fourmob.datetimepicker.date.DatePickerDialog;
-import com.fourmob.datetimepicker.date.DatePickerDialog.OnDateSetListener;
-import com.sleepbot.datetimepicker.*;
-import com.sleepbot.datetimepicker.time.RadialPickerLayout;
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
-import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
-import com.example.smallcat.R;
-import com.smallcat.activity.PostGameActivity;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class SubmissionFragment extends Fragment implements OnDateSetListener, OnTimeSetListener{
+import com.example.smallcat.R;
+import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.fourmob.datetimepicker.date.DatePickerDialog.OnDateSetListener;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
+import com.smallcat.activity.PostGameActivity;
+import com.smallcat.adapter.ImageLoader;
+
+
+public class SubmissionFragment extends Fragment implements OnDateSetListener, OnTimeSetListener, OnClickListener{
 	public static final String DATEPICKER_TAG = "datepicker";
     public static final String TIMEPICKER_TAG = "timepicker";
-	
+    public static final int cameraRequest = 1;
+	public static final int galleryRequest = 2;
+    
+	private ImageView camera, selectedImage;
+	private ImageView[] image = new ImageView[3];
+	private Bitmap[] picture = new Bitmap[]{null, null, null};
 	private View rootView;
 	private Bundle bundle;
 	private EditText mTitle;
@@ -43,7 +58,24 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 		mContent = (EditText)rootView.findViewById(R.id.edt_content);
 		mContent.setText(getArguments().getString("comment"));
 		mTip = (TextView)rootView.findViewById(R.id.text_submit_tip);
+		
 		bundle = getArguments();
+		
+		camera = (ImageView) rootView.findViewById(R.id.camera);
+		image[0] = (ImageView) rootView.findViewById(R.id.image1);
+		image[1] = (ImageView) rootView.findViewById(R.id.image2);
+		image[2] = (ImageView) rootView.findViewById(R.id.image3);
+		
+		camera.setOnClickListener(this);
+		image[0].setOnClickListener(this);
+		image[1].setOnClickListener(this);
+		image[2].setOnClickListener(this);
+		
+		ImageLoadTask imageLoadTask = new ImageLoadTask();
+		imageLoadTask.execute(bundle.getString("image1"),
+				bundle.getString("image2"), bundle.getString("image3"));
+		
+		
 		String flag = bundle.getString(PostGameActivity.EXTRA_MANAGE);
 		if (flag != null && flag.equals("true")) {
 			
@@ -72,6 +104,37 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 		}	
 		
 		return rootView;
+	}
+	
+	public void setPicture(Bitmap bmp){
+		selectedImage.setImageBitmap(bmp);
+		switch (selectedImage.getId()){
+		case R.id.image1:
+			picture[0] = bmp;
+			break;
+		case R.id.image2:
+			picture[1] = bmp;
+			break;
+		case R.id.image3:
+			picture[2] = bmp;
+			break;
+		}
+	}
+	
+	public byte[] getPicture(int index){
+		byte[] data = null;
+		if (picture[index] != null){
+			try {
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				picture[index].compress(Bitmap.CompressFormat.JPEG, 100, stream);
+				data = stream.toByteArray();
+				stream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return data;
 	}
 	
 	public String getContent(){
@@ -127,5 +190,53 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 	public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
 		// TODO Auto-generated method stub
 		mTime.setText(hourOfDay + ":" + minute);
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch (arg0.getId()){
+		case R.id.camera:{
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "smallcat_temp.jpg"));
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+				intent.putExtra("return-data", uri);
+				startActivityForResult(intent, cameraRequest);
+			}
+			break;
+		case R.id.image1:
+		case R.id.image2:
+		case R.id.image3:{
+				Intent intent = new Intent();
+	            intent.setType("image/*");
+	            intent.setAction(Intent.ACTION_GET_CONTENT);
+	            startActivityForResult(intent, galleryRequest);
+	            selectedImage = (ImageView) arg0;
+			}
+			break;
+		}
+	}
+	
+	class ImageLoadTask extends AsyncTask<Object, Void, Bitmap[]> {
+
+		@Override
+		protected Bitmap[] doInBackground(Object... params) {
+			String image1 = (String) params[0];
+			String image2 = (String) params[1];
+			String image3 = (String) params[2];
+			SubmissionFragment.this.picture[0] = ImageLoader.loadImage(image1);
+			SubmissionFragment.this.picture[1] = ImageLoader.loadImage(image2);
+			SubmissionFragment.this.picture[2] = ImageLoader.loadImage(image3);
+			Bitmap[] bmp = new Bitmap[]{SubmissionFragment.this.picture[0],
+					SubmissionFragment.this.picture[1], SubmissionFragment.this.picture[2]};
+			return bmp;
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap[] result) {
+			SubmissionFragment.this.image[0].setImageBitmap(result[0]);
+			SubmissionFragment.this.image[1].setImageBitmap(result[1]);
+			SubmissionFragment.this.image[2].setImageBitmap(result[2]);
+		}
 	}
 }

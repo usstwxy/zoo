@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 		
 		mAdapter = new ClubJoinedAdapter(getActivity());
 		
-		mAdapter.AddFooter();
+		mAdapter.AddHeader();
 		mAdapter.AddCategory("My Clubs", "");
 		
 		showProgress(true);
@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 				mAdapter = new ClubJoinedAdapter(getActivity());
 				JsonObj jo = new JsonObj(data);
 				Integer count = jo.count();
-				mAdapter.AddFooter();
+				mAdapter.AddHeader();
 				mAdapter.AddCategory("My Clubs", count.toString());
 				for (JsonObj item : jo.values()) {
 					String url = item.getString("ClubLogo");
@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 				mAdapter = new ClubJoinedAdapter(getActivity());
 				JsonObj jo = new JsonObj(data);
 				Integer count = jo.count();
-				mAdapter.AddFooter();
+				mAdapter.AddHeader();
 				mAdapter.AddCategory("My Clubs", count.toString());
 				for (JsonObj item : jo.values()) {
 					String url = item.getString("ClubLogo");
