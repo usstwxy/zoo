@@ -31,7 +31,11 @@ public class JsonObj {
 	
 	public int count() {
 		if (arr == null && map == null) {
+<<<<<<< HEAD
+			return -1;
+=======
 			return 0;
+>>>>>>> ui-lhc
 		}else {
 			if (arr != null)
 				return arr.length();
@@ -68,6 +72,9 @@ public class JsonObj {
 		}
 	}
 	
+<<<<<<< HEAD
+	
+=======
 	public JsonObj[] values() {
 		JsonObj[] values = new JsonObj[count()];
 		if (arr != null) {
@@ -83,6 +90,7 @@ public class JsonObj {
 		}
 		return values;
 	}
+>>>>>>> ui-lhc
 	
 	
 	public JsonObj get(int index) {
