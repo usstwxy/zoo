@@ -33,14 +33,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ClubJoinedAdapter extends BaseAdapter{
+public class HomeAdapter extends BaseAdapter{
 
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
 	private View contentView;
 	private PopupWindow mPopUpWindow;
 	
-	public ClubJoinedAdapter(Context context) {
+	public HomeAdapter(Context context) {
 		mContext = context;
 		contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
 		mPopUpWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
