@@ -13,7 +13,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.smallcat.activity.ClubHomeActivity;
-import com.smallcat.adapter.ClubJoinedAdapter;
+import com.smallcat.adapter.HomeAdapter;
 import com.smallcat.adapter.FindAdapter;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
@@ -37,7 +37,7 @@ import android.widget.Toast;
 public class HomeFragment extends Fragment implements OnRefreshListener {
 	
 	private PullToRefreshLayout mPullToRefreshLayout;
-	private ClubJoinedAdapter mAdapter;
+	private HomeAdapter mAdapter;
 	private ListView lv;
 	private View mStatusView;
 	
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 	public void onActivityCreated(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		
-		mAdapter = new ClubJoinedAdapter(getActivity());
+		mAdapter = new HomeAdapter(getActivity());
 		
 		mAdapter.AddHeader();
 		mAdapter.AddCategory("My Clubs", "");
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] header, byte[] data) {
 				// TODO Auto-generated method stub
-				mAdapter = new ClubJoinedAdapter(getActivity());
+				mAdapter = new HomeAdapter(getActivity());
 				JsonObj jo = new JsonObj(data);
 				Integer count = jo.count();
 				mAdapter.AddHeader();
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 			@Override
 			public void onSuccess(int arg0, Header[] header, byte[] data) {
 				// TODO Auto-generated method stub
-				mAdapter = new ClubJoinedAdapter(getActivity());
+				mAdapter = new HomeAdapter(getActivity());
 				JsonObj jo = new JsonObj(data);
 				Integer count = jo.count();
 				mAdapter.AddHeader();
