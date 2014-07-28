@@ -48,7 +48,7 @@ public class MyGamesFragment extends Fragment {
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddActivity(url, item.getString("Title"), item.getString("Num"),item.getString("ClubName"),
+					mAdapter.AddGame(url, item.getString("Title"), item.getString("Num"),item.getString("ClubName"),
 							item.getString("CNum"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				listView.setAdapter(mAdapter);

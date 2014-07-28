@@ -96,7 +96,7 @@ public class ClubGamesFragment extends Fragment implements OnRefreshListener {
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddActivity(url, item.getString("Title"), item.getString("CNum"),
+					mAdapter.AddGame(url, item.getString("Title"), item.getString("CNum"),
 							clubName, item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				showProgress(false);
@@ -137,7 +137,7 @@ public class ClubGamesFragment extends Fragment implements OnRefreshListener {
 					if (url != null && !url.equals("")){
 						url = "http://114.215.207.88" + url;
 					}
-					mAdapter.AddActivity(url, item.getString("Title"), item.getString("CNum"),
+					mAdapter.AddGame(url, item.getString("Title"), item.getString("CNum"),
 							clubName, item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
 				}
 				
