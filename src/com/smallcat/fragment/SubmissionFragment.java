@@ -224,9 +224,24 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 			String image1 = (String) params[0];
 			String image2 = (String) params[1];
 			String image3 = (String) params[2];
-			SubmissionFragment.this.picture[0] = ImageLoader.loadImage(image1);
-			SubmissionFragment.this.picture[1] = ImageLoader.loadImage(image2);
-			SubmissionFragment.this.picture[2] = ImageLoader.loadImage(image3);
+			if (!image1.equals("")){
+				SubmissionFragment.this.picture[0] = ImageLoader.loadImage(image1);
+			}
+			else{
+				SubmissionFragment.this.picture[0] = null;
+			}
+			if (!image2.equals("")){
+				SubmissionFragment.this.picture[1] = ImageLoader.loadImage(image2);
+			}
+			else{
+				SubmissionFragment.this.picture[1] = null;
+			}
+			if (!image3.equals("")){
+				SubmissionFragment.this.picture[2] = ImageLoader.loadImage(image3);
+			}
+			else{
+				SubmissionFragment.this.picture[2] = null;
+			}
 			Bitmap[] bmp = new Bitmap[]{SubmissionFragment.this.picture[0],
 					SubmissionFragment.this.picture[1], SubmissionFragment.this.picture[2]};
 			return bmp;

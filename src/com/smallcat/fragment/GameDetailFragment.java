@@ -60,6 +60,7 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 	private TextView content, date, source, attend, cnt;
 	private LinearLayout activity, info, expand;
 	private Bitmap bmp;
+	private ImageLoadTask imageLoadTask = null;
 	
 	@SuppressLint("SimpleDateFormat") @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +90,7 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 		String url = bundle.getString("url");
 		
 		if (url != null && !url.equals("")){
-			ImageLoadTask imageLoadTask = new ImageLoadTask();
+			imageLoadTask = new ImageLoadTask();
 			imageLoadTask.execute(url);
 		}
 		
@@ -171,8 +172,11 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
+			if (result == null) return;
 			GameDetailFragment.this.bmp = result;
-			GameDetailFragment.this.post.setImageBitmap(result);
+			if (GameDetailFragment.this.post != null){
+				GameDetailFragment.this.post.setImageBitmap(result);
+			}
 		}
 	}
 	
