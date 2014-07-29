@@ -95,6 +95,10 @@ public class HomeAdapter extends BaseAdapter{
 		rows.add(new Header(){});
 	}
 	
+	public void AddClubRow(String url, String clubID, String clubName, String members){
+		rows.add(new ClubRow(url, clubID, clubName, members){});
+	}
+	
 	abstract class ViewHolder{ 
 		
 		public int layoutID;
@@ -114,6 +118,13 @@ public class HomeAdapter extends BaseAdapter{
 		public TextView twitters;
 		public View btn_more;
 		public TextView btn_publish;
+		public ImageView logo;
+	}
+	
+	class ClubRowViewHolder extends ViewHolder{
+		public TextView clubName;
+		public TextView members;
+		public View btn_join;
 		public ImageView logo;
 	}
 	
@@ -324,6 +335,124 @@ public class HomeAdapter extends BaseAdapter{
 		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
+		}
+	}
+	
+	class ClubRow extends Row{
+		
+		public String clubName, members, clubID, url;
+		public Bitmap bmp;
+		
+		public ClubRow(String url, String clubID, String clubName, String members){
+			super(R.layout.include_list_item_club_row);
+			this.url = url;
+			this.clubName = clubName;
+			this.members = members;
+			this.clubID = clubID;
+		}
+
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
+			ClubRowViewHolder holder = new ClubRowViewHolder();
+			holder.clubName = (TextView)view.findViewById(R.id.lbl_name);
+			holder.members = (TextView)view.findViewById(R.id.lbl_members);
+			holder.btn_join = (View)view.findViewById(R.id.btn_join);
+			holder.logo = (ImageView)view.findViewById(R.id.image);
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			ClubRowViewHolder holder = (ClubRowViewHolder)view.getTag();
+			
+			holder.clubName.setText(this.clubName);
+			holder.members.setText(this.members);
+			if (bmp != null){
+				holder.logo.setImageBitmap(bmp);
+			}
+			else if (url != null && !url.equals("")){
+				ImageLoadTask imageLoadTask = new ImageLoadTask();
+				imageLoadTask.execute(url);
+			}
+			else{
+				holder.logo.setImageResource(R.drawable.placeholder_small);
+			}
+			
+			holder.btn_join.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	try {  
+	                    if (mPopUpWindow.isShowing()) {  
+	  
+	                    	mPopUpWindow.dismiss();  
+	                    }  
+	                    mPopUpWindow.showAsDropDown(v, 8, -8);
+	  
+	                } catch (Exception e) {  
+	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+	                }  
+	            	
+	            }
+	        });
+			
+			/*holder.btn_publish.setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	mPopUpWindow.dismiss();  
+	            	Intent intent = new Intent(mContext, PostGameActivity.class);
+	            	
+					Bundle bundle = new Bundle();
+					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
+					bundle.putString(MainActivity.EXTRA_CID, clubID);
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);
+	            }
+	        });*/
+		}
+		
+		@Override
+		public void setListen(final View view) {
+			// TODO Auto-generated method stub
+			view.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					/*Intent intent = new Intent(mContext, ClubHomeActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
+					bundle.putString(MainActivity.EXTRA_CID, clubID);
+					intent.putExtras(bundle);
+					mContext.startActivity(intent);*/
+					Toast.makeText(mContext, "社团主页", Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+		
+		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+			
+			@Override
+			protected Void doInBackground(Object... params) {
+				String url = (String) params[0];
+				ClubRow.this.bmp = ImageLoader.loadImage(url);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
+				if (result == null) {
+					return;
+				}
+				notifyDataSetChanged();
+			}
 		}
 	}
 	

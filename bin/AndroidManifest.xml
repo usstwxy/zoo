@@ -41,11 +41,7 @@
             android:name="com.smallcat.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/NoActionBarTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name="com.smallcat.activity.GameDetailActivity"
@@ -124,18 +120,18 @@
             android:enabled="true" >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
- 				<!-- Required  用户注册SDK的intent -->
+                <!-- Required  用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
- 				<!-- Required  用户接收SDK消息的intent -->
+                <!-- Required  用户接收SDK消息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
- 				<!-- Required  用户接收SDK通知栏信息的intent -->
+                <!-- Required  用户接收SDK通知栏信息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
- 				<!-- Required  用户打开自定义通知栏的intent -->
+                <!-- Required  用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
- 				<!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
- 				<!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.example.smallcat" />
             </intent-filter>
         </receiver>
@@ -147,7 +143,7 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="8b2eac6c7755b5f4c1e4d669" />
- <!-- </>值来自开发者平台取得的AppKey -->
+        <!-- </>值来自开发者平台取得的AppKey -->
 
         <receiver android:name="com.smallcat.service.AlarmReceiver" />
 
@@ -161,8 +157,26 @@
         </activity>
         <activity
             android:name="com.smallcat.activity.PostActivity"
-            android:label="@string/title_activity_post" 
-            android:theme="@style/NoActionBarTheme">
+            android:label="@string/title_activity_post"
+            android:theme="@style/NoActionBarTheme" >
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.ClubsActivity"
+            android:label="@string/title_activity_clubs" >
+            
+            <meta-data android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+            
+            <intent-filter>
+		        <action android:name="android.intent.action.SEARCH" />
+		    </intent-filter>
+            
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
