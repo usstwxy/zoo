@@ -160,7 +160,7 @@
             android:label="@string/title_activity_note" >
         </activity>
         <activity
-            android:name="com.smallcat.activity.PostActivity"
+            android:name="com.smallcat.activity.PosterActivity"
             android:label="@string/title_activity_post"
             android:theme="@style/NoActionBarTheme" >
         </activity>

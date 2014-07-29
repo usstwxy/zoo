@@ -29,6 +29,9 @@ public class ClubsActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clubs);
 		
+		getActionBar().setTitle("搜索社团");
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		handleIntent(getIntent());
 		
 		if (savedInstanceState == null) {
@@ -72,6 +75,8 @@ public class ClubsActivity extends FragmentActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		} else if (id == android.R.id.home) {
+			this.finish();
 		}
 		return super.onOptionsItemSelected(item);
 	}

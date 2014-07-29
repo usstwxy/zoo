@@ -17,6 +17,7 @@ import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.smallcat.activity.ClubDetailActivity;
 import com.smallcat.activity.ClubHomeActivity;
+import com.smallcat.activity.LoginActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.adapter.FindAdapter;
 import com.smallcat.adapter.HomeAdapter;
@@ -72,7 +73,7 @@ public class ClubsFragment extends Fragment {
         // Set the List Adapter to display the sample items
         
         showProgress(true);
-        WebAPI.get("club/GetAll?index=0", null, new AsyncHttpResponseHandler() {
+        WebAPI.get("club/GetAll?index=0&userID=" + LoginActivity.USERID, null, new AsyncHttpResponseHandler() {
 			 
 			@Override
 			public void onSuccess(int arg0, Header[] header, byte[] data) {
@@ -87,7 +88,8 @@ public class ClubsFragment extends Fragment {
 					}
 					
 					String s = item.getString("ID");
-					mAdapter.AddClubRow(url, item.getString("ID"), item.getString("ClubName"), item.getString("Members"));
+					mAdapter.AddClubRow(url, item.getString("ClubID"), item.getString("ClubName"), 
+							item.getString("Members"), item.getString("IsMember"));
 					String s2 = "123";
 				}
 				showProgress(false);

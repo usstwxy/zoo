@@ -122,7 +122,9 @@
     <style name="SmallButtonGray" parent="@style/SmallButton">
         <item name="android:background">@drawable/button_small_gray</item>
     </style>
-    
+    <style name="SmallButtonOrange" parent="@style/SmallButton">
+        <item name="android:background">@drawable/button_small_orange</item>
+    </style>
 	<style name="LargeButton">
         <item name="android:textSize">16.0sp</item>
         <item name="android:textColor">@*android:color/white</item>

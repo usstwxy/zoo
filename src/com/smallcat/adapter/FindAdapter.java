@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.GameDetailActivity;
@@ -155,6 +156,24 @@ public class FindAdapter extends BaseAdapter{
 		public View set() {
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
+			View btn1 = view.findViewById(R.id.btn_popular);
+			View btn2 = view.findViewById(R.id.btn_search);
+			btn1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Toast.makeText(context, "popular", Toast.LENGTH_SHORT).show();
+				}
+			});
+			btn2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Toast.makeText(context, "search", Toast.LENGTH_SHORT).show();
+				}
+			});
 			HeaderViewHolder holder = new HeaderViewHolder();
 			holder.layoutID = layoutID;
 			view.setTag(holder);

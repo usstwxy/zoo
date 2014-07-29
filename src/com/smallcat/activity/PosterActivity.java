@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
-public class PostActivity extends Activity implements OnTouchListener{
+public class PosterActivity extends Activity implements OnTouchListener{
 	
 	public static Bitmap post = null;
 	private ImageView image = null;

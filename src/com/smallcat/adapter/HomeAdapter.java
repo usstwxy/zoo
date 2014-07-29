@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
+import com.smallcat.activity.ClubsActivity;
 import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.activity.PostGameActivity;
@@ -37,15 +38,9 @@ public class HomeAdapter extends BaseAdapter{
 
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
-	private View contentView;
-	private PopupWindow mPopUpWindow;
 	
 	public HomeAdapter(Context context) {
 		mContext = context;
-		contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
-		mPopUpWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
-    	mPopUpWindow.setOutsideTouchable(true);
 	}
 
 	@Override
@@ -95,8 +90,8 @@ public class HomeAdapter extends BaseAdapter{
 		rows.add(new Header(){});
 	}
 	
-	public void AddClubRow(String url, String clubID, String clubName, String members){
-		rows.add(new ClubRow(url, clubID, clubName, members){});
+	public void AddClubRow(String url, String clubID, String clubName, String members, String isMember){
+		rows.add(new ClubRow(url, clubID, clubName, members, isMember){});
 	}
 	
 	abstract class ViewHolder{ 
@@ -117,14 +112,16 @@ public class HomeAdapter extends BaseAdapter{
 		public TextView clubName;
 		public TextView twitters;
 		public View btn_more;
-		public TextView btn_publish;
+		public View contentView;
 		public ImageView logo;
 	}
 	
 	class ClubRowViewHolder extends ViewHolder{
 		public TextView clubName;
 		public TextView members;
+		public TextView txtJoin;
 		public View btn_join;
+		public View contentView;
 		public ImageView logo;
 	}
 	
@@ -166,11 +163,12 @@ public class HomeAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			HeaderViewHolder holder = (HeaderViewHolder)view.getTag();
 			
-			holder.btn_exps.setOnClickListener(new OnClickListener() {
+			holder.btn_search.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	Toast.makeText(mContext, "显示我的活动", Toast.LENGTH_SHORT).show();
+	            	Intent intent = new Intent(mContext, ClubsActivity.class);
+					mContext.startActivity(intent);
 	            }
 	        });
 		}
@@ -186,6 +184,7 @@ public class HomeAdapter extends BaseAdapter{
 		
 		public String clubName, twitters, clubID, role, url;
 		public Bitmap bmp;
+		public PopupWindow mPopUpWindow;
 		
 		public Club(String url, String clubID, String clubName, String twitters, String role){
 			super(R.layout.include_list_item_club);
@@ -204,7 +203,7 @@ public class HomeAdapter extends BaseAdapter{
 			holder.clubName = (TextView)view.findViewById(R.id.lbl_title);
 			holder.twitters = (TextView)view.findViewById(R.id.txt_twitters);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
-			holder.btn_publish = (TextView)contentView.findViewById(R.id.btn_publish);
+			holder.contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
 			holder.logo = (ImageView)view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
@@ -230,6 +229,9 @@ public class HomeAdapter extends BaseAdapter{
 				holder.logo.setImageResource(R.drawable.placeholder_small);
 			}
 			
+			mPopUpWindow = new PopupWindow(holder.contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+	    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
+	    	mPopUpWindow.setOutsideTouchable(true);
 			holder.btn_more.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
@@ -248,7 +250,7 @@ public class HomeAdapter extends BaseAdapter{
 	            }
 	        });
 			
-			holder.btn_publish.setOnClickListener(new OnClickListener() {
+			holder.contentView.findViewById(R.id.btn_publish).setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
@@ -340,15 +342,17 @@ public class HomeAdapter extends BaseAdapter{
 	
 	class ClubRow extends Row{
 		
-		public String clubName, members, clubID, url;
+		public String clubName, members, clubID, url, isMember;
 		public Bitmap bmp;
+		public PopupWindow mPopUpWindow;
 		
-		public ClubRow(String url, String clubID, String clubName, String members){
+		public ClubRow(String url, String clubID, String clubName, String members, String isMember){
 			super(R.layout.include_list_item_club_row);
 			this.url = url;
 			this.clubName = clubName;
 			this.members = members;
 			this.clubID = clubID;
+			this.isMember = isMember;
 		}
 
 		@Override
@@ -360,6 +364,7 @@ public class HomeAdapter extends BaseAdapter{
 			holder.members = (TextView)view.findViewById(R.id.lbl_members);
 			holder.btn_join = (View)view.findViewById(R.id.btn_join);
 			holder.logo = (ImageView)view.findViewById(R.id.image);
+			holder.txtJoin = (TextView)holder.btn_join.findViewById(R.id.txt_join);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
 			
@@ -372,7 +377,7 @@ public class HomeAdapter extends BaseAdapter{
 			ClubRowViewHolder holder = (ClubRowViewHolder)view.getTag();
 			
 			holder.clubName.setText(this.clubName);
-			holder.members.setText(this.members);
+			holder.members.setText(this.members + "名成员");
 			if (bmp != null){
 				holder.logo.setImageBitmap(bmp);
 			}
@@ -384,23 +389,35 @@ public class HomeAdapter extends BaseAdapter{
 				holder.logo.setImageResource(R.drawable.placeholder_small);
 			}
 			
-			holder.btn_join.setOnClickListener(new OnClickListener() {
-	            
-	            @Override
-	            public void onClick(View v) {
-	            	try {  
-	                    if (mPopUpWindow.isShowing()) {  
-	  
-	                    	mPopUpWindow.dismiss();  
-	                    }  
-	                    mPopUpWindow.showAsDropDown(v, 8, -8);
-	  
-	                } catch (Exception e) {  
-	                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
-	                }  
-	            	
-	            }
-	        });
+			if (isMember.equals("false")) {
+				holder.txtJoin.setText("申请加入");
+				holder.txtJoin.setBackgroundResource(R.color.umano_orange);
+				holder.btn_join.setClickable(true);
+				mPopUpWindow = new PopupWindow(holder.contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
+		    	mPopUpWindow.setOutsideTouchable(true);
+				holder.btn_join.setOnClickListener(new OnClickListener() {
+		            
+		            @Override
+		            public void onClick(View v) {
+		            	try {
+		                    if (mPopUpWindow.isShowing()) {  
+		  
+		                    	mPopUpWindow.dismiss();  
+		                    }  
+		                    mPopUpWindow.showAsDropDown(v, 8, -8);
+		  
+		                } catch (Exception e) {  
+		                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
+		                }  
+		            	
+		            }
+		        });
+			} else {
+				holder.txtJoin.setText("已加入");
+				holder.txtJoin.setBackgroundResource(R.color.umano_gray);
+				holder.btn_join.setClickable(false);
+			}
 			
 			/*holder.btn_publish.setOnClickListener(new OnClickListener() {
 	            

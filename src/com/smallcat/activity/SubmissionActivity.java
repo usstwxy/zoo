@@ -97,19 +97,19 @@ public class SubmissionActivity extends FragmentActivity {
 							params2.add("Image1", joo.getString("Image1"));
 						}
 						else{
-							params2.add("Image1", "null");
+							params2.add("Image1", "");
 						}
 						if (joo.getString("Image2") != null){
 							params2.add("Image2", joo.getString("Image2"));
 						}
 						else{
-							params2.add("Image2", "null");
+							params2.add("Image2", "");
 						}
 						if (joo.getString("Image3") != null){
 							params2.add("Image3", joo.getString("Image3"));
 						}
 						else{
-							params2.add("Image3", "null");
+							params2.add("Image3", "");
 						}
 						
 						WebAPI.post("exps/publishexp", params2, new AsyncHttpResponseHandler() {
