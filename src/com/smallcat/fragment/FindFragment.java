@@ -28,6 +28,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -72,6 +74,34 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 				}
 				showProgress(false);
 				listView1.setAdapter(mAdapter);
+				
+				listView1.setOnScrollListener(new OnScrollListener() {
+					
+					@Override
+					public void onScrollStateChanged(AbsListView view, int scrollState) {
+						// TODO Auto-generated method stub
+						switch (scrollState) {  
+			            case OnScrollListener.SCROLL_STATE_FLING:  
+			            	mAdapter.setFlagBusy(true);  
+			                break;  
+			            case OnScrollListener.SCROLL_STATE_IDLE:  
+			            	mAdapter.setFlagBusy(false);  
+			                break;  
+			            case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:  
+			            	mAdapter.setFlagBusy(false);  
+			                break;  
+			            default:  
+			                break;  
+			            }  
+						mAdapter.notifyDataSetChanged();  
+					}
+					
+					@Override
+					public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 			
 			@Override
