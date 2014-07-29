@@ -2,12 +2,15 @@ package com.smallcat.fragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -121,6 +124,47 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 		}
 	}
 	
+	public void setPicture(){
+		Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "smallcat_temp.jpg"));
+        ContentResolver cr = getActivity().getContentResolver();
+		try {
+			BitmapFactory.Options option = new BitmapFactory.Options();
+        	option.inJustDecodeBounds = true;
+        	Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri), null, option);
+        	int xration = 0, yration = 0;
+        	for (int i = 1024; i >= 64; i /= 2){
+        		xration = option.outWidth / i;
+        		yration = option.outHeight / i;
+        		if (xration >= 1 || yration >= 1){
+        			if (xration > yration){
+        				option.inSampleSize = xration;
+        			}
+        			else{
+        				option.inSampleSize = yration;
+        			}
+        			break;
+        		}
+        	}
+        	option.inJustDecodeBounds = false;
+        	bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri), null, option);
+        	boolean ok = false;
+        	for (int i=0;i<3 && !ok;++i){
+        		if (picture[i] == null){
+        			image[i].setImageBitmap(bitmap);
+        			picture[i] = bitmap;
+        			ok = true;
+        		}
+        	}
+        	if (!ok){
+        		image[2].setImageBitmap(bitmap);
+        		picture[2] = bitmap;
+        	}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public byte[] getPicture(int index){
 		byte[] data = null;
 		if (picture[index] != null){
@@ -198,9 +242,14 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 		switch (arg0.getId()){
 		case R.id.camera:{
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				Intent intent_camera = getActivity().getPackageManager()
+		                .getLaunchIntentForPackage("com.android.camera");
+				if (intent_camera != null) {
+				    intent.setPackage("com.android.camera");
+				}
 				Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "smallcat_temp.jpg"));
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-				intent.putExtra("return-data", uri);
+				intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, false);
 				startActivityForResult(intent, cameraRequest);
 			}
 			break;

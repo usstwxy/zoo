@@ -1,6 +1,7 @@
 package com.smallcat.activity;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -157,15 +159,8 @@ public class SubmissionActivity extends FragmentActivity {
 	@Override  
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 65536 + SubmissionFragment.cameraRequest){
-			Uri uri = data.getData();
-			
-	        ContentResolver cr = this.getContentResolver();
-			try {
-				Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-				fragment.setPicture(bitmap);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (resultCode == RESULT_OK){
+				fragment.setPicture();
 			}
 		}
 		else if (requestCode == 65536 + SubmissionFragment.galleryRequest) {

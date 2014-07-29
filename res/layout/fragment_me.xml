@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLines="2"
-                    android:text="如果不参加社团，那跟狗有什么区别"
+                    android:text="好好学习，天天向上"
                     android:textColor="@android:color/white"
                     android:textIsSelectable="false"
                     android:textSize="16.0sp" />
@@ -106,7 +106,7 @@
                 android:layout_marginRight="@dimen/standard_margin"
                 android:layout_marginTop="5.0dip"
                 android:paddingLeft="30.0dip"
-                android:text="被10+人跟风\n有3个社团发起新投票" />
+                android:text="有1个社团邀请你参与投票" />
 
             <View
                 android:layout_width="fill_parent"
@@ -163,7 +163,7 @@
                 android:layout_marginRight="@dimen/standard_margin"
                 android:layout_marginTop="5.0dip"
                 android:paddingLeft="30.0dip"
-                android:text="明天将在体育场举办运动会，别忘了参加哦" />
+                android:text="明天将在体育场举办运动会" />
 
             <View
                 android:layout_width="fill_parent"
@@ -203,7 +203,7 @@
                 android:layout_marginRight="@dimen/standard_margin"
                 android:layout_marginTop="5.0dip"
                 android:paddingLeft="30.0dip"
-                android:text="草稿中有1篇随笔\n有2个社团邀请发表随笔" />
+                android:text="草稿中有10篇随笔" />
 
             <View
                 android:layout_width="fill_parent"
