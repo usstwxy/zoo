@@ -249,7 +249,6 @@ public class FindAdapter extends BaseAdapter{
 		@SuppressLint("SimpleDateFormat") @Override
 		public void set(View view) {
 			// TODO Auto-generated method stub
-<<<<<<< HEAD
 			GameViewHolder holder = (GameViewHolder)view.getTag();
 			holder.title.setText(title);
 			holder.attend.setText(attend);
@@ -260,38 +259,12 @@ public class FindAdapter extends BaseAdapter{
 			if (bmp != null){
 				holder.post.setImageBitmap(bmp);
 			}
-			else if (url != null && !url.equals("")){
+			else if (!FindAdapter.this.isBusy && url != null && !url.equals("")){
 				ImageLoadTask imageLoadTask = new ImageLoadTask();
 				imageLoadTask.execute(url);
 			}
 			else{
 				holder.post.setImageResource(R.drawable.placeholder_small);
-=======
-			try {
-				ActivityViewHolder holder = (ActivityViewHolder)view.getTag();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date d = sdf.parse(date);
-				Date now = new Date();
-				long interval = (d.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
-				holder.title.setText(title);
-				holder.attend.setText(attend);
-				holder.source.setText(source);
-				holder.comment.setText(comment);
-				holder.date.setText("还有" + String.valueOf(interval) + "天");
-				if (bmp != null){
-					holder.post.setImageBitmap(bmp);
-				}
-				else if (!FindAdapter.this.isBusy && url != null && !url.equals("")){
-					ImageLoadTask imageLoadTask = new ImageLoadTask();
-					imageLoadTask.execute(url);
-				}
-				else{
-					holder.post.setImageResource(R.drawable.placeholder_small);
-				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
->>>>>>> origin/ui-wukai
 			}
 		}
 
