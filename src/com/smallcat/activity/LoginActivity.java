@@ -1,5 +1,7 @@
 package com.smallcat.activity;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.example.smallcat.R;
 import com.example.smallcat.R.id;
 import com.example.smallcat.R.layout;
@@ -63,11 +65,17 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 
+		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+		
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.text_email);
 		mEmailView.setText(mEmail);
 
+		//default
+		mEmailView.setText("2");
+		
 		mPasswordView = (EditText) findViewById(R.id.text_password);
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -94,6 +102,18 @@ public class LoginActivity extends Activity {
 					}
 				});
 	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
+		JPushInterface.onResume(this);
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		JPushInterface.onPause(this);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,14 +137,14 @@ public class LoginActivity extends Activity {
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		USERID = mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
 
 		boolean cancel = false;
-		View focusView = null;
+		//View focusView = null;
 
 		// Check for a valid password.
-		if (TextUtils.isEmpty(mPassword)) {
+		/*if (TextUtils.isEmpty(mPassword)) {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
@@ -132,10 +152,10 @@ public class LoginActivity extends Activity {
 			mPasswordView.setError(getString(R.string.error_invalid_password));
 			focusView = mPasswordView;
 			cancel = true;
-		}
+		}*/
 
 		// Check for a valid email address.
-		if (TextUtils.isEmpty(mEmail)) {
+		/*if (TextUtils.isEmpty(mEmail)) {
 			mEmailView.setError(getString(R.string.error_field_required));
 			focusView = mEmailView;
 			cancel = true;
@@ -143,12 +163,12 @@ public class LoginActivity extends Activity {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
-		}
+		}*/
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
-			focusView.requestFocus();
+			//focusView.requestFocus();
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.

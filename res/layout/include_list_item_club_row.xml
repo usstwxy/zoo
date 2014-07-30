@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_button_selector"
+    android:focusable="false"
+    android:focusableInTouchMode="false" >
+
+    <ImageView 
+        android:id="@+id/image"
+        android:layout_width="@dimen/club_row_image_size"
+        android:layout_height="@dimen/club_row_image_size"
+        android:layout_margin="@dimen/standard_margin"
+        android:background="@drawable/placeholder_small"
+        android:contentDescription="@string/app_name"
+        android:duplicateParentState="true"
+        android:scaleType="centerCrop" />
+
+    <FrameLayout
+        android:id="@+id/btn_join"
+        android:layout_width="100.0dip"
+        android:layout_height="@dimen/club_row_image_size"
+        android:layout_margin="@dimen/standard_margin"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/white_button_selector_transparent"
+        android:clickable="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false" >
+
+        <TextView
+            android:id="@+id/txt_join"
+            style="@style/SmallButtonOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:singleLine="true"
+            android:text="@string/lbl_join" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/lbl_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="100.0dip"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingRight="@dimen/standard_margin"
+        android:textColor="@color/umano_clip_list_title"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/clip_standard_title_font_size" />
+
+    <TextView
+        android:id="@+id/lbl_members"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_name"
+        android:layout_marginRight="120.0dip"
+        android:layout_toRightOf="@id/image"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/standard_margin"
+        android:paddingRight="@dimen/standard_margin"
+        android:singleLine="true"
+        android:textColor="@color/umano_clip_list_source"
+        android:textIsSelectable="false"
+        android:textSize="14.0sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umano_divider" />
+
+</RelativeLayout>

@@ -11,7 +11,7 @@ import org.apache.http.Header;
 
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.smallcat.activity.PostActivity;
+import com.smallcat.activity.PosterActivity;
 import com.smallcat.adapter.ImageLoader;
 import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.data.JsonObj;
@@ -60,6 +60,7 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 	private TextView content, date, source, attend, cnt;
 	private LinearLayout activity, info, expand;
 	private Bitmap bmp;
+	private ImageLoadTask imageLoadTask = null;
 	
 	@SuppressLint("SimpleDateFormat") @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +90,7 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 		String url = bundle.getString("url");
 		
 		if (url != null && !url.equals("")){
-			ImageLoadTask imageLoadTask = new ImageLoadTask();
+			imageLoadTask = new ImageLoadTask();
 			imageLoadTask.execute(url);
 		}
 		
@@ -171,8 +172,11 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 
 		@Override
 		protected void onPostExecute(Bitmap result) {
+			if (result == null) return;
 			GameDetailFragment.this.bmp = result;
-			GameDetailFragment.this.post.setImageBitmap(result);
+			if (GameDetailFragment.this.post != null){
+				GameDetailFragment.this.post.setImageBitmap(result);
+			}
 		}
 	}
 	
@@ -266,8 +270,8 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 	
 	private void showBigPicture(){
 		if (bmp != null){
-			PostActivity.post = bmp;
-			Intent intent = new Intent(getActivity(), PostActivity.class);
+			PosterActivity.post = bmp;
+			Intent intent = new Intent(getActivity(), PosterActivity.class);
 			getActivity().startActivity(intent);
 		}
 	}

@@ -13,6 +13,7 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.smallcat.activity.ClubHomeActivity;
+import com.smallcat.activity.LoginActivity;
 import com.smallcat.adapter.HomeAdapter;
 import com.smallcat.adapter.FindAdapter;
 import com.smallcat.data.JsonObj;
@@ -92,7 +93,7 @@ public class HomeFragment extends Fragment implements OnRefreshListener {
 		mAdapter.AddCategory("My Clubs", "");
 		
 		showProgress(true);
-		WebAPI.get("club/GetMyClubs?id=2", null, new AsyncHttpResponseHandler() {
+		WebAPI.get("club/GetMyClubs?id=" + LoginActivity.USERID, null, new AsyncHttpResponseHandler() {
 			
 			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] header, byte[] data) {

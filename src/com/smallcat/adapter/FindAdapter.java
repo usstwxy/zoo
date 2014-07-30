@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.GameDetailActivity;
@@ -32,6 +33,7 @@ public class FindAdapter extends BaseAdapter{
 	private Exp selectedTwitter = null;
 	private View selectedView = null;
 	private Context context;
+	private boolean isBusy = false;
 	
 	public FindAdapter(Context context){
 		this.context = context;
@@ -46,6 +48,10 @@ public class FindAdapter extends BaseAdapter{
 	
 	public void updateTwitterActivity(String comment){
 		selectedTwitter.comment = comment;
+	}
+	
+	public void setFlagBusy(boolean isBusy){
+		this.isBusy = isBusy;
 	}
 	
 	@Override
@@ -150,6 +156,24 @@ public class FindAdapter extends BaseAdapter{
 		public View set() {
 			// TODO Auto-generated method stub
 			View view = LayoutInflater.from(context).inflate(layoutID, null);
+			View btn1 = view.findViewById(R.id.btn_popular);
+			View btn2 = view.findViewById(R.id.btn_search);
+			btn1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Toast.makeText(context, "popular", Toast.LENGTH_SHORT).show();
+				}
+			});
+			btn2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Toast.makeText(context, "search", Toast.LENGTH_SHORT).show();
+				}
+			});
 			HeaderViewHolder holder = new HeaderViewHolder();
 			holder.layoutID = layoutID;
 			view.setTag(holder);
@@ -254,14 +278,13 @@ public class FindAdapter extends BaseAdapter{
 			if (bmp != null){
 				holder.post.setImageBitmap(bmp);
 			}
-			else if (url != null && !url.equals("")){
+			else if (!FindAdapter.this.isBusy && url != null && !url.equals("")){
 				ImageLoadTask imageLoadTask = new ImageLoadTask();
 				imageLoadTask.execute(url);
 			}
 			else{
 				holder.post.setImageResource(R.drawable.placeholder_small);
 			}
-			
 		}
 
 		@Override

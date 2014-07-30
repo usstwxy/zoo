@@ -32,5 +32,5 @@
     <dimen name="clip_expanded_title_font_size">18.0sp</dimen>
     <dimen name="standard_margin_variable">20.0dip</dimen>
     <dimen name="standard_margin_double">20.0dip</dimen>
-    
+    <dimen name="club_row_image_size">40.0dip</dimen>
 </resources>

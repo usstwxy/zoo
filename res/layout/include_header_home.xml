@@ -27,5 +27,5 @@
         app:itbIcon="@drawable/icon_search"
         app:itbText="搜索社团" >
     </com.smallcat.widget.ImageTextButton>
-  
+   
 </LinearLayout>

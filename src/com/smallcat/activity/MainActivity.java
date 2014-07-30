@@ -3,15 +3,23 @@ package com.smallcat.activity;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.apache.http.Header;
+
 import cn.jpush.android.api.JPushInterface;
 
 import com.example.smallcat.R;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.smallcat.data.JsonObj;
+import com.smallcat.data.WebAPI;
+import com.smallcat.dialog.CheckCodeDialogFragment;
+import com.smallcat.dialog.CheckCodeDialogFragment.CheckCodeDialogListener;
 import com.smallcat.fragment.*;
 import com.smallcat.widget.PagerSlidingTabStrip;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +32,7 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements CheckCodeDialogListener{
 
 	public static final String EXTRA_CID = "clubID";
 	public static final String EXTRA_CTITLE = "clubTitle";
@@ -58,9 +66,9 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_main);
-		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+		/*JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);     		// 初始化 JPush
-		
+*/		
 		
 		setOverflowShowingAlways();
 		dm = getResources().getDisplayMetrics();
@@ -72,7 +80,7 @@ public class MainActivity extends FragmentActivity {
 		setTabsValue();
 	}
 	
-	@Override
+	/*@Override
 	protected void onResume(){
 		super.onResume();
 		JPushInterface.onResume(this);
@@ -82,7 +90,7 @@ public class MainActivity extends FragmentActivity {
 	protected void onPause(){
 		super.onPause();
 		JPushInterface.onPause(this);
-	}
+	}*/
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -191,6 +199,62 @@ public class MainActivity extends FragmentActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog) {
+		// TODO Auto-generated method stub
+		String clubID = ((CheckCodeDialogFragment)dialog).getClubID();
+		WebAPI.get("clubkey/closecheck?clubID=" + clubID, null, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				JsonObj jo = new JsonObj(arg2);
+				boolean result = jo.getBool("result");
+				if (result){
+					Toast.makeText(getApplicationContext(), "大门已关闭", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "警报:大门关闭失败", Toast.LENGTH_LONG).show();
+				}
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "网络连接错误", Toast.LENGTH_SHORT).show();
+			}
+		});
+		dialog.dismiss();
+	}
+
+	@Override
+	public void onDialogNegativeClick(DialogFragment dialog) {
+		// TODO Auto-generated method stub
+		String clubID = ((CheckCodeDialogFragment)dialog).getClubID();
+		WebAPI.get("clubkey/closecheck?clubID=" + clubID, null, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				// TODO Auto-generated method stub
+				JsonObj jo = new JsonObj(arg2);
+				boolean result = jo.getBool("result");
+				if (result){
+					Toast.makeText(getApplicationContext(), "大门已关闭", Toast.LENGTH_SHORT).show();
+				}
+				else{
+					Toast.makeText(getApplicationContext(), "警报:大门关闭失败", Toast.LENGTH_LONG).show();
+				}
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "网络连接错误", Toast.LENGTH_SHORT).show();
+			}
+		});
+		dialog.dismiss();
 	}
 
 }

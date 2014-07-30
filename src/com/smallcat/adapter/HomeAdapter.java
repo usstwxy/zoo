@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
+import com.smallcat.activity.ClubsActivity;
+
 import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.activity.PostGameActivity;
@@ -13,6 +15,9 @@ import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.adapter.FindAdapter.ViewHolder;
 import com.smallcat.adapter.FindAdapter.Game.ImageLoadTask;
 
+import com.smallcat.dialog.CheckCodeDialogFragment;
+import com.smallcat.dialog.CheckDialogFragment;
+
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +26,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,15 +46,9 @@ public class HomeAdapter extends BaseAdapter{
 
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
-	private View contentView;
-	private PopupWindow mPopUpWindow;
 	
 	public HomeAdapter(Context context) {
 		mContext = context;
-		contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
-		mPopUpWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
-    	mPopUpWindow.setOutsideTouchable(true);
 	}
 
 	@Override
@@ -95,6 +98,10 @@ public class HomeAdapter extends BaseAdapter{
 		rows.add(new Header(){});
 	}
 	
+	public void AddClubRow(String url, String clubID, String clubName, String members, String isMember){
+		rows.add(new ClubRow(url, clubID, clubName, members, isMember){});
+	}
+	
 	abstract class ViewHolder{ 
 		
 		public int layoutID;
@@ -113,7 +120,15 @@ public class HomeAdapter extends BaseAdapter{
 		public TextView clubName;
 		public TextView twitters;
 		public View btn_more;
-		public TextView btn_publish;
+		public View contentView;
+		public ImageView logo;
+	}
+	
+	class ClubRowViewHolder extends ViewHolder{
+		public TextView clubName;
+		public TextView members;
+		public TextView txtJoin;
+		public View btn_join;
 		public ImageView logo;
 	}
 	
@@ -155,11 +170,12 @@ public class HomeAdapter extends BaseAdapter{
 			// TODO Auto-generated method stub
 			HeaderViewHolder holder = (HeaderViewHolder)view.getTag();
 			
-			holder.btn_exps.setOnClickListener(new OnClickListener() {
+			holder.btn_search.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	Toast.makeText(mContext, "显示我的活动", Toast.LENGTH_SHORT).show();
+	            	Intent intent = new Intent(mContext, ClubsActivity.class);
+					mContext.startActivity(intent);
 	            }
 	        });
 		}
@@ -175,6 +191,7 @@ public class HomeAdapter extends BaseAdapter{
 		
 		public String clubName, twitters, clubID, role, url;
 		public Bitmap bmp;
+		public PopupWindow mPopUpWindow;
 		
 		public Club(String url, String clubID, String clubName, String twitters, String role){
 			super(R.layout.include_list_item_club);
@@ -193,7 +210,7 @@ public class HomeAdapter extends BaseAdapter{
 			holder.clubName = (TextView)view.findViewById(R.id.lbl_title);
 			holder.twitters = (TextView)view.findViewById(R.id.txt_twitters);
 			holder.btn_more = (ImageButton)view.findViewById(R.id.btn_more);
-			holder.btn_publish = (TextView)contentView.findViewById(R.id.btn_publish);
+			holder.contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_club_manage, null, true);
 			holder.logo = (ImageView)view.findViewById(R.id.image);
 			holder.layoutID = layoutID;
 			view.setTag(holder);
@@ -219,6 +236,9 @@ public class HomeAdapter extends BaseAdapter{
 				holder.logo.setImageResource(R.drawable.placeholder_small);
 			}
 			
+			mPopUpWindow = new PopupWindow(holder.contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+	    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
+	    	mPopUpWindow.setOutsideTouchable(true);
 			holder.btn_more.setOnClickListener(new OnClickListener() {
 	            
 	            @Override
@@ -237,11 +257,12 @@ public class HomeAdapter extends BaseAdapter{
 	            }
 	        });
 			
-			holder.btn_publish.setOnClickListener(new OnClickListener() {
+			holder.contentView.findViewById(R.id.btn_publish).setOnClickListener(new OnClickListener() {
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	mPopUpWindow.dismiss();  
+
+	            	mPopUpWindow.dismiss();
 	            	Intent intent = new Intent(mContext, PostGameActivity.class);
 	            	
 					Bundle bundle = new Bundle();
@@ -249,6 +270,25 @@ public class HomeAdapter extends BaseAdapter{
 					bundle.putString(MainActivity.EXTRA_CID, clubID);
 					intent.putExtras(bundle);
 					mContext.startActivity(intent);
+	            }
+	        });
+			
+			holder.contentView.findViewById(R.id.btn_open).setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	mPopUpWindow.dismiss();
+	            	FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+	            	FragmentTransaction ft = fm.beginTransaction();
+	            	
+	            	Fragment prev = fm.findFragmentByTag("checkcodedialog");
+	            	if (prev != null)
+	            		ft.remove(prev);
+	            	ft.addToBackStack(null);
+
+	                // Create and show the dialog.
+	            	DialogFragment newFragment = new CheckCodeDialogFragment(clubID);
+	                newFragment.show(ft, "checkcodedialog");
 	            }
 	        });
 		}
@@ -324,6 +364,117 @@ public class HomeAdapter extends BaseAdapter{
 		public void setListen(View view) {
 			// TODO Auto-generated method stub
 			
+		}
+	}
+	
+	class ClubRow extends Row{
+		
+		public String clubName, members, clubID, url, isMember;
+		public Bitmap bmp;
+		public PopupWindow mPopUpWindow;
+		
+		public ClubRow(String url, String clubID, String clubName, String members, String isMember){
+			super(R.layout.include_list_item_club_row);
+			this.url = url;
+			this.clubName = clubName;
+			this.members = members;
+			this.clubID = clubID;
+			this.isMember = isMember;
+		}
+
+		@Override
+		public View set() {
+			// TODO Auto-generated method stub
+			View view = LayoutInflater.from(mContext).inflate(layoutID, null);
+			ClubRowViewHolder holder = new ClubRowViewHolder();
+			holder.clubName = (TextView)view.findViewById(R.id.lbl_name);
+			holder.members = (TextView)view.findViewById(R.id.lbl_members);
+			holder.btn_join = (View)view.findViewById(R.id.btn_join);
+			holder.logo = (ImageView)view.findViewById(R.id.image);
+			holder.txtJoin = (TextView)holder.btn_join.findViewById(R.id.txt_join);
+			holder.layoutID = layoutID;
+			view.setTag(holder);
+			
+			return view;
+		}
+
+		@Override
+		public void set(View view) {
+			// TODO Auto-generated method stub
+			ClubRowViewHolder holder = (ClubRowViewHolder)view.getTag();
+			
+			holder.clubName.setText(this.clubName);
+			holder.members.setText(this.members + "名成员");
+			if (bmp != null){
+				holder.logo.setImageBitmap(bmp);
+			}
+			else if (url != null && !url.equals("")){
+				ImageLoadTask imageLoadTask = new ImageLoadTask();
+				imageLoadTask.execute(url);
+			}
+			else{
+				holder.logo.setImageResource(R.drawable.placeholder_small);
+			}
+			
+			if (isMember.equals("false")) {
+				holder.txtJoin.setText("申请加入");
+				holder.txtJoin.setBackgroundResource(R.color.umano_orange);
+				holder.btn_join.setClickable(true);
+
+				holder.btn_join.setOnClickListener(new OnClickListener() {
+		            
+		            @Override
+		            public void onClick(View v) {
+		            	FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+		            	FragmentTransaction ft = fm.beginTransaction();
+		            	
+		            	Fragment prev = fm.findFragmentByTag("checkdialog");
+		            	if (prev != null)
+		            		ft.remove(prev);
+		            	ft.addToBackStack(null);
+
+		                // Create and show the dialog.
+		            	DialogFragment newFragment = new CheckDialogFragment(clubID);
+		                newFragment.show(ft, "checkdialog");
+
+		            }
+		        });
+			} else {
+				holder.txtJoin.setText("已加入");
+				holder.txtJoin.setBackgroundResource(R.color.umano_gray);
+				holder.btn_join.setClickable(false);
+			}
+		}
+		
+		@Override
+		public void setListen(final View view) {
+			// TODO Auto-generated method stub
+			view.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Toast.makeText(mContext, "社团主页", Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+		
+		class ImageLoadTask extends AsyncTask<Object, Void, Void> {
+			
+			@Override
+			protected Void doInBackground(Object... params) {
+				String url = (String) params[0];
+				ClubRow.this.bmp = ImageLoader.loadImage(url);
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
+				if (result == null) {
+					return;
+				}
+				notifyDataSetChanged();
+			}
 		}
 	}
 	
