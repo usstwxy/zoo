@@ -130,4 +130,40 @@ public class ClubsFragment extends Fragment {
 			mStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
 		}
 	}
+	
+	public void UpDate() {
+		lv.setVisibility(View.GONE);
+		showProgress(true);
+        WebAPI.get("club/GetAll?index=0&userID=" + LoginActivity.USERID, null, new AsyncHttpResponseHandler() {
+			 
+			@Override
+			public void onSuccess(int arg0, Header[] header, byte[] data) {
+				// TODO Auto-generated method stub
+				mAdapter = new HomeAdapter(getActivity());
+				JsonObj jo = new JsonObj(data);
+				
+				for (JsonObj item : jo.values()) {
+					String url = item.getString("ClubLogo");
+					if (url != null && !url.equals("")){
+						url = "http://114.215.207.88" + url;
+					}
+					
+					String s = item.getString("ID");
+					mAdapter.AddClubRow(url, item.getString("ClubID"), item.getString("ClubName"), 
+							item.getString("Members"), item.getString("IsMember"));
+					String s2 = "123";
+				}
+				showProgress(false);
+				lv.setAdapter(mAdapter);
+				lv.setVisibility(View.VISIBLE);
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				showProgress(false);
+				Toast.makeText(getActivity(), "failure", Toast.LENGTH_SHORT).show();
+			}
+		});   
+	}
 }

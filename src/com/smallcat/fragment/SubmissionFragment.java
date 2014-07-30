@@ -64,21 +64,6 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 		
 		bundle = getArguments();
 		
-		camera = (ImageView) rootView.findViewById(R.id.camera);
-		image[0] = (ImageView) rootView.findViewById(R.id.image1);
-		image[1] = (ImageView) rootView.findViewById(R.id.image2);
-		image[2] = (ImageView) rootView.findViewById(R.id.image3);
-		
-		camera.setOnClickListener(this);
-		image[0].setOnClickListener(this);
-		image[1].setOnClickListener(this);
-		image[2].setOnClickListener(this);
-		
-		ImageLoadTask imageLoadTask = new ImageLoadTask();
-		imageLoadTask.execute(bundle.getString("image1"),
-				bundle.getString("image2"), bundle.getString("image3"));
-		
-		
 		String flag = bundle.getString(PostGameActivity.EXTRA_MANAGE);
 		if (flag != null && flag.equals("true")) {
 			
@@ -104,7 +89,22 @@ public class SubmissionFragment extends Fragment implements OnDateSetListener, O
 	                tpd.setOnTimeSetListener(this);
 	            }
 	        }
-		}	
+		} else {
+			camera = (ImageView) rootView.findViewById(R.id.camera);
+			image[0] = (ImageView) rootView.findViewById(R.id.image1);
+			image[1] = (ImageView) rootView.findViewById(R.id.image2);
+			image[2] = (ImageView) rootView.findViewById(R.id.image3);
+			
+			camera.setOnClickListener(this);
+			image[0].setOnClickListener(this);
+			image[1].setOnClickListener(this);
+			image[2].setOnClickListener(this);
+			
+			ImageLoadTask imageLoadTask = new ImageLoadTask();
+			imageLoadTask.execute(bundle.getString("image1"),
+					bundle.getString("image2"), bundle.getString("image3"));
+		}
+		
 		
 		return rootView;
 	}

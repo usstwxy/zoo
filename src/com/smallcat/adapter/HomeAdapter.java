@@ -13,6 +13,8 @@ import com.smallcat.adapter.FindAdapter.Row;
 import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.adapter.FindAdapter.ViewHolder;
 import com.smallcat.adapter.FindAdapter.Game.ImageLoadTask;
+import com.smallcat.dialog.CheckCodeDialogFragment;
+import com.smallcat.dialog.CheckDialogFragment;
 
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
@@ -22,7 +24,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,7 +127,6 @@ public class HomeAdapter extends BaseAdapter{
 		public TextView members;
 		public TextView txtJoin;
 		public View btn_join;
-		public View contentView;
 		public ImageView logo;
 	}
 	
@@ -254,7 +259,7 @@ public class HomeAdapter extends BaseAdapter{
 	            
 	            @Override
 	            public void onClick(View v) {
-	            	mPopUpWindow.dismiss();  
+	            	mPopUpWindow.dismiss();
 	            	Intent intent = new Intent(mContext, PostGameActivity.class);
 	            	
 					Bundle bundle = new Bundle();
@@ -262,6 +267,25 @@ public class HomeAdapter extends BaseAdapter{
 					bundle.putString(MainActivity.EXTRA_CID, clubID);
 					intent.putExtras(bundle);
 					mContext.startActivity(intent);
+	            }
+	        });
+			
+			holder.contentView.findViewById(R.id.btn_open).setOnClickListener(new OnClickListener() {
+	            
+	            @Override
+	            public void onClick(View v) {
+	            	mPopUpWindow.dismiss();
+	            	FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+	            	FragmentTransaction ft = fm.beginTransaction();
+	            	
+	            	Fragment prev = fm.findFragmentByTag("checkcodedialog");
+	            	if (prev != null)
+	            		ft.remove(prev);
+	            	ft.addToBackStack(null);
+
+	                // Create and show the dialog.
+	            	DialogFragment newFragment = new CheckCodeDialogFragment(clubID);
+	                newFragment.show(ft, "checkcodedialog");
 	            }
 	        });
 		}
@@ -393,24 +417,23 @@ public class HomeAdapter extends BaseAdapter{
 				holder.txtJoin.setText("申请加入");
 				holder.txtJoin.setBackgroundResource(R.color.umano_orange);
 				holder.btn_join.setClickable(true);
-				mPopUpWindow = new PopupWindow(holder.contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-		    	mPopUpWindow.setBackgroundDrawable(new BitmapDrawable());// 有了这句才可以点击返回（撤销）按钮dismiss()popwindow  
-		    	mPopUpWindow.setOutsideTouchable(true);
+
 				holder.btn_join.setOnClickListener(new OnClickListener() {
 		            
 		            @Override
 		            public void onClick(View v) {
-		            	try {
-		                    if (mPopUpWindow.isShowing()) {  
-		  
-		                    	mPopUpWindow.dismiss();  
-		                    }  
-		                    mPopUpWindow.showAsDropDown(v, 8, -8);
-		  
-		                } catch (Exception e) {  
-		                	Toast.makeText(mContext, "社团成员", Toast.LENGTH_SHORT).show();
-		                }  
+		            	FragmentManager fm = ((FragmentActivity)mContext).getSupportFragmentManager();
+		            	FragmentTransaction ft = fm.beginTransaction();
 		            	
+		            	Fragment prev = fm.findFragmentByTag("checkdialog");
+		            	if (prev != null)
+		            		ft.remove(prev);
+		            	ft.addToBackStack(null);
+
+		                // Create and show the dialog.
+		            	DialogFragment newFragment = new CheckDialogFragment(clubID);
+		                newFragment.show(ft, "checkdialog");
+
 		            }
 		        });
 			} else {
@@ -418,21 +441,6 @@ public class HomeAdapter extends BaseAdapter{
 				holder.txtJoin.setBackgroundResource(R.color.umano_gray);
 				holder.btn_join.setClickable(false);
 			}
-			
-			/*holder.btn_publish.setOnClickListener(new OnClickListener() {
-	            
-	            @Override
-	            public void onClick(View v) {
-	            	mPopUpWindow.dismiss();  
-	            	Intent intent = new Intent(mContext, PostGameActivity.class);
-	            	
-					Bundle bundle = new Bundle();
-					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
-					bundle.putString(MainActivity.EXTRA_CID, clubID);
-					intent.putExtras(bundle);
-					mContext.startActivity(intent);
-	            }
-	        });*/
 		}
 		
 		@Override
@@ -442,12 +450,6 @@ public class HomeAdapter extends BaseAdapter{
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					/*Intent intent = new Intent(mContext, ClubHomeActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putString(MainActivity.EXTRA_CTITLE, clubName);
-					bundle.putString(MainActivity.EXTRA_CID, clubID);
-					intent.putExtras(bundle);
-					mContext.startActivity(intent);*/
 					Toast.makeText(mContext, "社团主页", Toast.LENGTH_SHORT).show();
 				}
 			});

@@ -91,7 +91,6 @@ public class GameDetailActivity extends FragmentActivity {
 							Date date = sdf.parse(bundle.getString("date"));
 							Date now = new Date();
 							long interval = date.getTime() - now.getTime() + SystemClock.elapsedRealtime();
-							interval = 5000;
 							alarmMgr.set(AlarmManager.ELAPSED_REALTIME, interval, pendIntent);
 							
 							Toast.makeText(GameDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
