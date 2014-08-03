@@ -74,7 +74,7 @@ public class GameDetailFragment extends Fragment implements OnClickListener{
 		post = (ImageView) rootView.findViewById(R.id.image);
 		content = (TextView) rootView.findViewById(R.id.content);
 		date = (TextView) rootView.findViewById(R.id.date);
-		source = (TextView) rootView.findViewById(R.id.source);
+		source = (TextView) rootView.findViewById(R.id.place);
 		attend = (TextView) rootView.findViewById(R.id.attend);
 		cnt = (TextView) rootView.findViewById(R.id.label_cnt);
 		

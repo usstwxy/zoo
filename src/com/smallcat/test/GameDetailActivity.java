@@ -1,6 +1,8 @@
-package com.smallcat.activity;
+package com.smallcat.test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -8,29 +10,45 @@ import org.apache.http.Header;
 
 import com.example.smallcat.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.smallcat.activity.LoginActivity;
 import com.smallcat.data.JsonObj;
 import com.smallcat.data.WebAPI;
-import com.smallcat.fragment.GameDetailFragment;
+import com.smallcat.test.GameDetailFragment;
 import com.smallcat.service.AlarmReceiver;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameDetailActivity extends FragmentActivity {
+public class GameDetailActivity extends FragmentActivity implements PanelSlideListener{
 	
 	private Bundle bundle;
-	
 	private GameDetailFragment fragment;
-	
 	private boolean modified = false;
+	private ListView comments;
+	private TextView cnt;
+	private ImageView arrow;
+	private SlidingUpPanelLayout sliding_layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +69,44 @@ public class GameDetailActivity extends FragmentActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, fragment).commit();
 		}
+		
+		sliding_layout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+		comments = (ListView) findViewById(R.id.comments);
+		cnt = (TextView) findViewById(R.id.label_cnt);
+		cnt.setText("目前共有" + bundle.getString("comment") + "个小伙伴响应啦！");
+		arrow = (ImageView) findViewById(R.id.arrow);
+		
+		sliding_layout.setPanelSlideListener(this);
+		
+		WebAPI.get("activity/getComments?id=" + bundle.getString("id") + "&index=0", null, new AsyncHttpResponseHandler() {
+			
+			@Override
+			public void onSuccess(int arg0, Header[] header, byte[] data) {
+				// TODO Auto-generated method stub
+				JsonObj jo = new JsonObj(data);
+				
+				ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+				
+				for (JsonObj item : jo.values()){
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("userName", item.getString("UserName") + " " + item.getString("PublishedTime").replace("T", " "));
+					map.put("comment", item.getString("Comment"));
+					list.add(map);
+				}
+				
+				SimpleAdapter adapter = new SimpleAdapter(GameDetailActivity.this, list,
+						R.layout.include_list_item_comment,
+						new String[]{"userName", "comment"},
+						new int[]{R.id.user_name, R.id.comment_text});
+				comments.setAdapter(adapter);
+			}
+			
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2, Throwable arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	@Override
@@ -134,5 +190,39 @@ public class GameDetailActivity extends FragmentActivity {
 			setResult(0, null);
 		}
 		super.onBackPressed();
+	}
+	
+	private int expanding = 1;
+
+	@Override
+	public void onPanelSlide(View panel, float slideOffset) {
+		// TODO Auto-generated method stub
+		Matrix matrix = new Matrix();
+		matrix.postRotate(expanding * 180 * slideOffset, arrow.getWidth() / 2.0f, arrow.getHeight() / 2.0f);
+		arrow.setImageMatrix(matrix);
+	}
+
+	@Override
+	public void onPanelCollapsed(View panel) {
+		// TODO Auto-generated method stub
+		expanding *= -1;
+	}
+
+	@Override
+	public void onPanelExpanded(View panel) {
+		// TODO Auto-generated method stub
+		expanding *= -1;
+	}
+
+	@Override
+	public void onPanelAnchored(View panel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onPanelHidden(View panel) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,8 +1,63 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smallcat.activity.GameDetailActivity"
-    tools:ignore="MergeRootFrame" />
+    android:gravity="bottom"
+    sothree:panelHeight="68dp"
+    sothree:shadowHeight="4dp" >
 
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.smallcat.activity.GameDetailActivity"
+        tools:ignore="MergeRootFrame" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/umano_light_gray"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/btn_expand"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/label_cnt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/umano_light_gray"
+                android:drawableLeft="@drawable/icon_send_feedback"
+                android:drawablePadding="@dimen/standard_margin"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"
+                android:text="目前共有10个小伙伴效应啦！"
+                android:textIsSelectable="false"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:scaleType="matrix"
+                android:src="@drawable/ic_expand" >
+            </ImageView>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/umano_light_gray" >
+        </ListView>
+    </LinearLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -36,6 +36,13 @@
             android:label="AtYoung"
             android:theme="@android:style/Theme.Light"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/NoActionBarTheme" >
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,13 +50,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.smallcat.activity.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/NoActionBarTheme" >
-        </activity>
-        <activity
             android:name="com.smallcat.activity.GameDetailActivity"
             android:label="@string/title_activity_detail"
+            android:theme="@style/MyTheme" >
+        </activity>
+        <activity
+            android:name="com.smallcat.test.GameDetailActivity"
+            android:label="@string/title_activity_club_detail"
             android:theme="@style/MyTheme" >
         </activity>
         <activity
