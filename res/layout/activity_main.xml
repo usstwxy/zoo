@@ -6,14 +6,22 @@
  	<com.smallcat.widget.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="@dimen/pager_tab_height">
     </com.smallcat.widget.PagerSlidingTabStrip>
-
-    <android.support.v4.view.ViewPager
+ 	
+	<android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tabs"
+        android:layout_below="@id/tabs"
         android:background="#e8e8e8" />
-
+	
+ 	<View
+ 	    android:id="@+id/queue_header_shadow"
+ 	    android:layout_width="fill_parent"
+ 	    android:layout_height="4.0dip"
+ 	    android:layout_below="@id/tabs"
+ 	    android:background="@drawable/below_shadow" />
+	
+	
 </RelativeLayout>

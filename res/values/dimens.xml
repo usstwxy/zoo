@@ -33,4 +33,6 @@
     <dimen name="standard_margin_variable">20.0dip</dimen>
     <dimen name="standard_margin_double">20.0dip</dimen>
     <dimen name="club_row_image_size">40.0dip</dimen>
+    <dimen name="club_detail_image_height">150.0dip</dimen>
+    <dimen name="pager_tab_height">48.0dip</dimen>
 </resources>
