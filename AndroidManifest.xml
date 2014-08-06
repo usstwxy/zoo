@@ -36,6 +36,7 @@
             android:label="AtYoung"
             android:theme="@android:style/Theme.Light"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,12 +47,19 @@
             android:name="com.smallcat.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/NoActionBarTheme" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.smallcat.activity.GameDetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/MyTheme" >
         </activity>
+
         <activity
             android:name="com.smallcat.activity.MyGamesActivity"
             android:label="@string/title_activity_manager"
@@ -167,13 +175,17 @@
         <activity
             android:name="com.smallcat.activity.ClubsActivity"
             android:label="@string/title_activity_clubs" >
-            
-            <meta-data android:name="android.app.searchable"
-            android:resource="@xml/searchable" />
-            
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
             <intent-filter>
-		        <action android:name="android.intent.action.SEARCH" />
-		    </intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.smallcat.activity.ClubMainActivity"
+            android:label="@string/title_activity_club_main" >
         </activity>
     </application>
 

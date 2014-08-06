@@ -30,6 +30,12 @@
         <item name="android:backgroundSplit">#ffffff</item>
     </style>
     
+    <style name="TransparentActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#00000000</item>
+        <item name="android:backgroundStacked">#00000000</item>
+        <item name="android:backgroundSplit">#00000000</item>
+    </style>
+    
     <!-- Tab选项标签的样式 -->
     <style name="MyActionBarTabStyle" parent="android:style/Widget.Holo.Light.ActionBar.TabView">
         <item name="android:divider">@null</item>

@@ -1,10 +1,7 @@
 package com.smallcat.activity;
 
 import java.io.ByteArrayInputStream;
-<<<<<<< HEAD
-=======
 import java.io.File;
->>>>>>> origin/ui-lhc
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,10 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-<<<<<<< HEAD
-=======
 import android.os.Environment;
->>>>>>> origin/ui-lhc
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -164,7 +158,42 @@ public class SubmissionActivity extends FragmentActivity {
 	
 	@Override  
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		if (requestCode == 65536 + SubmissionFragment.cameraRequest){
+			if (resultCode == RESULT_OK){
+				fragment.setPicture();
+			}
+		}
+		else if (requestCode == 65536 + SubmissionFragment.galleryRequest) {
+			if (resultCode == RESULT_OK){
+	            try {
+	            	Uri uri = data.getData();
+	            	ContentResolver cr = this.getContentResolver();
+	            	BitmapFactory.Options option = new BitmapFactory.Options();
+	            	option.inJustDecodeBounds = true;
+	            	Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri), null, option);
+	            	int xration = 0, yration = 0;
+	            	for (int i = 1024; i >= 64; i /= 2){
+	            		xration = option.outWidth / i;
+	            		yration = option.outHeight / i;
+	            		if (xration >= 1 || yration >= 1){
+	            			if (xration > yration){
+	            				option.inSampleSize = xration;
+	            			}
+	            			else{
+	            				option.inSampleSize = yration;
+	            			}
+	            			break;
+	            		}
+	            	}
+	            	option.inJustDecodeBounds = false;
+	            	bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri), null, option);
+	                fragment.setPicture(bitmap); 
+	            } catch (FileNotFoundException e) {
+	            	e.printStackTrace();
+	            }
+			}
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 	
 	@Override

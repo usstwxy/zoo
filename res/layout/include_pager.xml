@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.smallcat.widget.PagerSlidingTabStrip
+        android:id="@id/tabs" 
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/pager_tab_height"
+        android:layout_alignParentTop="true"/>
+    
+ <!--            psts:indicatorHeight="4.0dip" 
+        psts:shouldExpand="true"
+        psts:tabBackground="@drawable/list_selector_orange_tap"
+        psts:underlineHeight="0.5dip"  -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tabs"
+        android:background="#e8e8e8" />
+
+</RelativeLayout>

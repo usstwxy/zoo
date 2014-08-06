@@ -55,5 +55,10 @@
     <string name="title_activity_clubs">ClubsActivity</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Search Clubs</string>
-	<string name="lbl_join">申请加入</string>
+    <string name="lbl_join">申请加入</string>
+    <string name="title_activity_club_main">ClubMainActivity</string>
+    <string name="lbl_members">成员</string>
+    <string name="lbl_games">活动</string>
+    <string name="lbl_likes">喜欢</string>
+
 </resources>

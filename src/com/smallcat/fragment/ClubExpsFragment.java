@@ -118,10 +118,13 @@ public class ClubExpsFragment extends Fragment implements OnRefreshListener {
 		        	map.put("date", String.valueOf(interval) + "分钟前");
 		        	list.add(map);
 				}
-				
-				mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_exp,
+				try {
+					mAdapter = new SimpleAdapter(getActivity(), list, R.layout.include_list_item_exp,
 		        		new String[] {"title", "content", "date"}, new int[] {R.id.lbl_title, R.id.txt_content, R.id.lbl_date});
-				
+				}
+				catch (Exception e) {
+					Log.i("error", e.getMessage());
+				}
 				showProgress(false);
 				lv.setAdapter(mAdapter);
 				

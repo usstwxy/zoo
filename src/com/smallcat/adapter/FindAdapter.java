@@ -198,7 +198,7 @@ public class FindAdapter extends BaseAdapter{
 		public String name, count;
 		
 		public Category(String name, String count){
-			super(R.layout.include_item_category);
+			super(R.layout.include_list_item_category);
 			this.name = name;
 			this.count = count;
 		}
@@ -296,7 +296,7 @@ public class FindAdapter extends BaseAdapter{
 					// TODO Auto-generated method stub
 					selected = Game.this;
 					selectedView = view;
-					Intent intent = new Intent(context, GameDetailActivity.class);
+					Intent intent = new Intent(context, com.smallcat.activity.GameDetailActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString("title", title);
 					bundle.putString("attend", attend);
@@ -304,6 +304,7 @@ public class FindAdapter extends BaseAdapter{
 					bundle.putString("comment", comment);
 					bundle.putString("date", date);
 					bundle.putString("id", id);
+					bundle.putString("place", place);
 					bundle.putString("url", url);
 					intent.putExtras(bundle);
 					((FragmentActivity)context).startActivityForResult(intent, 0);

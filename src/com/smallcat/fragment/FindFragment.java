@@ -53,7 +53,7 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 		mFindStatusView = rootView.findViewById(R.id.find_status);
 		
 		showProgress(true);
-		WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {
+		WebAPI.get("activity/getAllByCategory?index=0", null, new AsyncHttpResponseHandler() {
 			
 			@SuppressLint("SimpleDateFormat") @Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -62,7 +62,7 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
 				mAdapter.AddHeader();
-				mAdapter.AddCategory("社团类别1", count.toString());
+				/*mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
 					String dateText = item.getString("StartTime").replace('T', ' ');
 					String url = item.getString("Poster");
@@ -71,6 +71,18 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 					}
 					mAdapter.AddGame(url, item.getString("Title"), item.getString("CNum"),item.getString("ClubName"),
 							item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
+				}*/
+				for (JsonObj category : jo.values()){
+					mAdapter.AddCategory(category.get(0).getString("Category"), String.valueOf(category.count()));
+					for (JsonObj game : category.values()){
+						String dateText = game.getString("StartTime").replace('T', ' ');
+						String url = game.getString("Poster");
+						if (url != null && !url.equals("")){
+							url = "http://114.215.207.88" + url;
+						}
+						mAdapter.AddGame(url, game.getString("Title"), game.getString("CNum"),game.getString("ClubName"),
+								game.getString("Num"), dateText, game.getString("Place"), game.getString("ID"));
+					}
 				}
 				showProgress(false);
 				listView1.setAdapter(mAdapter);
@@ -145,7 +157,7 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 		
 		
 		
-        WebAPI.get("activity/getAll?index=0", null, new AsyncHttpResponseHandler() {		
+        WebAPI.get("activity/getAllByCategory?index=0", null, new AsyncHttpResponseHandler() {		
         	
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -154,7 +166,8 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 					mAdapter = new FindAdapter(getActivity());
 				JsonObj jo = new JsonObj(arg2);
 				Integer count = jo.count();
-				mAdapter.AddCategory("社团类别1", count.toString());
+				mAdapter.AddHeader();
+				/*mAdapter.AddCategory("社团类别1", count.toString());
 				for (JsonObj item : jo.values()) {
 					String dateText = item.getString("StartTime").replace('T', ' ');
 					String url = item.getString("Poster");
@@ -163,6 +176,18 @@ public class FindFragment extends Fragment implements OnRefreshListener{
 					}
 					mAdapter.AddGame(url, item.getString("Title"), item.getString("CNum"),item.getString("ClubName"),
 							item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
+				}*/
+				for (JsonObj category : jo.values()){
+					mAdapter.AddCategory(category.get(0).getString("Category"), String.valueOf(category.count()));
+					for (JsonObj game : category.values()){
+						String dateText = game.getString("StartTime").replace('T', ' ');
+						String url = game.getString("Poster");
+						if (url != null && !url.equals("")){
+							url = "http://114.215.207.88" + url;
+						}
+						mAdapter.AddGame(url, game.getString("Title"), game.getString("CNum"),game.getString("ClubName"),
+								game.getString("Num"), dateText, game.getString("Place"), game.getString("ID"));
+					}
 				}
 				
 				new AsyncTask<Void, Void, Void>() {

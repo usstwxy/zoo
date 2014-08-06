@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.example.smallcat.R;
 import com.smallcat.activity.ClubHomeActivity;
 import com.smallcat.activity.ClubsActivity;
-
 import com.smallcat.activity.GameDetailActivity;
 import com.smallcat.activity.MainActivity;
 import com.smallcat.activity.PostGameActivity;
@@ -14,7 +13,6 @@ import com.smallcat.adapter.FindAdapter.Row;
 import com.smallcat.adapter.FindAdapter.Exp;
 import com.smallcat.adapter.FindAdapter.ViewHolder;
 import com.smallcat.adapter.FindAdapter.Game.ImageLoadTask;
-
 import com.smallcat.dialog.CheckCodeDialogFragment;
 import com.smallcat.dialog.CheckDialogFragment;
 
@@ -46,11 +44,16 @@ public class HomeAdapter extends BaseAdapter{
 
 	private ArrayList<Row> rows = new ArrayList<Row>();
 	private Context mContext;
+	private boolean isBusy = false;
 	
 	public HomeAdapter(Context context) {
 		mContext = context;
 	}
 
+	public void setFlagBusy(boolean isBusy){
+		this.isBusy = isBusy;
+	}
+	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -228,7 +231,7 @@ public class HomeAdapter extends BaseAdapter{
 			if (bmp != null){
 				holder.logo.setImageBitmap(bmp);
 			}
-			else if (url != null && !url.equals("")){
+			else if (!HomeAdapter.this.isBusy && url != null && !url.equals("")){
 				ImageLoadTask imageLoadTask = new ImageLoadTask();
 				imageLoadTask.execute(url);
 			}
@@ -261,7 +264,6 @@ public class HomeAdapter extends BaseAdapter{
 	            
 	            @Override
 	            public void onClick(View v) {
-
 	            	mPopUpWindow.dismiss();
 	            	Intent intent = new Intent(mContext, PostGameActivity.class);
 	            	
@@ -335,7 +337,7 @@ public class HomeAdapter extends BaseAdapter{
 		public String name, count;
 		
 		public Category(String name, String count){
-			super(R.layout.include_item_category);
+			super(R.layout.include_list_item_category);
 			this.name = name;
 			this.count = count;
 		}
