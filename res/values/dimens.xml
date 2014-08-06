@@ -6,6 +6,7 @@
 	<dimen name="action_bar_height">48.0dip</dimen>
 	<dimen name="standard_margin">10.0dip</dimen>
 	<dimen name="clip_standard_image_size">60.0dip</dimen>
+	<dimen name="clip_large_image_size">80.0dip</dimen>
 	<dimen name="clip_small_image_size">46.0dip</dimen>
 	<dimen name="clip_standard_title_font_size">16.0sp</dimen>
     <dimen name="clip_standard_source_font_size">14.0sp</dimen>

@@ -98,6 +98,7 @@ public class ClubGamesFragment extends Fragment implements OnRefreshListener {
 					}
 					mAdapter.AddGame(url, item.getString("Title"), item.getString("CNum"),
 							clubName, item.getString("Num"), dateText, item.getString("Place"), item.getString("ID"));
+					
 				}
 				showProgress(false);
 				lv.setAdapter(mAdapter);

@@ -4,8 +4,8 @@
      android:layout_height="wrap_content"
      android:gravity="center_vertical"
      android:orientation="horizontal"
-     android:paddingBottom="10dp"
-     android:paddingTop="15dp" >
+     android:paddingBottom="8dp"
+     android:paddingTop="10dp" >
 
      <TextView
          android:id="@+id/cname"
@@ -19,15 +19,11 @@
 
      <TextView
          android:id="@+id/cnumber"
-         android:layout_width="wrap_content"
-         android:layout_height="match_parent"
-         android:layout_marginRight="10dp"
-         android:background="#ff9900"
-         android:gravity="center_vertical"
-         android:paddingLeft="10dp"
-         android:paddingRight="10dp"
-         android:text="更多 5"
-         android:textColor="#ffffff"
-         android:textSize="16dp" />
+         style="@style/SmallButtonGray"
+         android:layout_gravity="center_vertical"
+         android:layout_marginLeft="@dimen/standard_margin"
+         android:layout_marginRight="@dimen/standard_margin"
+         android:background="@drawable/button_small_orange"
+         android:text="更多" />
 
  </LinearLayout>
